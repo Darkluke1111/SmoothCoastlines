@@ -1,0 +1,13 @@
+{
+    "type": "code",
+    "modid": "smoothcoastlines",
+    "name": "SmoothCoastlines",
+    "authors": [
+        "Darkluke1111"
+    ],
+    "description": "Replaces the Ocean Noise Generation with smooth voronoi noise and adds a config file to modify it.",
+    "version": "1.0.0",
+    "dependencies": {
+        "game": ""
+    }
+}
