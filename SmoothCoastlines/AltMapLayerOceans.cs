@@ -12,6 +12,7 @@ namespace MapLayer
         NormalizedSimplexNoise noisegenY;
         float wobbleIntensity;
         private WorldGenConfig config;
+        VoronoiNoise voronoiNoise;
         Noise2D oceanNoise;
 
         public float landFormHorizontalScale = 1f;
@@ -24,7 +25,8 @@ namespace MapLayer
         {
             this.config = config;
 
-            oceanNoise = new NoiseRemapper(new VoronoiNoise(seed + 2, config.noiseScale), config.remappingKeys, config.remappingValues);
+            voronoiNoise = new VoronoiNoise(seed + 2, config.noiseScale);
+            oceanNoise = new NoiseRemapper(voronoiNoise, config.remappingKeys, config.remappingValues);
 
             int woctaves = 4;
             float wscale = config.oceanWobbleScale * config.noiseScale;
@@ -33,13 +35,6 @@ namespace MapLayer
             noisegenX = NormalizedSimplexNoise.FromDefaultOctaves(woctaves, 1 / wscale, wpersistence, seed + 2);
             noisegenY = NormalizedSimplexNoise.FromDefaultOctaves(woctaves, 1 / wscale, wpersistence, seed + 1231296);
 
-        }
-
-        public XZ GetNoiseOffsetAt(int xCoord, int zCoord)
-        {
-            int offsetX = (int)(wobbleIntensity * noisegenX.Noise(xCoord, zCoord) * 1.2f);
-            int offsetY = (int)(wobbleIntensity * noisegenY.Noise(xCoord, zCoord) * 1.2f);
-            return new XZ(offsetX, offsetY);
         }
 
         public override int[] GenLayer(int xCoord, int zCoord, int sizeX, int sizeZ)
@@ -62,6 +57,13 @@ namespace MapLayer
             }
 
             return result;
+        }
+
+        public Vec2i GetCloseContinentCenter( Vec2i worldPos)
+        {
+            var voronoiCellPoint = voronoiNoise.GetVoronoiCellPoint(worldPos);
+            //TODO factor in distortion?
+            return voronoiCellPoint;
         }
     }
 }

@@ -55,5 +55,11 @@ namespace SmoothCoastLines.Noise
             return min_distance / maxDistanceConstant;
         }
 
+        public Vec2i GetVoronoiCellPoint(Vec2i unscaledPosition)
+        {
+            //TODO Calculate the "voronoi point" of the cell that the unscaled Position is in and return it
+            throw new NotImplementedException();
+        }
+
     }
 }
