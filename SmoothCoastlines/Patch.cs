@@ -57,7 +57,7 @@ namespace SmoothCoastlines
             structureCenter.Z = (int) newStructureCoordinates.Y;
 
             //Adjust Location attribute of structure
-            __instance.storyStructureInstances[storyStructure.Code].Location.OffsetCopy(structureCenter.AsVec3i - oldCenter.AsVec3i);
+            __instance.storyStructureInstances[storyStructure.Code].Location = __instance.storyStructureInstances[storyStructure.Code].Location.OffsetCopy(structureCenter.AsVec3i- oldCenter.AsVec3i);
 
             
         }
