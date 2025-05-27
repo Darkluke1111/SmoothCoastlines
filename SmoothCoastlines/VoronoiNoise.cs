@@ -20,7 +20,7 @@ namespace SmoothCoastLines.Noise
             this.scale = scale;
         }
 
-        public double getValueAt(int unscaledXpos, int unscaledZpos)
+        private (double, Vec2d) calcNoiseAt(int unscaledXpos, int unscaledZpos)
         {
             double xpos_full = unscaledXpos / scale;
             double zpos_full = unscaledZpos / scale;
@@ -35,10 +35,11 @@ namespace SmoothCoastLines.Noise
             double[] random_Z = new double[3 * 3];
 
             double min_distance = Double.MaxValue;
+            Vec2d closestPoint = new Vec2d();
 
             for (int dx = 0; dx < 3; dx++)
             {
-                for(int dz = 0; dz < 3; dz++)
+                for (int dz = 0; dz < 3; dz++)
                 {
                     InitPositionSeed(xCell - 1 + dx, zCell - 1 + dz);
                     double pointPosX = (NextInt(10000) / 10000.0) - 1 + dx;
@@ -48,17 +49,28 @@ namespace SmoothCoastLines.Noise
 
                     double distance = GameMath.Sqrt((xFrac - pointPosX) * (xFrac - pointPosX) + (zFrac - pointPosZ) * (zFrac - pointPosZ));
 
-                    min_distance = Double.Min(min_distance, distance);
+                    if(min_distance > distance)
+                    {
+                        min_distance = distance;
+                        closestPoint = new Vec2d(pointPosX, pointPosZ);
+                    }
+
                 }
             }
 
-            return min_distance / maxDistanceConstant;
+            closestPoint = new Vec2d(xCell * scale + closestPoint.X * scale, zCell * scale + closestPoint.Y * scale);
+
+            return ((min_distance / maxDistanceConstant), closestPoint);
         }
 
-        public Vec2i GetVoronoiCellPoint(Vec2i unscaledPosition)
+        public double getValueAt(int unscaledXpos, int unscaledZpos)
         {
-            //TODO Calculate the "voronoi point" of the cell that the unscaled Position is in and return it
-            throw new NotImplementedException();
+            return calcNoiseAt(unscaledXpos, unscaledZpos).Item1;
+        }
+
+        public Vec2d getVoronoiCellPoint(Vec2i unscaledPosition)
+        {
+            return calcNoiseAt(unscaledPosition.X/32, unscaledPosition.Y/32).Item2 * 32;
         }
 
     }

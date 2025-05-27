@@ -51,11 +51,15 @@ namespace SmoothCoastlines
 
             //Move structure center to a close continent center
             var structureCenter = __instance.storyStructureInstances[storyStructure.Code].CenterPos;
+            var oldCenter = structureCenter.Copy();
             var newStructureCoordinates = oceanLayer.GetCloseContinentCenter(new Vec2i(structureCenter.X, structureCenter.Z));
-            structureCenter.X = newStructureCoordinates.X;
-            structureCenter.Z = newStructureCoordinates.Y;
+            structureCenter.X = (int) newStructureCoordinates.X;
+            structureCenter.Z = (int) newStructureCoordinates.Y;
 
-            //TODO Adjust Location attribute of structure
+            //Adjust Location attribute of structure
+            __instance.storyStructureInstances[storyStructure.Code].Location.OffsetCopy(structureCenter.AsVec3i - oldCenter.AsVec3i);
+
+            
         }
 
     }

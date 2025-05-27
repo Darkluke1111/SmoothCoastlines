@@ -59,10 +59,10 @@ namespace MapLayer
             return result;
         }
 
-        public Vec2i GetCloseContinentCenter( Vec2i worldPos)
+        public Vec2d GetCloseContinentCenter( Vec2i worldPos)
         {
-            var voronoiCellPoint = voronoiNoise.GetVoronoiCellPoint(worldPos);
-            //TODO factor in distortion?
+            var voronoiCellPoint = voronoiNoise.getVoronoiCellPoint(worldPos);
+            //TODO factor in distortion? But How?
             return voronoiCellPoint;
         }
     }
