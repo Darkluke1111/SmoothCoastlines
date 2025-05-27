@@ -31,9 +31,6 @@ namespace SmoothCoastLines.Noise
             double xFrac = xpos_full - xCell;
             double zFrac = zpos_full - zCell;
 
-            double[] random_X = new double[3 * 3];
-            double[] random_Z = new double[3 * 3];
-
             double min_distance = Double.MaxValue;
             Vec2d closestPoint = new Vec2d();
 
@@ -52,13 +49,11 @@ namespace SmoothCoastLines.Noise
                     if(min_distance > distance)
                     {
                         min_distance = distance;
-                        closestPoint = new Vec2d(pointPosX, pointPosZ);
+                        closestPoint = new Vec2d((xCell -1 + dx)* scale + pointPosX * scale, (zCell -1 + dz) * scale + pointPosZ * scale);
                     }
 
                 }
             }
-
-            closestPoint = new Vec2d(xCell * scale + closestPoint.X * scale, zCell * scale + closestPoint.Y * scale);
 
             return ((min_distance / maxDistanceConstant), closestPoint);
         }
