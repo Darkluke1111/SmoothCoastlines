@@ -1,7 +1,10 @@
 ﻿
 using SmoothCoastlines;
 using SmoothCoastLines.Noise;
+using System;
+using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
+using Vintagestory.API.Server;
 using Vintagestory.ServerMods;
 
 namespace MapLayer
@@ -39,6 +42,7 @@ namespace MapLayer
 
         public override int[] GenLayer(int xCoord, int zCoord, int sizeX, int sizeZ)
         {
+            Console.WriteLine("Generating Layer for " + xCoord + " " + zCoord);
             var result = new int[sizeX * sizeZ];
             for (var x = 0; x < sizeX; x++)
             {
@@ -61,7 +65,9 @@ namespace MapLayer
 
         public Vec2d GetCloseContinentCenter( Vec2i worldPos)
         {
+            Console.WriteLine("Get COntinent Center for " + worldPos.X + " " + worldPos.Y);
             var voronoiCellPoint = voronoiNoise.getVoronoiCellPoint(worldPos);
+            Console.WriteLine("Result is " + voronoiCellPoint.X + " " + voronoiCellPoint.Y);
             //TODO factor in distortion? But How?
             return voronoiCellPoint;
         }

@@ -65,7 +65,7 @@ namespace SmoothCoastLines.Noise
 
         public Vec2d getVoronoiCellPoint(Vec2i unscaledPosition)
         {
-            return calcNoiseAt(unscaledPosition.X/32, unscaledPosition.Y/32).Item2 * 32;
+            return calcNoiseAt(unscaledPosition.X, unscaledPosition.Y).Item2;
         }
 
     }
