@@ -47,8 +47,9 @@ namespace MapLayer
                 {
                     var nx = xCoord + x;
                     var nz = zCoord + z;
-                    var offsetX = (int)(wobbleIntensity * noisegenX.Noise(nx, nz));
-                    var offsetZ = (int)(wobbleIntensity * noisegenY.Noise(nx, nz));
+                    var undestortedNoise = voronoiNoise.getValueAt(nx, nz); ;
+                    var offsetX = (int)(wobbleIntensity * noisegenX.Noise(nx, nz) * undestortedNoise);
+                    var offsetZ = (int)(wobbleIntensity * noisegenY.Noise(nx, nz) * undestortedNoise);
                     var unscaledXpos = nx + offsetX;
                     var unscaledZpos = nz + offsetZ;
                     var oceanicity = oceanNoise.getValueAt(unscaledXpos, unscaledZpos);
