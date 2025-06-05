@@ -9,9 +9,9 @@ namespace SmoothCoastlines
 {
     public class WorldGenConfig
     {
-        public float oceanWobbleIntensity = 0.5f;
-        public float oceanWobbleScale = 2.0f;
-        public float noiseScale = 20.0f;
+        public float oceanWobbleIntensity = 0f;
+        public float oceanWobbleScale = 0f;
+        public float noiseScale = 200.0f;
         public double[] remappingKeys = { 0.0, 1.0 };
         public double[] remappingValues = {0.0, 1.0};
     }

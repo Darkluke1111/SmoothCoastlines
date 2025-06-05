@@ -2,6 +2,7 @@
 using SmoothCoastlines;
 using SmoothCoastLines.Noise;
 using System;
+using System.Collections.Generic;
 using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
@@ -9,7 +10,7 @@ using Vintagestory.ServerMods;
 
 namespace MapLayer
 {
-    class AltMapLayerOceans : MapLayerBase
+    class MapLayerOceansSmooth : MapLayerBase
     {
         NormalizedSimplexNoise noisegenX;
         NormalizedSimplexNoise noisegenY;
@@ -19,16 +20,12 @@ namespace MapLayer
         Noise2D oceanNoise;
 
         public float landFormHorizontalScale = 1f;
-        /// <summary>
-        /// This is related to ServerSystemSupplyChunks.LoadWorldgenHandlerAndSpawnChunks
-        /// </summary>
-        private readonly bool requiresSpawnOffset;
 
-        public AltMapLayerOceans(long seed, WorldGenConfig config) : base(seed)
+        public MapLayerOceansSmooth(long seed, WorldGenConfig config, List<XZ> requireLandAt) : base(seed)
         {
             this.config = config;
 
-            voronoiNoise = new VoronoiNoise(seed + 2, config.noiseScale);
+            voronoiNoise = new VoronoiNoise(seed + 2, config.noiseScale, requireLandAt);
             oceanNoise = new NoiseRemapper(voronoiNoise, config.remappingKeys, config.remappingValues);
 
             int woctaves = 4;
@@ -61,15 +58,6 @@ namespace MapLayer
             }
 
             return result;
-        }
-
-        public Vec2d GetCloseContinentCenter( Vec2i worldPos)
-        {
-            Console.WriteLine("Get COntinent Center for " + worldPos.X + " " + worldPos.Y);
-            var voronoiCellPoint = voronoiNoise.getVoronoiCellPoint(worldPos);
-            Console.WriteLine("Result is " + voronoiCellPoint.X + " " + voronoiCellPoint.Y);
-            //TODO factor in distortion? But How?
-            return voronoiCellPoint;
         }
     }
 }

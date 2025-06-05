@@ -2,6 +2,11 @@
 using Vintagestory.API.Common;
 using HarmonyLib;
 using System;
+using Vintagestory.API.MathTools;
+using MapLayer;
+using Vintagestory.ServerMods;
+using Vintagestory.GameContent;
+using System.Collections.Generic;
 
 namespace SmoothCoastlines;
 
@@ -15,8 +20,6 @@ public class SmoothCoastlinesModSystem : ModSystem
 
     public override void StartPre(ICoreAPI api)
     {
-
-
         if (!Harmony.HasAnyPatches(Mod.Info.ModID))
         {
             harmony = new Harmony(Mod.Info.ModID);

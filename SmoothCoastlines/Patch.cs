@@ -20,57 +20,26 @@ namespace SmoothCoastlines
     [HarmonyPatch]
     public static class Patch
     {
-
+        //This patch switches the vanilla MapOceanGen class for the custom MapOceanGenSmooth class
         [HarmonyPrefix]
         [HarmonyPatch(typeof(GenMaps), nameof(GenMaps.GetOceanMapGen))]
         public static bool Prefix(ref MapLayerBase __result, long seed, float landcover, int oceanMapScale, float oceanScaleMul, List<XZ> requireLandAt, bool requiresSpawnOffset)
         {
-
-            long _seed = 1231423211 + 1873;
-            __result = new AltMapLayerOceans(_seed, SmoothCoastlinesModSystem.config);
+            __result = new MapLayerOceansSmooth(seed, SmoothCoastlinesModSystem.config, requireLandAt);
             return false;
         }
 
-        [HarmonyPostfix]
-        [HarmonyPatch(typeof(GenStoryStructures), "TryAddStoryLocation")]
-        public static void Postfix(GenStoryStructures __instance, WorldGenStoryStructure storyStructure)
+        //This patch changes the way that GenMaps generates the list of areas where the ocean map is forced to have land (for spawn and story structures) because MapOceanGenSmooth does this stuff differently than the vanilla one.
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(GenMaps), "ForceRandomLandArea")]
+        public static bool Prefix(GenMaps __instance, int positionX, int positionZ, int radius)
         {
+            var sapi = (ICoreServerAPI)__instance.GetType().GetField("sapi", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(__instance);
+            double regionSize = sapi.WorldManager.RegionSize;
+            var factor =  __instance.noiseSizeOcean / regionSize;
+            __instance.requireLandAt.Add(new XZ((int) (positionX * factor), (int) (positionZ * factor)));
 
-            //debug prints
-            Console.WriteLine("Modifying spawn location of: " + storyStructure.Code + ": ");
-            Console.WriteLine("CenterPos: " + __instance.storyStructureInstances[storyStructure.Code].CenterPos);
-            Console.WriteLine("Location: " + __instance.storyStructureInstances[storyStructure.Code].Location);
-            Console.WriteLine("LandformRadius: " + __instance.storyStructureInstances[storyStructure.Code].LandformRadius);
-            Console.WriteLine("GenerationRadius: " + __instance.storyStructureInstances[storyStructure.Code].GenerationRadius);
-            Console.WriteLine("DirX: " + __instance.storyStructureInstances[storyStructure.Code].DirX);
-            //Console.WriteLine("SkipGenerationFlags: " + __instance.storyStructureInstances[storyStructure.Code].SkipGenerationFlags);
-
-            // We need the server api to access the world seed (Or do we? O.o). Maybe there is a better way than accessing the private field via reflection?
-            var sapi = (ICoreServerAPI) __instance.GetType().GetField("api", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(__instance);
-            // Create new AltMapLayerOceans to find continent positions (We could also use the same object that is referenced in GenMaps?)
-            //var oceanLayer = new AltMapLayerOceans(sapi.WorldManager.Seed, SmoothCoastlinesModSystem.config);
-
-            long seed = 1231423211 + 1873;
-            var oceanLayer = new AltMapLayerOceans(seed, SmoothCoastlinesModSystem.config);
-
-
-
-            
-
-            var toMapScalingFactor = sapi.WorldManager.RegionSize / TerraGenConfig.oceanMapScale * 2;
-
-            //Move structure center to a close continent center
-            var structureCenter = __instance.storyStructureInstances[storyStructure.Code].CenterPos;
-            var oldCenter = structureCenter.Copy();
-            var newStructureCoordinates = oceanLayer.GetCloseContinentCenter(new Vec2i(structureCenter.X, structureCenter.Z) / toMapScalingFactor) * toMapScalingFactor;
-            structureCenter.X = (int) newStructureCoordinates.X;
-            structureCenter.Z = (int) newStructureCoordinates.Y;
-
-            //Adjust Location attribute of structure
-            __instance.storyStructureInstances[storyStructure.Code].Location = __instance.storyStructureInstances[storyStructure.Code].Location.OffsetCopy(structureCenter.AsVec3i- oldCenter.AsVec3i);
-
-            
+            return false;
         }
-
     }
 }
