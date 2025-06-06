@@ -1,0 +1,11 @@
+{
+	"code": "landformsheights",
+	"variants": [
+		{
+			"code": "exampleform",
+			"comment": "The code above must match the landform in question that you want to assign these heights to",
+			"minHeight": 0.0,
+			"maxHeight": 1.0
+		}
+	]
+}

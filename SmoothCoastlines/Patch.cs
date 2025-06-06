@@ -1,6 +1,7 @@
 ﻿using Cairo;
 using HarmonyLib;
 using MapLayer;
+using SmoothCoastlines.LandformHeights;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,16 @@ namespace SmoothCoastlines
         public static bool Prefix(ref MapLayerBase __result, long seed, float landcover, int oceanMapScale, float oceanScaleMul, List<XZ> requireLandAt, bool requiresSpawnOffset)
         {
             __result = new MapLayerOceansSmooth(seed, SmoothCoastlinesModSystem.config, requireLandAt);
+            return false;
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(GenMaps), nameof(GenMaps.GetLandformMapGen))]
+        public static bool Prefix(ref MapLayerBase __result, List<ForceLandform> ___forceLandforms, long seed, NoiseClimate climateNoise, ICoreServerAPI api, float landformScale) {
+            MapLayerLandformsSmooth mapLayerLandformsSmooth = new MapLayerLandformsSmooth(seed, climateNoise, api, landformScale, ___forceLandforms, SmoothCoastlinesModSystem.config);
+            mapLayerLandformsSmooth.DebugDrawBitmap(DebugDrawMode.LandformRGB, 0, 0, "Height-Based Landforms");
+            __result = mapLayerLandformsSmooth;
+            
             return false;
         }
 
