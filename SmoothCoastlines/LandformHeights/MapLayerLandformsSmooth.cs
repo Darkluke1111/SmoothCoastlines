@@ -18,17 +18,19 @@ namespace SmoothCoastlines.LandformHeights {
         NormalizedSimplexNoise noisegenX;
         NormalizedSimplexNoise noisegenY;
         float wobbleIntensity;
+        bool forcedPointsInit;
 
         public float landFormHorizontalScale = 1f;
 
-        public MapLayerLandformsSmooth(long seed, NoiseClimate climateNoise, ICoreServerAPI api, float landformScale, List<ForceLandform> forcedLandforms, WorldGenConfig config) : base(seed) {
+        public MapLayerLandformsSmooth(long seed, NoiseClimate climateNoise, ICoreServerAPI api, float landformScale, WorldGenConfig config) : base(seed) {
             this.climateNoise = climateNoise;
+            forcedPointsInit = false;
 
             float scale = TerraGenConfig.landformMapScale * landformScale;
 
             scale *= Math.Max(1, api.WorldManager.MapSizeY / 256f);
 
-            noiseLandforms = new LandformHeightNoise(seed, api, scale, forcedLandforms, config);
+            noiseLandforms = new LandformHeightNoise(seed, api, scale, config);
 
             int woctaves = 2;
             float wscale = 2f * TerraGenConfig.landformMapScale;
@@ -39,6 +41,12 @@ namespace SmoothCoastlines.LandformHeights {
         }
 
         public override int[] GenLayer(int xCoord, int zCoord, int sizeX, int sizeZ) {
+            if (!forcedPointsInit) {
+                forcedPointsInit = true;
+                noiseLandforms.SetForcedHeightPoints();
+                noiseLandforms.FindForcedLandformID();
+            }
+
             int[] result = new int[sizeX * sizeZ];
 
             for (int x = 0; x < sizeX; x++) {
@@ -63,6 +71,10 @@ namespace SmoothCoastlines.LandformHeights {
             }
 
             return result;
+        }
+
+        public void AddForcedLandform(ForceLandform forced) {
+            noiseLandforms.AddForcedLandform(forced);
         }
     }
 }

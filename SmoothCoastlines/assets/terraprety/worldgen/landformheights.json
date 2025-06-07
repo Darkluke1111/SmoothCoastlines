@@ -2,10 +2,240 @@
 	"code": "landformsheights",
 	"variants": [
 		{
-			"code": "exampleform",
+			"code": "largeislands",
 			"comment": "The code above must match the landform in question that you want to assign these heights to",
 			"minHeight": 0.0,
+			"maxHeight": 0.2
+		},
+		{
+			"code": "realisticflatlands",
+			"minHeight": 0.0,
+			"maxHeight": 0.2
+		},
+		{
+			"code": "realisticmountains-ledged",
+			"minHeight": 0.8,
 			"maxHeight": 1.0
-		}
+		},
+		{
+			"code": "realisticmountains-quintupleledged",
+			"minHeight": 0.8,
+			"maxHeight": 1.0
+		},
+		{
+			"code": "steppedsinkholes",
+			"minHeight": 0.5,
+			"maxHeight": 0.75
+		},
+		{
+			"code": "islandchess",
+			"minHeight": 0.0,
+			"maxHeight": 0.2
+		},
+		{
+			"code": "needledflatlands",
+			"minHeight": 0.1,
+			"maxHeight": 0.35
+		},
+		{
+			"code": "Realistic mountains",
+			"minHeight": 0.7,
+			"maxHeight": 1.0
+		},
+		{
+			"code": "siberiansinkholes",
+			"minHeight": 0.2,
+			"maxHeight": 0.4
+		},
+		{
+			"code": "shallowmillionstepmountains",
+			"minHeight": 0.4,
+			"maxHeight": 0.65
+		},
+		{
+			"code": "mediummillionstepmountains",
+			"minHeight": 0.55,
+			"maxHeight": 0.75
+		},
+		{
+			"code": "tallmillionstepmountains",
+			"minHeight": 0.7,
+			"maxHeight": 1.0
+		},
+		{
+			"code": "roughflatlands",
+			"minHeight": 0.0,
+			"maxHeight": 0.2
+		},
+		{
+			"code": "roughlabyrinth",
+			"minHeight": 0.3,
+			"maxHeight": 0.6
+		},
+		{
+			"code": "supersmoothills",
+			"minHeight": 0.2,
+			"maxHeight": 0.55
+		},
+		{
+			"code": "largelake",
+			"minHeight": 0.0,
+			"maxHeight": 0.15
+		},
+		{
+			"code": "cold glaciers",
+			"minHeight": 0.5,
+			"maxHeight": 1.0
+		},
+		{
+			"code": "cold mountain range",
+			"minHeight": 0.7,
+			"maxHeight": 1.0
+		},
+		{
+			"code": "humongous mountain",
+			"minHeight": 0.85,
+			"maxHeight": 1.0
+		},
+		{
+			"code": "hillplateu",
+			"minHeight": 0.55,
+			"maxHeight": 0.8
+		},
+		{
+			"code": "smallshallowislands",
+			"minHeight": 0.0,
+			"maxHeight": 0.15
+		},
+		{
+			"code": "shallowislands",
+			"minHeight": 0.0,
+			"maxHeight": 0.2
+		},
+		{
+			"code": "cliffy rolling hills",
+			"minHeight": 0.4,
+			"maxHeight": 0.75
+		},
+		{
+			"code": "superflatrarebumps",
+			"minHeight": 0.05,
+			"maxHeight": 0.25
+		},
+		{
+			"code": "veryflat",
+			"minHeight": 0.0,
+			"maxHeight": 0.2
+		},
+		{
+			"code": "flatmanybumps",
+			"minHeight": 0.1,
+			"maxHeight": 0.4
+		},
+		{
+			"code": "veryflatmanybumps",
+			"minHeight": 0.1,
+			"maxHeight": 0.4
+		},
+		{
+			"code": "above sealevel flat grasslands",
+			"minHeight": 0.05,
+			"maxHeight": 0.3
+		},
+		{
+			"code": "rollinghills",
+			"minHeight": 0.05,
+			"maxHeight": 0.4
+		},
+		{
+			"code": "lowrollinghills",
+			"minHeight": 0.0,
+			"maxHeight": 0.3
+		},
+		{
+			"code": "cliffislands",
+			"minHeight": 0.0,
+			"maxHeight": 0.3
+		},
+		{
+			"code": "smallcliffislands",
+			"minHeight": 0.0,
+			"maxHeight": 0.25
+		},
+		{
+			"code": "bumplands",
+			"minHeight": 0.15,
+			"maxHeight": 0.55
+		},
+		{
+			"code": "roundclifflandshilly",
+			"minHeight": 0.4,
+			"maxHeight": 0.75
+		},
+		{
+			"code": "sparsecliffyswamplands",
+			"minHeight": 0.1,
+			"maxHeight": 0.4
+		},
+		{
+			"code": "densecliffyswamplands",
+			"minHeight": 0.2,
+			"maxHeight": 0.5
+		},
+		{
+			"code": "deep water step mountains",
+			"minHeight": 0.2,
+			"maxHeight": 0.7
+		},
+		{
+			"code": "step mountains",
+			"minHeight": 0.6,
+			"maxHeight": 0.9
+		},
+		{
+			"code": "flathillvalley",
+			"minHeight": 0.2,
+			"maxHeight": 0.6
+		},
+		{
+			"code": "hillsflatsandislands",
+			"minHeight": 0.05,
+			"maxHeight": 0.35
+		},
+		{
+			"code": "smallsealevelplateus",
+			"minHeight": 0.0,
+			"maxHeight": 0.2
+		},
+		{
+			"code": "mediumseapillars",
+			"minHeight": 0.0,
+			"maxHeight": 0.4
+		},
+		{
+			"code": "mediumlandpillars",
+			"minHeight": 0.3,
+			"maxHeight": 0.65
+		},
+		{
+			"code": "marsh",
+			"minHeight": 0.05,
+			"maxHeight": 0.45
+		},
+		{
+			"code": "bumpy marsh",
+			"minHeight": 0.05,
+			"maxHeight": 0.3
+		},
+		{
+			"code": "flatmarsh",
+			"minHeight": 0.0,
+			"maxHeight": 0.25
+		},
+		{
+			"code": "deathmarsh",
+			"minHeight": 0.1,
+			"maxHeight": 0.45
+		},
 	]
 }

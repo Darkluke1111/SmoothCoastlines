@@ -42,20 +42,20 @@ namespace SmoothCoastlines.LandformHeights {
         protected WorldGenConfig config;
         protected int fallbackParentLandformID;
         public float scale;
+        private ICoreServerAPI sapi;
 
-        public LandformHeightNoise(long seed, ICoreServerAPI api, float scale, List<ForceLandform> forcedLandforms, WorldGenConfig config) : base(seed) {
+        public LandformHeightNoise(long seed, ICoreServerAPI api, float scale, WorldGenConfig config) : base(seed) {
             this.scale = scale;
             this.config = config;
-            this.forcedLandforms = forcedLandforms;
+            forcedLandforms = new List<ForceLandform>();
+            sapi = api;
 
             int hOctaves = 4;
             float hScale = this.config.heightMapWobbleScale * this.config.heightMapNoiseScale;
             float hPersistance = 0.9f;
-            heightNoise = new WeightedNormalizedSimplexNoise(hOctaves, hScale, hPersistance, seed, this.config.heightPointsOutForAverage);
+            heightNoise = new WeightedNormalizedSimplexNoise(hOctaves, 1 / hScale, hPersistance, seed + 53247, this.config.heightPointsOutForAverage);
 
             LoadLandforms(api);
-            SetForcedHeightPoints();
-            FindForcedLandformID();
         }
 
         public static void LoadLandforms(ICoreServerAPI api) {
@@ -73,7 +73,7 @@ namespace SmoothCoastlines.LandformHeights {
                 variant.index = i;
                 variant.Init(api.WorldManager, i);
 
-                LandformGenHeight varHeight = landformsHeights.Variants.FirstOrDefault(h => h.Code == variant.Code);
+                LandformGenHeight varHeight = landformsHeights.Variants.FirstOrDefault(h => h.Code.Path == variant.Code.Path);
                 varHeight.Init(i);
                 landformsHeights.LandformHeightsByIndex[i] = varHeight; //Adding these in here since Mutations likely don't need separate heights from the parents?
 
@@ -116,6 +116,10 @@ namespace SmoothCoastlines.LandformHeights {
                     }
                 }
             }
+        }
+
+        public void AddForcedLandform(ForceLandform forced) {
+            forcedLandforms.Add(forced);
         }
 
         public void SetForcedHeightPoints() {

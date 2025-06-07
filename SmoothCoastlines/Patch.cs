@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using Vintagestory.API.Config;
@@ -32,8 +33,8 @@ namespace SmoothCoastlines
 
         [HarmonyPrefix]
         [HarmonyPatch(typeof(GenMaps), nameof(GenMaps.GetLandformMapGen))]
-        public static bool Prefix(ref MapLayerBase __result, List<ForceLandform> ___forceLandforms, long seed, NoiseClimate climateNoise, ICoreServerAPI api, float landformScale) {
-            MapLayerLandformsSmooth mapLayerLandformsSmooth = new MapLayerLandformsSmooth(seed, climateNoise, api, landformScale, ___forceLandforms, SmoothCoastlinesModSystem.config);
+        public static bool Prefix(ref MapLayerBase __result, long seed, NoiseClimate climateNoise, ICoreServerAPI api, float landformScale) {
+            MapLayerLandformsSmooth mapLayerLandformsSmooth = new MapLayerLandformsSmooth(seed, climateNoise, api, landformScale, SmoothCoastlinesModSystem.config);
             mapLayerLandformsSmooth.DebugDrawBitmap(DebugDrawMode.LandformRGB, 0, 0, "Height-Based Landforms");
             __result = mapLayerLandformsSmooth;
             
@@ -49,8 +50,33 @@ namespace SmoothCoastlines
             double regionSize = sapi.WorldManager.RegionSize;
             var factor =  __instance.noiseSizeOcean / regionSize;
             __instance.requireLandAt.Add(new XZ((int) (positionX * factor), (int) (positionZ * factor)));
-
+            
             return false;
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(GenMaps), nameof(GenMaps.ForceLandformAt))]
+        public static bool Prefix(GenMaps __instance, ForceLandform landform) {
+            if (__instance.landformsGen is MapLayerLandformsSmooth) {
+                ((MapLayerLandformsSmooth)__instance.landformsGen).AddForcedLandform(landform);
+            }
+
+            return true;
+        }
+
+        [HarmonyTranspiler]
+        [HarmonyPatch(typeof(GenMaps), nameof(GenMaps.ForceLandformAt))]
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator ilGenerator) {
+            var codes = new List<CodeInstruction>(instructions);
+
+            var updateNoiseLandform = new List<CodeInstruction> { //Attempt to copy over and assign the Landforms file from HeightNoise into the vanilla NoiseLandforms so vanilla calls can still pull from it properly.
+                new CodeInstruction(OpCodes.Ldsfld, AccessTools.Field("LandformHeightNoise:landforms")),
+                new CodeInstruction(OpCodes.Stsfld, AccessTools.Field("NoiseLandforms:landforms"))
+            }; //Will this actually set it? I HAVE NO IDEA! It feels TOO simple to work like this... It worked? Hah! Yay.
+
+            codes.InsertRange(0, updateNoiseLandform);
+
+            return codes.AsEnumerable();
         }
     }
 }
