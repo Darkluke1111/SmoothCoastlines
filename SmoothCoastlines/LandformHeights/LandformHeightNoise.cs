@@ -73,7 +73,7 @@ namespace SmoothCoastlines.LandformHeights {
                 variant.index = i;
                 variant.Init(api.WorldManager, i);
 
-                LandformGenHeight varHeight = landformsHeights.Variants.FirstOrDefault(h => h.Code.Path == variant.Code.Path);
+                LandformGenHeight varHeight = landformsHeights.Variants.FirstOrDefault(h => h.Code.Path == variant.Code.Path, new LandformGenHeight() { Code = new AssetLocation() });
                 varHeight.Init(i);
                 landformsHeights.LandformHeightsByIndex[i] = varHeight; //Adding these in here since Mutations likely don't need separate heights from the parents?
 
