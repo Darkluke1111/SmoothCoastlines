@@ -5,15 +5,16 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Vintagestory.API.MathTools;
+using Vintagestory.ServerMods;
 
 namespace SmoothCoastlines.LandformHeights {
     public class WeightedNormalizedSimplexNoise { 
 
         private NormalizedSimplexNoise SimplexNoise;
         private List<RequiredHeightPoints> RequiredPoints; //Any point here has a specific height for the Landform it is expecting, and this holds that min-max height.
-        private int PointsOutwardsNeedingAverage; //This many steps outwards from a required point will be adjusted towards the required height.
+        private float PointsOutwardsNeedingAverage; //This many steps outwards from a required point will be adjusted towards the required height.
 
-        public WeightedNormalizedSimplexNoise(int quantityOctaves, double baseFrequency, double persistance, long seed, int pointsOutForAverage) {
+        public WeightedNormalizedSimplexNoise(int quantityOctaves, double baseFrequency, double persistance, long seed, float pointsOutForAverage) {
             SimplexNoise = NormalizedSimplexNoise.FromDefaultOctaves(quantityOctaves, baseFrequency, persistance, seed);
             PointsOutwardsNeedingAverage = pointsOutForAverage;
         }
@@ -23,10 +24,10 @@ namespace SmoothCoastlines.LandformHeights {
         }
 
         public double Height(int x, int z) {
-            RequiredHeightPoints foundPoint = new RequiredHeightPoints(0,0,0,1); //This should never be accessed unless it's actually properly replaced.
+            RequiredHeightPoints foundPoint = new RequiredHeightPoints(0,0,100,0,1); //This should never be accessed unless it's actually properly replaced.
             bool wasWithinRange = false;
             foreach (var p in RequiredPoints) {
-                if (p.IsWithinRange(x, z, PointsOutwardsNeedingAverage)) {
+                if (p.IsWithinRange(x, z, (int)(PointsOutwardsNeedingAverage * ((float)p.radius / TerraGenConfig.landformMapScale)))) {
                     foundPoint = p;
                     wasWithinRange = true;
                     break;
@@ -43,7 +44,7 @@ namespace SmoothCoastlines.LandformHeights {
                     isAbove = true;
                 }
 
-                int pointsOutSquare = PointsOutwardsNeedingAverage * PointsOutwardsNeedingAverage; //Gaussian Function to find the percentage to adjust the height by!
+                float pointsOutSquare = PointsOutwardsNeedingAverage * PointsOutwardsNeedingAverage; //Gaussian Function to find the percentage to adjust the height by!
                 double percentAdjust = Math.Exp(-((Math.Pow((x-foundPoint.x), 2) / (2 * pointsOutSquare)) + (Math.Pow((z - foundPoint.z), 2) / (2 * pointsOutSquare))));
                 var adjustedHeight = height;
                 if (isAbove) {

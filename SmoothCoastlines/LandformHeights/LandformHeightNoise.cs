@@ -15,13 +15,15 @@ namespace SmoothCoastlines.LandformHeights {
     public struct RequiredHeightPoints {
         public int x;
         public int z;
+        public int radius;
         public double minHeight;
         public double maxHeight;
         public double centerHeight;
 
-        public RequiredHeightPoints(int x, int z, double minHeight, double maxHeight) {
+        public RequiredHeightPoints(int x, int z, int radius, double minHeight, double maxHeight) {
             this.x = x;
             this.z = z;
+            this.radius = radius;
             this.minHeight = minHeight;
             this.maxHeight = maxHeight;
             this.centerHeight = minHeight + ((maxHeight - minHeight) / 2);
@@ -51,9 +53,9 @@ namespace SmoothCoastlines.LandformHeights {
             sapi = api;
 
             int hOctaves = 4;
-            float hScale = this.config.heightMapWobbleScale * this.config.heightMapNoiseScale;
+            float hScale = this.config.heightMapNoiseScale;
             float hPersistance = 0.9f;
-            heightNoise = new WeightedNormalizedSimplexNoise(hOctaves, 1 / hScale, hPersistance, seed + 53247, this.config.heightPointsOutForAverage);
+            heightNoise = new WeightedNormalizedSimplexNoise(hOctaves, 1 / hScale, hPersistance, seed + 53247, this.config.radiusMultOutwardsForSmoothing);
 
             LoadLandforms(api);
         }
@@ -140,7 +142,7 @@ namespace SmoothCoastlines.LandformHeights {
                 } else {
                     heights = new LandformGenHeight();
                 }
-                reqHeights.Add(new RequiredHeightPoints(forcedLand.CenterPos.X, forcedLand.CenterPos.Z, heights.minHeight, heights.maxHeight));
+                reqHeights.Add(new RequiredHeightPoints(forcedLand.CenterPos.X, forcedLand.CenterPos.Z, forcedLand.Radius, heights.minHeight, heights.maxHeight));
             }
 
             heightNoise.SetRequiredPoints(reqHeights);
@@ -153,6 +155,7 @@ namespace SmoothCoastlines.LandformHeights {
                     return;
                 }
             }
+            fallbackParentLandformID = 0; //This will at least ensure it is set to _something_ and it will just take the first entry. In the case of a typo or the like.
         }
 
         public int GetLandformIndexAt(int unscaledXpos, int unscaledZpos, int temp, int rain) {
@@ -162,7 +165,7 @@ namespace SmoothCoastlines.LandformHeights {
             int xposInt = (int)xpos;
             int zposInt = (int)zpos;
 
-            int parentIndex = GetParentLandformIndexAt(xposInt, zposInt, temp, rain);
+            int parentIndex = GetParentLandformIndexAt(xposInt, zposInt, unscaledXpos, unscaledZpos, temp, rain);
 
             LandformVariant[] mutations = landforms.Variants[parentIndex].Mutations;
             if (mutations != null && mutations.Length > 0) {
@@ -188,20 +191,19 @@ namespace SmoothCoastlines.LandformHeights {
         }
 
 
-        public int GetParentLandformIndexAt(int xpos, int zpos, int temp, int rain) {
+        public int GetParentLandformIndexAt(int xpos, int zpos, int unscaledXpos, int unscaledZpos, int temp, int rain) {
             InitPositionSeed(xpos, zpos);
 
             double weightSum = 0;
-            double heightAtPoint = heightNoise.Height(xpos, zpos);
+            double heightAtPoint = heightNoise.Height(unscaledXpos, unscaledZpos);
             int i;
             for (i = 0; i < landforms.Variants.Length; i++) {
-                if (heightAtPoint < landformsHeights.LandformHeightsByIndex[i].minHeight || heightAtPoint > landformsHeights.LandformHeightsByIndex[i].maxHeight) {
-                    continue; //If this landform doesn't match the height at this position, just skip it and go to the next.
-                }
-
                 double weight = landforms.Variants[i].Weight;
 
-                if (landforms.Variants[i].UseClimateMap) {
+                if (heightAtPoint < landformsHeights.LandformHeightsByIndex[i].minHeight || heightAtPoint > landformsHeights.LandformHeightsByIndex[i].maxHeight) {
+                    weight = 0;
+                }
+                if (weight != 0 && landforms.Variants[i].UseClimateMap) {
                     int distRain = rain - GameMath.Clamp(rain, landforms.Variants[i].MinRain, landforms.Variants[i].MaxRain);
                     double distTemp = temp - GameMath.Clamp(temp, landforms.Variants[i].MinTemp, landforms.Variants[i].MaxTemp);
                     if (distRain != 0 || distTemp != 0) weight = 0;

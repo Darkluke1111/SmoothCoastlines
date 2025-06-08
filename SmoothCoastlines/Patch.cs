@@ -34,7 +34,7 @@ namespace SmoothCoastlines
         [HarmonyPrefix]
         [HarmonyPatch(typeof(GenMaps), nameof(GenMaps.GetLandformMapGen))]
         public static bool Prefix(ref MapLayerBase __result, long seed, NoiseClimate climateNoise, ICoreServerAPI api, float landformScale) {
-            MapLayerLandformsSmooth mapLayerLandformsSmooth = new MapLayerLandformsSmooth(seed, climateNoise, api, landformScale, SmoothCoastlinesModSystem.config);
+            MapLayerLandformsSmooth mapLayerLandformsSmooth = new MapLayerLandformsSmooth(seed + 12, climateNoise, api, landformScale, SmoothCoastlinesModSystem.config);
             mapLayerLandformsSmooth.DebugDrawBitmap(DebugDrawMode.LandformRGB, 0, 0, "Height-Based Landforms");
             __result = mapLayerLandformsSmooth;
             
