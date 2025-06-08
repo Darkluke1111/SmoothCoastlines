@@ -5,122 +5,122 @@
 			"code": "abridgedsmoothrotundfoothillspond",
 			"comment": "Here she goes",
 			"minHeight": 0.3,
-			"maxHeight": 0.7
+			"maxHeight": 0.6
 		},
 		{
 			"code": "abridgedruggedrotundfoothillspond",
 			"minHeight": 0.3,
-			"maxHeight": 0.7
+			"maxHeight": 0.6
 		},
 		{
 			"code": "abridgedrockyrotundfoothillspond",
 			"minHeight": 0.4,
-			"maxHeight": 0.8
+			"maxHeight": 0.7
 		},
 		{
 			"code": "abridgedcraggyrotundfoothillspond",
 			"minHeight": 0.4,
-			"maxHeight": 0.8
+			"maxHeight": 0.7
 		},
 		{
 			"code": "abridgedsmoothconcavefoothillspond",
 			"minHeight": 0.3,
-			"maxHeight": 0.7
+			"maxHeight": 0.6
 		},
 		{
 			"code": "abridgedruggedconcavefoothillspond",
 			"minHeight": 0.3,
-			"maxHeight": 0.7
+			"maxHeight": 0.6
 		},
 		{
 			"code": "abridgedrockyconcavefoothillspond",
 			"minHeight": 0.4,
-			"maxHeight": 0.8
+			"maxHeight": 0.7
 		},
 		{
 			"code": "abridgedcraggyconcavefoothillspond",
 			"minHeight": 0.4,
-			"maxHeight": 0.8
+			"maxHeight": 0.7
 		},
 		{
 			"code": "broadsmoothrotundfoothillspond",
 			"minHeight": 0.3,
-			"maxHeight": 0.7
+			"maxHeight": 0.6
 		},
 		{
 			"code": "broadruggedrotundfoothillspond",
 			"minHeight": 0.3,
-			"maxHeight": 0.7
+			"maxHeight": 0.6
 		},
 		{
 			"code": "broadrockyrotundfoothillspond",
 			"minHeight": 0.4,
-			"maxHeight": 0.8
+			"maxHeight": 0.7
 		},
 		{
 			"code": "broadcraggyrotundfoothillspond",
 			"minHeight": 0.4,
-			"maxHeight": 0.8
+			"maxHeight": 0.7
 		},
 		{
 			"code": "broadsmoothrotundgrandhillspond",
-			"minHeight": 0.7,
-			"maxHeight": 0.8
+			"minHeight": 0.6,
+			"maxHeight": 0.7
 		},
 		{
 			"code": "broadruggedrotundgrandhillspond",
+			"minHeight": 0.6,
+			"maxHeight": 0.7
+		},
+		{
+			"code": "broadrockyrotundgrandhillspond",
 			"minHeight": 0.7,
 			"maxHeight": 0.8
 		},
 		{
-			"code": "broadrockyrotundgrandhillspond",
-			"minHeight": 0.8,
-			"maxHeight": 0.9
-		},
-		{
 			"code": "broadcraggyrotundgrandhillspond",
-			"minHeight": 0.8,
-			"maxHeight": 0.9
+			"minHeight": 0.7,
+			"maxHeight": 0.8
 		},
 		{
 			"code": "broadsmoothconcavefoothillspond",
 			"minHeight": 0.3,
-			"maxHeight": 0.7
+			"maxHeight": 0.6
 		},
 		{
 			"code": "broadruggedconcavefoothillspond",
 			"minHeight": 0.3,
-			"maxHeight": 0.7
+			"maxHeight": 0.6
 		},
 		{
 			"code": "broadrockyconcavefoothillspond",
 			"minHeight": 0.4,
-			"maxHeight": 0.8
+			"maxHeight": 0.7
 		},
 		{
 			"code": "broadcraggyconcavefoothillspond",
 			"minHeight": 0.4,
-			"maxHeight": 0.8
+			"maxHeight": 0.7
 		},
 		{
 			"code": "broadsmoothconcavegrandhillspond",
-			"minHeight": 0.7,
-			"maxHeight": 0.8
+			"minHeight": 0.6,
+			"maxHeight": 0.7
 		},
 		{
 			"code": "broadruggedconcavegrandhillspond",
+			"minHeight": 0.6,
+			"maxHeight": 0.7
+		},
+		{
+			"code": "broadrockyconcavegrandhillspond",
 			"minHeight": 0.7,
 			"maxHeight": 0.8
 		},
 		{
-			"code": "broadrockyconcavegrandhillspond",
-			"minHeight": 0.8,
-			"maxHeight": 0.9
-		},
-		{
 			"code": "broadcraggyconcavegrandhillspond",
-			"minHeight": 0.8,
-			"maxHeight": 0.9
+			"minHeight": 0.7,
+			"maxHeight": 0.8
 		},
 		{
 			"code": "vastsmoothrotundgentleslopespond",
@@ -140,42 +140,42 @@
 		{
 			"code": "vastsmoothrotundfoothillspond",
 			"minHeight": 0.3,
-			"maxHeight": 0.7
+			"maxHeight": 0.6
 		},
 		{
 			"code": "vastruggedrotundfoothillspond",
 			"minHeight": 0.3,
-			"maxHeight": 0.7
+			"maxHeight": 0.6
 		},
 		{
 			"code": "vastrockyrotundfoothillspond",
 			"minHeight": 0.4,
-			"maxHeight": 0.8
+			"maxHeight": 0.7
 		},
 		{
 			"code": "vastcraggyrotundfoothillspond",
 			"minHeight": 0.4,
-			"maxHeight": 0.8
+			"maxHeight": 0.7
 		},
 		{
 			"code": "vastsmoothrotundgrandhillspond",
-			"minHeight": 0.7,
-			"maxHeight": 0.8
+			"minHeight": 0.6,
+			"maxHeight": 0.7
 		},
 		{
 			"code": "vastruggedrotundgrandhillspond",
+			"minHeight": 0.6,
+			"maxHeight": 0.7
+		},
+		{
+			"code": "vastrockyrotundgrandhillspond",
 			"minHeight": 0.7,
 			"maxHeight": 0.8
 		},
 		{
-			"code": "vastrockyrotundgrandhillspond",
-			"minHeight": 0.8,
-			"maxHeight": 0.9
-		},
-		{
 			"code": "vastcraggyrotundgrandhillspond",
-			"minHeight": 0.8,
-			"maxHeight": 0.9
+			"minHeight": 0.7,
+			"maxHeight": 0.8
 		},
 		{
 			"code": "vastsmoothconcavegentleslopespond",
@@ -194,58 +194,58 @@
 		},
 		{
 			"code": "vastsmoothconcavefoothillspond",
-			"minHeight": 0.2,
+			"minHeight": 0.3,
 			"maxHeight": 0.6
 		},
 		{
 			"code": "vastruggedconcavefoothillspond",
 			"minHeight": 0.3,
-			"maxHeight": 0.7
+			"maxHeight": 0.6
 		},
 		{
 			"code": "vastrockyconcavefoothillspond",
 			"minHeight": 0.4,
-			"maxHeight": 0.8
+			"maxHeight": 0.7
 		},
 		{
 			"code": "vastcraggyconcavefoothillspond",
 			"minHeight": 0.4,
-			"maxHeight": 0.8
+			"maxHeight": 0.7
 		},
 		{
 			"code": "vastsmoothconcavegrandhillspond",
-			"minHeight": 0.7,
-			"maxHeight": 0.8
+			"minHeight": 0.6,
+			"maxHeight": 0.7
 		},
 		{
 			"code": "vastruggedconcavegrandhillspond",
+			"minHeight": 0.6,
+			"maxHeight": 0.7
+		},
+		{
+			"code": "vastrockyconcavegrandhillspond",
 			"minHeight": 0.7,
 			"maxHeight": 0.8
 		},
 		{
-			"code": "vastrockyconcavegrandhillspond",
-			"minHeight": 0.8,
-			"maxHeight": 0.9
-		},
-		{
 			"code": "vastcraggyconcavegrandhillspond",
-			"minHeight": 0.8,
-			"maxHeight": 0.9
+			"minHeight": 0.7,
+			"maxHeight": 0.8
 		},
 		{
 			"code": "vastruggedconcaveglorioushillspond",
+			"minHeight": 0.7,
+			"maxHeight": 0.8
+		},
+		{
+			"code": "vastrockyconcaveglorioushillspond",
 			"minHeight": 0.8,
 			"maxHeight": 0.9
 		},
 		{
-			"code": "vastrockyconcaveglorioushillspond",
-			"minHeight": 0.9,
-			"maxHeight": 1.0
-		},
-		{
 			"code": "vastcraggyconcaveglorioushillspond",
-			"minHeight": 0.9,
-			"maxHeight": 1.0
+			"minHeight": 0.8,
+			"maxHeight": 0.9
 		},
 		{
 			"code": "endlesssmoothrotundgentleslopespond",
@@ -265,42 +265,42 @@
 		{
 			"code": "endlesssmoothrotundfoothillspond",
 			"minHeight": 0.3,
-			"maxHeight": 0.7
+			"maxHeight": 0.6
 		},
 		{
 			"code": "endlessruggedrotundfoothillspond",
 			"minHeight": 0.3,
-			"maxHeight": 0.7
+			"maxHeight": 0.6
 		},
 		{
 			"code": "endlessrockyrotundfoothillspond",
 			"minHeight": 0.4,
-			"maxHeight": 0.8
+			"maxHeight": 0.7
 		},
 		{
 			"code": "endlesscraggyrotundfoothillspond",
 			"minHeight": 0.4,
-			"maxHeight": 0.8
+			"maxHeight": 0.7
 		},
 		{
 			"code": "endlesssmoothrotundgrandhillspond",
-			"minHeight": 0.7,
-			"maxHeight": 0.8
+			"minHeight": 0.6,
+			"maxHeight": 0.7
 		},
 		{
 			"code": "endlessruggedrotundgrandhillspond",
+			"minHeight": 0.6,
+			"maxHeight": 0.7
+		},
+		{
+			"code": "endlessrockyrotundgrandhillspond",
 			"minHeight": 0.7,
 			"maxHeight": 0.8
 		},
 		{
-			"code": "endlessrockyrotundgrandhillspond",
-			"minHeight": 0.8,
-			"maxHeight": 0.9
-		},
-		{
 			"code": "endlesscraggyrotundgrandhillspond",
-			"minHeight": 0.8,
-			"maxHeight": 0.9
+			"minHeight": 0.7,
+			"maxHeight": 0.8
 		},
 		{
 			"code": "endlesssmoothconcavegentleslopespond",
@@ -320,62 +320,62 @@
 		{
 			"code": "endlesssmoothconcavefoothillspond",
 			"minHeight": 0.3,
-			"maxHeight": 0.7
+			"maxHeight": 0.6
 		},
 		{
 			"code": "endlessruggedconcavefoothillspond",
 			"minHeight": 0.3,
-			"maxHeight": 0.7
+			"maxHeight": 0.6
 		},
 		{
 			"code": "endlessrockyconcavefoothillspond",
 			"minHeight": 0.4,
-			"maxHeight": 0.8
+			"maxHeight": 0.7
 		},
 		{
 			"code": "endlesscraggyconcavefoothillspond",
 			"minHeight": 0.4,
-			"maxHeight": 0.8
+			"maxHeight": 0.7
 		},
 		{
 			"code": "endlesssmoothconcavegrandhillspond",
-			"minHeight": 0.7,
-			"maxHeight": 0.8
+			"minHeight": 0.6,
+			"maxHeight": 0.7
 		},
 		{
 			"code": "endlessruggedconcavegrandhillspond",
+			"minHeight": 0.6,
+			"maxHeight": 0.7
+		},
+		{
+			"code": "endlessrockyconcavegrandhillspond",
 			"minHeight": 0.7,
 			"maxHeight": 0.8
 		},
 		{
-			"code": "endlessrockyconcavegrandhillspond",
-			"minHeight": 0.8,
-			"maxHeight": 0.9
-		},
-		{
 			"code": "endlesscraggyconcavegrandhillspond",
-			"minHeight": 0.8,
-			"maxHeight": 0.9
+			"minHeight": 0.7,
+			"maxHeight": 0.8
 		},
 		{
 			"code": "endlessruggedconcaveglorioushillspond",
+			"minHeight": 0.7,
+			"maxHeight": 0.8
+		},
+		{
+			"code": "endlessrockyconcaveglorioushillspond",
 			"minHeight": 0.8,
 			"maxHeight": 0.9
 		},
 		{
-			"code": "endlessrockyconcaveglorioushillspond",
-			"minHeight": 0.9,
-			"maxHeight": 1.0
-		},
-		{
 			"code": "endlesscraggyconcaveglorioushillspond",
-			"minHeight": 0.9,
-			"maxHeight": 1.0
+			"minHeight": 0.8,
+			"maxHeight": 0.9
 		},
 		{
 			"code": "endlessruggedconcavegigantichillspond",
-			"minHeight": 0.9,
-			"maxHeight": 1.0
+			"minHeight": 0.8,
+			"maxHeight": 0.9
 		},
 		{
 			"code": "endlessrockyconcavegigantichillspond",
@@ -419,43 +419,43 @@
 		},
 		{
 			"code": "eternalsmoothrotundfoothillspond",
-			"minHeight": 0.2,
+			"minHeight": 0.3,
 			"maxHeight": 0.6
 		},
 		{
 			"code": "eternalruggedrotundfoothillspond",
 			"minHeight": 0.3,
-			"maxHeight": 0.7
+			"maxHeight": 0.6
 		},
 		{
 			"code": "eternalrockyrotundfoothillspond",
 			"minHeight": 0.4,
-			"maxHeight": 0.8
+			"maxHeight": 0.7
 		},
 		{
 			"code": "eternalcraggyrotundfoothillspond",
 			"minHeight": 0.4,
-			"maxHeight": 0.8
+			"maxHeight": 0.7
 		},
 		{
 			"code": "eternalsmoothrotundgrandhillspond",
-			"minHeight": 0.7,
-			"maxHeight": 0.8
+			"minHeight": 0.6,
+			"maxHeight": 0.7
 		},
 		{
 			"code": "eternalruggedrotundgrandhillspond",
+			"minHeight": 0.6,
+			"maxHeight": 0.7
+		},
+		{
+			"code": "eternalrockyrotundgrandhillspond",
 			"minHeight": 0.7,
 			"maxHeight": 0.8
 		},
 		{
-			"code": "eternalrockyrotundgrandhillspond",
-			"minHeight": 0.8,
-			"maxHeight": 0.9
-		},
-		{
 			"code": "eternalcraggyrotundgrandhillspond",
-			"minHeight": 0.8,
-			"maxHeight": 0.9
+			"minHeight": 0.7,
+			"maxHeight": 0.8
 		},
 		{
 			"code": "eternalsmoothconcaveplainspond",
@@ -490,62 +490,62 @@
 		{
 			"code": "eternalsmoothconcavefoothillspond",
 			"minHeight": 0.3,
-			"maxHeight": 0.7
+			"maxHeight": 0.6
 		},
 		{
 			"code": "eternalruggedconcavefoothillspond",
 			"minHeight": 0.3,
-			"maxHeight": 0.7
+			"maxHeight": 0.6
 		},
 		{
 			"code": "eternalrockyconcavefoothillspond",
 			"minHeight": 0.4,
-			"maxHeight": 0.8
+			"maxHeight": 0.7
 		},
 		{
 			"code": "eternalcraggyconcavefoothillspond",
 			"minHeight": 0.4,
-			"maxHeight": 0.8
+			"maxHeight": 0.7
 		},
 		{
 			"code": "eternalsmoothconcavegrandhillspond",
-			"minHeight": 0.7,
-			"maxHeight": 0.8
+			"minHeight": 0.6,
+			"maxHeight": 0.7
 		},
 		{
 			"code": "eternalruggedconcavegrandhillspond",
+			"minHeight": 0.6,
+			"maxHeight": 0.7
+		},
+		{
+			"code": "eternalrockyconcavegrandhillspond",
 			"minHeight": 0.7,
 			"maxHeight": 0.8
 		},
 		{
-			"code": "eternalrockyconcavegrandhillspond",
-			"minHeight": 0.8,
-			"maxHeight": 0.9
-		},
-		{
 			"code": "eternalcraggyconcavegrandhillspond",
-			"minHeight": 0.8,
-			"maxHeight": 0.9
+			"minHeight": 0.7,
+			"maxHeight": 0.8
 		},
 		{
 			"code": "eternalruggedconcaveglorioushillspond",
+			"minHeight": 0.7,
+			"maxHeight": 0.8
+		},
+		{
+			"code": "eternalrockyconcaveglorioushillspond",
 			"minHeight": 0.8,
 			"maxHeight": 0.9
 		},
 		{
-			"code": "eternalrockyconcaveglorioushillspond",
-			"minHeight": 0.9,
-			"maxHeight": 1.0
-		},
-		{
 			"code": "eternalcraggyconcaveglorioushillspond",
-			"minHeight": 0.9,
-			"maxHeight": 1.0
+			"minHeight": 0.8,
+			"maxHeight": 0.9
 		},
 		{
 			"code": "eternalruggedconcavegigantichillspond",
-			"minHeight": 0.9,
-			"maxHeight": 1.0
+			"minHeight": 0.8,
+			"maxHeight": 0.9
 		},
 		{
 			"code": "eternalrockyconcavegigantichillspond",
@@ -554,6 +554,16 @@
 		},
 		{
 			"code": "eternalcraggyconcavegigantichillspond",
+			"minHeight": 0.9,
+			"maxHeight": 1.0
+		},
+		{
+			"code": "eternalruggedconcaveimmortalhillspond",
+			"minHeight": 0.9,
+			"maxHeight": 1.0
+		},
+		{
+			"code": "eternalrockyconcaveimmortalhillspond",
 			"minHeight": 0.9,
 			"maxHeight": 1.0
 		},
@@ -574,33 +584,33 @@
 		},
 		{
 			"code": "vastsmoothrotundfoothillsdryvalley",
-			"minHeight": 0.2,
+			"minHeight": 0.3,
 			"maxHeight": 0.6
 		},
 		{
 			"code": "vastruggedrotundfoothillsdryvalley",
 			"minHeight": 0.3,
-			"maxHeight": 0.7
+			"maxHeight": 0.6
 		},
 		{
 			"code": "vastrockyrotundfoothillsdryvalley",
 			"minHeight": 0.4,
-			"maxHeight": 0.8
+			"maxHeight": 0.7
 		},
 		{
 			"code": "vastsmoothrotundgrandhillsdryvalley",
-			"minHeight": 0.7,
-			"maxHeight": 0.8
+			"minHeight": 0.6,
+			"maxHeight": 0.7
 		},
 		{
 			"code": "vastruggedrotundgrandhillsdryvalley",
-			"minHeight": 0.7,
-			"maxHeight": 0.8
+			"minHeight": 0.6,
+			"maxHeight": 0.7
 		},
 		{
 			"code": "vastrockyrotundgrandhillsdryvalley",
-			"minHeight": 0.8,
-			"maxHeight": 0.9
+			"minHeight": 0.7,
+			"maxHeight": 0.8
 		},
 		{
 			"code": "vastsmoothconcavegentleslopesdryvalley",
@@ -619,43 +629,43 @@
 		},
 		{
 			"code": "vastsmoothconcavefoothillsdryvalley",
-			"minHeight": 0.2,
+			"minHeight": 0.3,
 			"maxHeight": 0.6
 		},
 		{
 			"code": "vastruggedconcavefoothillsdryvalley",
 			"minHeight": 0.3,
-			"maxHeight": 0.7
+			"maxHeight": 0.6
 		},
 		{
 			"code": "vastrockyconcavefoothillsdryvalley",
 			"minHeight": 0.4,
-			"maxHeight": 0.8
+			"maxHeight": 0.7
 		},
 		{
 			"code": "vastsmoothconcavegrandhillsdryvalley",
-			"minHeight": 0.7,
-			"maxHeight": 0.8
+			"minHeight": 0.6,
+			"maxHeight": 0.7
 		},
 		{
 			"code": "vastruggedconcavegrandhillsdryvalley",
+			"minHeight": 0.6,
+			"maxHeight": 0.7
+		},
+		{
+			"code": "vastrockyconcavegrandhillsdryvalley",
 			"minHeight": 0.7,
 			"maxHeight": 0.8
 		},
 		{
-			"code": "vastrockyconcavegrandhillsdryvalley",
-			"minHeight": 0.8,
-			"maxHeight": 0.9
-		},
-		{
 			"code": "vastruggedconcaveglorioushillsdryvalley",
-			"minHeight": 0.8,
-			"maxHeight": 0.9
+			"minHeight": 0.7,
+			"maxHeight": 0.8
 		},
 		{
 			"code": "vastrockyconcaveglorioushillsdryvalley",
-			"minHeight": 0.9,
-			"maxHeight": 1.0
+			"minHeight": 0.8,
+			"maxHeight": 0.9
 		},
 		{
 			"code": "endlesssmoothrotundgentleslopesdryvalley",
@@ -674,33 +684,33 @@
 		},
 		{
 			"code": "endlesssmoothrotundfoothillsdryvalley",
-			"minHeight": 0.2,
+			"minHeight": 0.3,
 			"maxHeight": 0.6
 		},
 		{
 			"code": "endlessruggedrotundfoothillsdryvalley",
 			"minHeight": 0.3,
-			"maxHeight": 0.7
+			"maxHeight": 0.6
 		},
 		{
 			"code": "endlessrockyrotundfoothillsdryvalley",
 			"minHeight": 0.4,
-			"maxHeight": 0.8
+			"maxHeight": 0.7
 		},
 		{
 			"code": "endlesssmoothrotundgrandhillsdryvalley",
-			"minHeight": 0.7,
-			"maxHeight": 0.8
+			"minHeight": 0.6,
+			"maxHeight": 0.7
 		},
 		{
 			"code": "endlessruggedrotundgrandhillsdryvalley",
-			"minHeight": 0.7,
-			"maxHeight": 0.8
+			"minHeight": 0.6,
+			"maxHeight": 0.7
 		},
 		{
 			"code": "endlessrockyrotundgrandhillsdryvalley",
-			"minHeight": 0.8,
-			"maxHeight": 0.9
+			"minHeight": 0.7,
+			"maxHeight": 0.8
 		},
 		{
 			"code": "endlesssmoothconcavegentleslopesdryvalley",
@@ -720,47 +730,47 @@
 		{
 			"code": "endlesssmoothconcavefoothillsdryvalley",
 			"minHeight": 0.3,
-			"maxHeight": 0.7
+			"maxHeight": 0.6
 		},
 		{
 			"code": "endlessruggedconcavefoothillsdryvalley",
 			"minHeight": 0.3,
-			"maxHeight": 0.7
+			"maxHeight": 0.6
 		},
 		{
 			"code": "endlessrockyconcavefoothillsdryvalley",
 			"minHeight": 0.4,
-			"maxHeight": 0.8
+			"maxHeight": 0.7
 		},
 		{
 			"code": "endlesssmoothconcavegrandhillsdryvalley",
-			"minHeight": 0.7,
-			"maxHeight": 0.8
+			"minHeight": 0.6,
+			"maxHeight": 0.7
 		},
 		{
 			"code": "endlessruggedconcavegrandhillsdryvalley",
+			"minHeight": 0.6,
+			"maxHeight": 0.7
+		},
+		{
+			"code": "endlessrockyconcavegrandhillsdryvalley",
 			"minHeight": 0.7,
 			"maxHeight": 0.8
 		},
 		{
-			"code": "endlessrockyconcavegrandhillsdryvalley",
-			"minHeight": 0.8,
-			"maxHeight": 0.9
-		},
-		{
 			"code": "endlessruggedconcaveglorioushillsdryvalley",
-			"minHeight": 0.8,
-			"maxHeight": 0.9
+			"minHeight": 0.7,
+			"maxHeight": 0.8
 		},
 		{
 			"code": "endlessrockyconcaveglorioushillsdryvalley",
-			"minHeight": 0.9,
-			"maxHeight": 1.0
+			"minHeight": 0.8,
+			"maxHeight": 0.9
 		},
 		{
 			"code": "endlessruggedconcavegigantichillsdryvalley",
-			"minHeight": 0.9,
-			"maxHeight": 1.0
+			"minHeight": 0.8,
+			"maxHeight": 0.9
 		},
 		{
 			"code": "endlessrockyconcavegigantichillsdryvalley",
@@ -800,32 +810,32 @@
 		{
 			"code": "eternalsmoothrotundfoothillsdryvalley",
 			"minHeight": 0.3,
-			"maxHeight": 0.7
+			"maxHeight": 0.6
 		},
 		{
 			"code": "eternalruggedrotundfoothillsdryvalley",
 			"minHeight": 0.3,
-			"maxHeight": 0.7
+			"maxHeight": 0.6
 		},
 		{
 			"code": "eternalrockyrotundfoothillsdryvalley",
 			"minHeight": 0.4,
-			"maxHeight": 0.8
+			"maxHeight": 0.7
 		},
 		{
 			"code": "eternalsmoothrotundgrandhillsdryvalley",
 			"minHeight": 0.4,
-			"maxHeight": 0.8
+			"maxHeight": 0.7
 		},
 		{
 			"code": "eternalruggedrotundgrandhillsdryvalley",
-			"minHeight": 0.7,
-			"maxHeight": 0.8
+			"minHeight": 0.6,
+			"maxHeight": 0.7
 		},
 		{
 			"code": "eternalrockyrotundgrandhillsdryvalley",
-			"minHeight": 0.8,
-			"maxHeight": 0.9
+			"minHeight": 0.7,
+			"maxHeight": 0.8
 		},
 		{
 			"code": "eternalsmoothconcaveplainsdryvalley",
@@ -860,50 +870,60 @@
 		{
 			"code": "eternalsmoothconcavefoothillsdryvalley",
 			"minHeight": 0.3,
-			"maxHeight": 0.7
+			"maxHeight": 0.6
 		},
 		{
 			"code": "eternalruggedconcavefoothillsdryvalley",
 			"minHeight": 0.3,
-			"maxHeight": 0.7
+			"maxHeight": 0.6
 		},
 		{
 			"code": "eternalrockyconcavefoothillsdryvalley",
 			"minHeight": 0.4,
-			"maxHeight": 0.8
+			"maxHeight": 0.7
 		},
 		{
 			"code": "eternalsmoothconcavegrandhillsdryvalley",
-			"minHeight": 0.7,
-			"maxHeight": 0.8
+			"minHeight": 0.6,
+			"maxHeight": 0.7
 		},
 		{
 			"code": "eternalruggedconcavegrandhillsdryvalley",
+			"minHeight": 0.6,
+			"maxHeight": 0.7
+		},
+		{
+			"code": "eternalrockyconcavegrandhillsdryvalley",
 			"minHeight": 0.7,
 			"maxHeight": 0.8
 		},
 		{
-			"code": "eternalrockyconcavegrandhillsdryvalley",
-			"minHeight": 0.8,
-			"maxHeight": 0.9
-		},
-		{
 			"code": "eternalruggedconcaveglorioushillsdryvalley",
-			"minHeight": 0.8,
-			"maxHeight": 0.9
+			"minHeight": 0.7,
+			"maxHeight": 0.8
 		},
 		{
 			"code": "eternalrockyconcaveglorioushillsdryvalley",
-			"minHeight": 0.9,
-			"maxHeight": 1.0
+			"minHeight": 0.8,
+			"maxHeight": 0.9
 		},
 		{
 			"code": "eternalruggedconcavegigantichillsdryvalley",
+			"minHeight": 0.8,
+			"maxHeight": 0.9
+		},
+		{
+			"code": "eternalrockyconcavegigantichillsdryvalley",
 			"minHeight": 0.9,
 			"maxHeight": 1.0
 		},
 		{
-			"code": "eternalrockyconcavegigantichillsdryvalley",
+			"code": "eternalruggedconcaveimmortalhillsdryvalley",
+			"minHeight": 0.9,
+			"maxHeight": 1.0
+		},
+		{
+			"code": "eternalrockyconcaveimmortalhillsdryvalley",
 			"minHeight": 0.9,
 			"maxHeight": 1.0
 		},
