@@ -11127,6 +11127,206 @@
         ]
       },
       {
+        "code": "eternalruggedconcaveimmortalhillspond",
+        "comment": "eternalruggedconcaveimmortalhillspond",
+        "hexcolor": "#333333",
+        "weight": 5.6,
+        "terrainOctaves": [
+          1.25,
+          1.25,
+          0,
+          0,
+          0,
+          0.2,
+          0.2,
+          0.2,
+          0.14
+        ],
+        "terrainOctaveThresholds": [
+          0.02,
+          0.02,
+          0,
+          0,
+          0,
+          0.02,
+          0.02,
+          0.02,
+          0.042
+        ],
+        "terrainYKeyPositions": [
+          0.413,
+          0.535,
+          0.708,
+          0.906
+        ],
+        "terrainYKeyThresholds": [
+          1.0,
+          0.605,
+          0.269,
+          0.0
+        ],
+        "mutations": [
+          {
+            "code": "eternalruggedconcaveimmortalhillspond",
+            "comment": "eternalruggedconcaveimmortalhillspond",
+            "chance": 0.15,
+            "hexcolor": "#AAAA00",
+            "terrainOctaves": [
+              0.8,
+              0.8,
+              0,
+              0,
+              0,
+              0,
+              0.3,
+              0.04,
+              0.01
+            ],
+            "terrainOctaveThresholds": [
+              0.06,
+              0.06,
+              0,
+              0,
+              0,
+              0.06,
+              0.06,
+              0.06,
+              0.015
+            ],
+            "terrainYKeyPositions": [
+              0.415,
+              0.529,
+              0.654,
+              0.786
+            ],
+            "terrainYKeyThresholds": [
+              1.0,
+              0.513,
+              0.22,
+              0.0
+            ]
+          }
+        ]
+      },
+      {
+        "code": "eternalrockyconcaveimmortalhillspond",
+        "comment": "eternalrockyconcaveimmortalhillspond",
+        "hexcolor": "#333333",
+        "weight": 5.6,
+        "terrainOctaves": [
+          1.25,
+          1.25,
+          0,
+          0,
+          0,
+          0.2,
+          0.2,
+          0.2,
+          0.16
+        ],
+        "terrainOctaveThresholds": [
+          0.02,
+          0.02,
+          0,
+          0,
+          0,
+          0.02,
+          0.02,
+          0.02,
+          0.042
+        ],
+        "terrainYKeyPositions": [
+          0.414,
+          1.0
+        ],
+        "terrainYKeyThresholds": [
+          1.0,
+          0.0
+        ],
+        "mutations": [
+          {
+            "code": "eternalrockyconcaveimmortalhillspond",
+            "comment": "eternalrockyconcaveimmortalhillspond",
+            "chance": 0.15,
+            "hexcolor": "#AAAA00",
+            "terrainOctaves": [
+              0.8,
+              0.8,
+              0,
+              0,
+              0,
+              0,
+              0.3,
+              0.04,
+              0.01
+            ],
+            "terrainOctaveThresholds": [
+              0.06,
+              0.06,
+              0,
+              0,
+              0,
+              0.06,
+              0.06,
+              0.06,
+              0.015
+            ],
+            "terrainYKeyPositions": [
+              0.415,
+              0.529,
+              0.654,
+              0.786
+            ],
+            "terrainYKeyThresholds": [
+              1.0,
+              0.513,
+              0.22,
+              0.0
+            ]
+          },
+          {
+            "code": "eternalrockyconcaveimmortalhillspond",
+            "comment": "eternalrockyconcaveimmortalhillspond",
+            "chance": 0.15,
+            "hexcolor": "#AAAA00",
+            "terrainOctaves": [
+              1.25,
+              1.25,
+              0,
+              0,
+              0,
+              0.2,
+              0.2,
+              0.2,
+              0.16
+            ],
+            "terrainOctaveThresholds": [
+              0.02,
+              0.02,
+              0,
+              0,
+              0,
+              0.02,
+              0.02,
+              0.02,
+              0.042
+            ],
+            "terrainYKeyPositions": [
+              0.413,
+              0.535,
+              0.708,
+              0.906
+            ],
+            "terrainYKeyThresholds": [
+              1.0,
+              0.605,
+              0.269,
+              0.0
+            ]
+          }
+        ]
+      },
+      {
         "code": "vastsmoothrotundgentleslopesdryvalley",
         "comment": "vastsmoothrotundgentleslopesdryvalley",
         "hexcolor": "#333333",
@@ -20275,6 +20475,286 @@
         ]
       },
       {
+        "code": "eternalruggedconcaveimmortalhillsdryvalley",
+        "comment": "eternalruggedconcaveimmortalhillsdryvalley",
+        "hexcolor": "#333333",
+        "weight": 5.6,
+        "terrainOctaves": [
+          1.25,
+          1.25,
+          0,
+          0,
+          0,
+          0.2,
+          0.2,
+          0.2,
+          0.14
+        ],
+        "terrainOctaveThresholds": [
+          0.02,
+          0.02,
+          0,
+          0,
+          0,
+          0.02,
+          0.02,
+          0.02,
+          0.042
+        ],
+        "terrainYKeyPositions": [
+          0.43,
+          0.552,
+          0.725,
+          0.923
+        ],
+        "terrainYKeyThresholds": [
+          1.0,
+          0.605,
+          0.269,
+          0.0
+        ],
+        "mutations": [
+          {
+            "code": "eternalruggedconcaveimmortalhillsdryvalley",
+            "comment": "eternalruggedconcaveimmortalhillsdryvalley",
+            "chance": 0.08,
+            "hexcolor": "#AAAA00",
+            "terrainOctaves": [
+              1.25,
+              1.25,
+              0,
+              0,
+              0,
+              0,
+              0.16,
+              0,
+              0.04
+            ],
+            "terrainOctaveThresholds": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "terrainYKeyPositions": [
+              0.43,
+              0.552,
+              0.725,
+              0.923
+            ],
+            "terrainYKeyThresholds": [
+              1.0,
+              0.605,
+              0.269,
+              0.0
+            ]
+          },
+          {
+            "code": "eternalruggedconcaveimmortalhillsdryvalley",
+            "comment": "eternalruggedconcaveimmortalhillsdryvalley",
+            "chance": 0.15,
+            "hexcolor": "#AAAA00",
+            "terrainOctaves": [
+              0.8,
+              0.8,
+              0,
+              0,
+              0,
+              0,
+              0.3,
+              0.04,
+              0.01
+            ],
+            "terrainOctaveThresholds": [
+              0.06,
+              0.06,
+              0,
+              0,
+              0,
+              0.06,
+              0.06,
+              0.06,
+              0.015
+            ],
+            "terrainYKeyPositions": [
+              0.415,
+              0.529,
+              0.654,
+              0.786
+            ],
+            "terrainYKeyThresholds": [
+              1.0,
+              0.513,
+              0.22,
+              0.0
+            ]
+          }
+        ]
+      },
+      {
+        "code": "eternalrockyconcaveimmortalhillsdryvalley",
+        "comment": "eternalrockyconcaveimmortalhillsdryvalley",
+        "hexcolor": "#333333",
+        "weight": 5.6,
+        "terrainOctaves": [
+          1,
+          1,
+          0,
+          0,
+          0,
+          0.2,
+          0.2,
+          0.2,
+          0.16
+        ],
+        "terrainOctaveThresholds": [
+          0.02,
+          0.02,
+          0,
+          0,
+          0,
+          0.02,
+          0.02,
+          0.02,
+          0.042
+        ],
+        "terrainYKeyPositions": [
+          0.431,
+          1.0
+        ],
+        "terrainYKeyThresholds": [
+          1.0,
+          0.0
+        ],
+        "mutations": [
+          {
+            "code": "eternalrockyconcaveimmortalhillsdryvalley",
+            "comment": "eternalrockyconcaveimmortalhillsdryvalley",
+            "chance": 0.08,
+            "hexcolor": "#AAAA00",
+            "terrainOctaves": [
+              1.25,
+              1.25,
+              0,
+              0,
+              0,
+              0,
+              0.16,
+              0,
+              0.04
+            ],
+            "terrainOctaveThresholds": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "terrainYKeyPositions": [
+              0.43,
+              0.552,
+              0.725,
+              0.923
+            ],
+            "terrainYKeyThresholds": [
+              1.0,
+              0.605,
+              0.269,
+              0.0
+            ]
+          },
+          {
+            "code": "eternalrockyconcaveimmortalhillsdryvalley",
+            "comment": "eternalrockyconcaveimmortalhillsdryvalley",
+            "chance": 0.15,
+            "hexcolor": "#AAAA00",
+            "terrainOctaves": [
+              0.8,
+              0.8,
+              0,
+              0,
+              0,
+              0,
+              0.3,
+              0.04,
+              0.01
+            ],
+            "terrainOctaveThresholds": [
+              0.06,
+              0.06,
+              0,
+              0,
+              0,
+              0.06,
+              0.06,
+              0.06,
+              0.015
+            ],
+            "terrainYKeyPositions": [
+              0.415,
+              0.529,
+              0.654,
+              0.786
+            ],
+            "terrainYKeyThresholds": [
+              1.0,
+              0.513,
+              0.22,
+              0.0
+            ]
+          },
+          {
+            "code": "eternalrockyconcaveimmortalhillsdryvalley",
+            "comment": "eternalrockyconcaveimmortalhillsdryvalley",
+            "chance": 0.15,
+            "hexcolor": "#AAAA00",
+            "terrainOctaves": [
+              1,
+              1,
+              0,
+              0,
+              0,
+              0.2,
+              0.2,
+              0.2,
+              0.16
+            ],
+            "terrainOctaveThresholds": [
+              0.02,
+              0.02,
+              0,
+              0,
+              0,
+              0.02,
+              0.02,
+              0.02,
+              0.042
+            ],
+            "terrainYKeyPositions": [
+              0.43,
+              0.552,
+              0.725,
+              0.923
+            ],
+            "terrainYKeyThresholds": [
+              1.0,
+              0.605,
+              0.269,
+              0.0
+            ]
+          }
+        ]
+      },
+      {
         "code": "broadmicroplateaupond",
         "comment": "broadmicroplateaupond",
         "hexcolor": "#333333",
@@ -28548,7 +29028,7 @@
         "code": "granularwetlands",
         "comment": "granularwetlands",
         "hexcolor": "#79E02E",
-        "weight": 32,
+        "weight": 96,
         "minRain": 64,
         "maxRain": 255,
         "useClimateMap": true,
@@ -28587,7 +29067,7 @@
         "code": "abridgedwetlands",
         "comment": "abridgedwetlands",
         "hexcolor": "#79E02E",
-        "weight": 32,
+        "weight": 96,
         "minRain": 64,
         "maxRain": 255,
         "useClimateMap": true,
@@ -28626,7 +29106,7 @@
         "code": "broadwetlands",
         "comment": "broadwetlands",
         "hexcolor": "#79E02E",
-        "weight": 32,
+        "weight": 96,
         "minRain": 64,
         "maxRain": 255,
         "useClimateMap": true,
@@ -28665,7 +29145,7 @@
         "code": "vastwetlands",
         "comment": "vastwetlands",
         "hexcolor": "#79E02E",
-        "weight": 32,
+        "weight": 96,
         "minRain": 64,
         "maxRain": 255,
         "useClimateMap": true,
@@ -28704,7 +29184,7 @@
         "code": "atomicpondpatches",
         "comment": "atomicpondpatches",
         "hexcolor": "#333333",
-        "weight": 64,
+        "weight": 192,
         "minRain": 64,
         "maxRain": 255,
         "useClimateMap": true,
@@ -28743,7 +29223,7 @@
         "code": "granularpondpatches",
         "comment": "granularpondpatches",
         "hexcolor": "#333333",
-        "weight": 64,
+        "weight": 192,
         "minRain": 64,
         "maxRain": 255,
         "useClimateMap": true,
@@ -28782,7 +29262,7 @@
         "code": "abridgedpondpatches",
         "comment": "abridgedpondpatches",
         "hexcolor": "#333333",
-        "weight": 64,
+        "weight": 192,
         "minRain": 64,
         "maxRain": 255,
         "useClimateMap": true,
@@ -28821,7 +29301,7 @@
         "code": "broadpondpatches",
         "comment": "broadpondpatches",
         "hexcolor": "#333333",
-        "weight": 64,
+        "weight": 192,
         "minRain": 64,
         "maxRain": 255,
         "useClimateMap": true,
