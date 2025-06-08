@@ -27,7 +27,8 @@ namespace SmoothCoastlines.LandformHeights {
             RequiredHeightPoints foundPoint = new RequiredHeightPoints(0,0,100,0,1); //This should never be accessed unless it's actually properly replaced.
             bool wasWithinRange = false;
             foreach (var p in RequiredPoints) {
-                if (p.IsWithinRange(x, z, (int)(PointsOutwardsNeedingAverage * ((float)p.radius / TerraGenConfig.landformMapScale)))) {
+                var scaledRadius = (int)(PointsOutwardsNeedingAverage * p.radius);
+                if (p.IsWithinRange(x, z, scaledRadius)) {
                     foundPoint = p;
                     wasWithinRange = true;
                     break;
@@ -40,11 +41,12 @@ namespace SmoothCoastlines.LandformHeights {
                 //Handle the smoothing here. foundPoint is set.
                 //Find the percentage adjustment from the current to the centerpoint of the found point. Is it above or below?
                 var isAbove = false;
+                var scaledRadius = (int)(PointsOutwardsNeedingAverage * foundPoint.radius);
                 if (height > foundPoint.centerHeight) {
                     isAbove = true;
                 }
 
-                float pointsOutSquare = PointsOutwardsNeedingAverage * PointsOutwardsNeedingAverage; //Gaussian Function to find the percentage to adjust the height by!
+                float pointsOutSquare = scaledRadius * scaledRadius; //Gaussian Function to find the percentage to adjust the height by!
                 double percentAdjust = Math.Exp(-((Math.Pow((x-foundPoint.x), 2) / (2 * pointsOutSquare)) + (Math.Pow((z - foundPoint.z), 2) / (2 * pointsOutSquare))));
                 var adjustedHeight = height;
                 if (isAbove) {

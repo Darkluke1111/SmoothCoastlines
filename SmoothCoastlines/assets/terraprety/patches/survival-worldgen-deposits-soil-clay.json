@@ -1,0 +1,16 @@
+[
+  {
+    "op": "replace",
+    "path": "/1/climate/minY",
+    "value": 0.95,
+    "file": "game:worldgen/deposits/soil/clay.json",
+    "side": "Server"
+  },
+  {
+    "op": "replace",
+    "path": "/1/climate/maxY",
+    "value": 1.05,
+    "file": "game:worldgen/deposits/soil/clay.json",
+    "side": "Server"
+  }
+]

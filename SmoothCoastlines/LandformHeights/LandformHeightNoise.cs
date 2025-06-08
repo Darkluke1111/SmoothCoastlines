@@ -21,9 +21,9 @@ namespace SmoothCoastlines.LandformHeights {
         public double centerHeight;
 
         public RequiredHeightPoints(int x, int z, int radius, double minHeight, double maxHeight) {
-            this.x = x;
-            this.z = z;
-            this.radius = radius;
+            this.x = (x / TerraGenConfig.landformMapScale);
+            this.z = (z / TerraGenConfig.landformMapScale);
+            this.radius = (radius / TerraGenConfig.landformMapScale);
             this.minHeight = minHeight;
             this.maxHeight = maxHeight;
             this.centerHeight = minHeight + ((maxHeight - minHeight) / 2);
