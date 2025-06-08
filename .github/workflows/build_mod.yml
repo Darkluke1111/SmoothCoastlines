@@ -1,3 +1,6 @@
+name: Build and Upload
+run-name: Build and Upload ${{github.ref_name}}
+
 on: workflow_dispatch
 
 jobs:
