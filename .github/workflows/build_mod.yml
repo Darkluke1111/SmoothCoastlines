@@ -1,0 +1,20 @@
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Containerized Build
+        uses: darkluke1111/vsmb@main
+        with: 
+          vs_version: 1.20.0
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: workspace_artifacts
+          path: ${{ github.workspace }}/${{env.RESULT}}
+
