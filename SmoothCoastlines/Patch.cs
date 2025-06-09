@@ -29,6 +29,16 @@ namespace SmoothCoastlines
             return false;
         }
 
+        //This patch switches the vanilla MapLandformGen class for the custom MapOceanGenSmooth class
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(GenMaps), nameof(GenMaps.GetLandformMapGen))]
+        public static bool Prefix(ref MapLayerBase __result, long seed, NoiseClimate climateNoise, ICoreServerAPI api, float landformScale)
+        {
+            new MapLayerLandforms(seed,climateNoise, api, landformScale); // Unused but it initializes static fields in NoiseLandforms that are used by a lot of vanilla code
+            __result = new MapLayerAltLandforms(seed, api, climateNoise, landformScale);
+            return false;
+        }
+
         //This patch changes the way that GenMaps generates the list of areas where the ocean map is forced to have land (for spawn and story structures) because MapOceanGenSmooth does this stuff differently than the vanilla one.
         [HarmonyPrefix]
         [HarmonyPatch(typeof(GenMaps), "ForceRandomLandArea")]
@@ -41,5 +51,7 @@ namespace SmoothCoastlines
 
             return false;
         }
+
+        
     }
 }
