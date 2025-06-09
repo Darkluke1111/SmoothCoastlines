@@ -29,7 +29,7 @@ namespace SmoothCoastlines
             return false;
         }
 
-        //This patch switches the vanilla MapLandformGen class for the custom MapOceanGenSmooth class
+        //This patch switches the vanilla MapLandformGen class for the custom MapLayerAltLandforms class
         [HarmonyPrefix]
         [HarmonyPatch(typeof(GenMaps), nameof(GenMaps.GetLandformMapGen))]
         public static bool Prefix(ref MapLayerBase __result, long seed, NoiseClimate climateNoise, ICoreServerAPI api, float landformScale)
