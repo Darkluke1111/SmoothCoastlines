@@ -1,96 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Vintagestory.API.MathTools;
+using Vintagestory.API.Server;
+using Vintagestory.ServerMods.NoObf;
+using Vintagestory.ServerMods;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
 
 namespace SmoothCoastlines
 {
-    using global::Vintagestory.API.Common;
-    using global::Vintagestory.API.MathTools;
-    using global::Vintagestory.API.Server;
-    using global::Vintagestory.ServerMods.NoObf;
-    using global::Vintagestory.ServerMods;
+
+
 
     namespace Vintagestory.ServerMods
     {
         class NoiseAltLandforms : NoiseBase
         {
-            // (Be aware, static vars never get unloaded even when singleplayer server has been shut down)
-            public static LandformsWorldProperty landforms;
 
             public float scale;
 
             public NoiseAltLandforms(long seed, ICoreServerAPI api, float scale) : base(seed)
             {
-                LoadLandforms(api);
                 this.scale = scale;
             }
 
-            public static void LoadLandforms(ICoreServerAPI api)
-            {
-                IAsset asset = api.Assets.Get("worldgen/landforms.json");
-                landforms = asset.ToObject<LandformsWorldProperty>();
-
-                int quantityMutations = 0;
-
-                for (int i = 0; i < landforms.Variants.Length; i++)
-                {
-                    LandformVariant variant = landforms.Variants[i];
-                    variant.index = i;
-                    variant.Init(api.WorldManager, i);
-
-                    if (variant.Mutations != null)
-                    {
-                        quantityMutations += variant.Mutations.Length;
-                    }
-                }
-
-                landforms.LandFormsByIndex = new LandformVariant[quantityMutations + landforms.Variants.Length];
-
-                // Mutations get indices after the parent ones
-                for (int i = 0; i < landforms.Variants.Length; i++)
-                {
-                    landforms.LandFormsByIndex[i] = landforms.Variants[i];
-                }
-
-                int nextIndex = landforms.Variants.Length;
-                for (int i = 0; i < landforms.Variants.Length; i++)
-                {
-                    LandformVariant variant = landforms.Variants[i];
-                    if (variant.Mutations != null)
-                    {
-                        for (int j = 0; j < variant.Mutations.Length; j++)
-                        {
-                            LandformVariant variantMut = variant.Mutations[j];
-
-                            if (variantMut.TerrainOctaves == null)
-                            {
-                                variantMut.TerrainOctaves = variant.TerrainOctaves;
-                            }
-                            if (variantMut.TerrainOctaveThresholds == null)
-                            {
-                                variantMut.TerrainOctaveThresholds = variant.TerrainOctaveThresholds;
-                            }
-                            if (variantMut.TerrainYKeyPositions == null)
-                            {
-                                variantMut.TerrainYKeyPositions = variant.TerrainYKeyPositions;
-                            }
-                            if (variantMut.TerrainYKeyThresholds == null)
-                            {
-                                variantMut.TerrainYKeyThresholds = variant.TerrainYKeyThresholds;
-                            }
 
 
-                            landforms.LandFormsByIndex[nextIndex] = variantMut;
-                            variantMut.Init(api.WorldManager, nextIndex);
-                            nextIndex++;
-                        }
-                    }
-                }
-            }
-
-            public int GetLandformIndexAt(int unscaledXpos, int unscaledZpos, int temp, int rain, int altitude)
+            public int GetLandformIndexAt(int unscaledXpos, int unscaledZpos, LandformsWorldProperty landforms, LandformAltitudeInfoWorldProperty altitudeInfo,  int temp, int rain, int altitude)
             {
                 float xpos = (float)unscaledXpos / scale;
                 float zpos = (float)unscaledZpos / scale;
@@ -98,7 +32,7 @@ namespace SmoothCoastlines
                 int xposInt = (int)xpos;
                 int zposInt = (int)zpos;
 
-                int parentIndex = GetParentLandformIndexAt(xposInt, zposInt, temp, rain, altitude);
+                int parentIndex = GetParentLandformIndexAt(xposInt, zposInt, landforms, altitudeInfo, temp, rain, altitude);
 
                 LandformVariant[] mutations = landforms.Variants[parentIndex].Mutations;
                 if (mutations != null && mutations.Length > 0)
@@ -130,7 +64,7 @@ namespace SmoothCoastlines
             }
 
 
-            public int GetParentLandformIndexAt(int xpos, int zpos, int temp, int rain, int altitude)
+            public int GetParentLandformIndexAt(int xpos, int zpos, LandformsWorldProperty landforms, LandformAltitudeInfoWorldProperty altitudeInfoList, int temp, int rain, int altitude)
             {
                 InitPositionSeed(xpos, zpos);
 
@@ -139,6 +73,13 @@ namespace SmoothCoastlines
                 for (i = 0; i < landforms.Variants.Length; i++)
                 {
                     double weight = landforms.Variants[i].Weight;
+
+                    var altitudeInfo = altitudeInfoList.GetInfo(landforms.Variants[i]);
+
+                    if (altitudeInfo == null || altitude < altitudeInfo.MinAltitude * 255 || altitude > altitudeInfo.MaxAltitude * 255)
+                    {
+                        weight = 0;
+                    }
 
                     if (landforms.Variants[i].UseClimateMap)
                     {
@@ -161,8 +102,6 @@ namespace SmoothCoastlines
 
                 return landforms.Variants[i].index;
             }
-
-
         }
     }
 

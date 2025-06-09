@@ -1,0 +1,15 @@
+{
+  "code": "altitudeinfo",
+  "variants": [
+    {
+      "code": "largeislands",
+      "MinAltitude": 0.0,
+      "MaxAltitude": 0.5
+    },
+    {
+      "code": "realisticflatlands",
+      "MinAltitude": 0.5,
+      "MaxAltitude": 1.0
+    }
+  ]
+}

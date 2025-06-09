@@ -9,6 +9,7 @@ using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.ServerMods;
+using Vintagestory.ServerMods.NoObf;
 
 namespace SmoothCoastlines
 {
@@ -19,6 +20,9 @@ namespace SmoothCoastlines
         NoiseAltLandforms noiseLandforms;
         MapLayerAltitude altitudeLayer;
 
+        LandformsWorldProperty landforms;
+        LandformAltitudeInfoWorldProperty altitudeInfo;
+
         NormalizedSimplexNoise noisegenX;
         NormalizedSimplexNoise noisegenY;
         float wobbleIntensity;
@@ -27,12 +31,13 @@ namespace SmoothCoastlines
         {
             this.api = api;
             this.climateNoise = climateNoise;
+
             float scale = TerraGenConfig.landformMapScale * landformScale;
-
             scale *= Math.Max(1, api.WorldManager.MapSizeY / 256f);
-
-            noiseLandforms = new NoiseAltLandforms(seed, api, scale);
+            noiseLandforms = new NoiseAltLandforms(seed, api, scale); // Very sad that we need to do this...
             altitudeLayer = new MapLayerAltitude(seed);
+            landforms = api.ModLoader.GetModSystem<SmoothCoastlinesModSystem>().landforms;
+            altitudeInfo = api.ModLoader.GetModSystem<SmoothCoastlinesModSystem>().altitudeInfo;
 
             int woctaves = 2;
             float wscale = 2f * TerraGenConfig.landformMapScale;
@@ -66,6 +71,8 @@ namespace SmoothCoastlines
                     result[z * sizeX + x] = noiseLandforms.GetLandformIndexAt(
                         finalX,
                         finalZ,
+                        landforms,
+                        altitudeInfo,
                         temp,
                         rain,
                         altitute[z * sizeX + x]

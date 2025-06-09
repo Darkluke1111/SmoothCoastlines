@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.Server;
+using Vintagestory.Common;
 using Vintagestory.ServerMods;
 
 namespace SmoothCoastlines
@@ -35,7 +36,8 @@ namespace SmoothCoastlines
         public void initWorldGen()
         {
             long seed = sapi.WorldManager.Seed;
-            noiseSizeAltitude = sapi.WorldManager.RegionSize / SmoothCoastlinesModSystem.config.altitudeMapScale;
+            noiseSizeAltitude = sapi.WorldManager.RegionSize / TerraGenConfig.landformMapScale;
+            // noiseSizeAltitude = sapi.WorldManager.RegionSize / SmoothCoastlinesModSystem.config.altitudeMapScale;
             altitudeGen = GetAltitudeMapGen(seed + 4);
 
         }
