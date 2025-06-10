@@ -45,7 +45,6 @@ namespace MapLayer
 
         public override int[] GenLayer(int xCoord, int zCoord, int sizeX, int sizeZ)
         {
-            //Console.WriteLine("Generating Layer for " + xCoord + " " + zCoord);
             var result = new int[sizeX * sizeZ];
             for (var x = 0; x < sizeX; x++)
             {
