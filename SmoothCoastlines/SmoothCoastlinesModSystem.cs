@@ -39,13 +39,13 @@ public class SmoothCoastlinesModSystem : ModSystem
     {
         try
         {
-            config = api.LoadModConfig<WorldGenConfig>("SmoothCoastlines.json");
+            config = api.LoadModConfig<WorldGenConfig>("TerraPrety.json");
             if (config == null)
             {
                 config = new WorldGenConfig();
             }
 
-            api.StoreModConfig<WorldGenConfig>(config, "SmoothCoastlines.json");
+            api.StoreModConfig<WorldGenConfig>(config, "TerraPrety.json");
         }
         catch (Exception e)
         {

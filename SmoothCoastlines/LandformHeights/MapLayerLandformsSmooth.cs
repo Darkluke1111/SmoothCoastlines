@@ -76,5 +76,9 @@ namespace SmoothCoastlines.LandformHeights {
         public void AddForcedLandform(ForceLandform forced) {
             noiseLandforms.AddForcedLandform(forced);
         }
+
+        public double GetHeightAt(int x, int z) {
+            return noiseLandforms.GetHeightAt(x, z);
+        }
     }
 }

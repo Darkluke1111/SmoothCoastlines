@@ -26,12 +26,14 @@ namespace SmoothCoastlines.LandformHeights {
         public double Height(int x, int z) {
             RequiredHeightPoints foundPoint = new RequiredHeightPoints(0,0,100,0,1); //This should never be accessed unless it's actually properly replaced.
             bool wasWithinRange = false;
-            foreach (var p in RequiredPoints) {
-                var scaledRadius = (int)(PointsOutwardsNeedingAverage * p.radius);
-                if (p.IsWithinRange(x, z, scaledRadius)) {
-                    foundPoint = p;
-                    wasWithinRange = true;
-                    break;
+            if (RequiredPoints != null && RequiredPoints.Count > 0) {
+                foreach (var p in RequiredPoints) {
+                    var scaledRadius = (int)(PointsOutwardsNeedingAverage * p.radius);
+                    if (p.IsWithinRange(x, z, scaledRadius)) {
+                        foundPoint = p;
+                        wasWithinRange = true;
+                        break;
+                    }
                 }
             }
 
