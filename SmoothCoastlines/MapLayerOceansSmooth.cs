@@ -61,7 +61,7 @@ namespace MapLayer
 
                     var landformHeightFactor = heightNoise.Height(unscaledXpos * 2, unscaledZpos * 2);
                     var finalOceanicity = (oceanicity * 255);
-                    finalOceanicity -= (landformHeightFactor * 10);
+                    finalOceanicity -= ((landformHeightFactor * 15) + (42 - (1 - landformHeightFactor)));
                     if (finalOceanicity < 0) {
                         finalOceanicity = 0;
                     }
