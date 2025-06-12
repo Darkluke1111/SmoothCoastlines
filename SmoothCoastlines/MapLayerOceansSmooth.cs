@@ -19,7 +19,6 @@ namespace MapLayer
         private WorldGenConfig config;
         VoronoiNoise voronoiNoise;
         Noise2D oceanNoise;
-        protected WeightedNormalizedSimplexNoise heightNoise;
 
         public float landFormHorizontalScale = 1f;
 
@@ -39,10 +38,6 @@ namespace MapLayer
 
         }
 
-        public void SetHeightMap(WeightedNormalizedSimplexNoise height) {
-            heightNoise = height;
-        }
-
         public override int[] GenLayer(int xCoord, int zCoord, int sizeX, int sizeZ)
         {
             var result = new int[sizeX * sizeZ];
@@ -59,7 +54,7 @@ namespace MapLayer
                     var unscaledZpos = nz + offsetZ;
                     var oceanicity = oceanNoise.getValueAt(unscaledXpos, unscaledZpos);
 
-                    result[z * sizeX + x] = (int)oceanicity;
+                    result[z * sizeX + x] = (int)(oceanicity * 255);
                 }
             }
 
