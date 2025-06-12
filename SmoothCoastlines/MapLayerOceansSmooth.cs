@@ -59,14 +59,7 @@ namespace MapLayer
                     var unscaledZpos = nz + offsetZ;
                     var oceanicity = oceanNoise.getValueAt(unscaledXpos, unscaledZpos);
 
-                    var landformHeightFactor = heightNoise.Height(unscaledXpos * 2, unscaledZpos * 2);
-                    var finalOceanicity = (oceanicity * 255);
-                    finalOceanicity -= ((landformHeightFactor * 15) + (42 - (1 - landformHeightFactor)));
-                    if (finalOceanicity < 0) {
-                        finalOceanicity = 0;
-                    }
-
-                    result[z * sizeX + x] = (int)finalOceanicity;
+                    result[z * sizeX + x] = (int)oceanicity;
                 }
             }
 
