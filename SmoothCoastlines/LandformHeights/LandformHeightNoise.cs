@@ -59,7 +59,6 @@ namespace SmoothCoastlines.LandformHeights {
             heightNoise = new WeightedNormalizedSimplexNoise(hOctaves, 1 / hScale, hPersistance, seed + 53247, this.config.radiusMultOutwardsForSmoothing);
 
             LoadLandforms(api);
-            ((MapLayerOceansSmooth)sapi.ModLoader.GetModSystem<GenMaps>().oceanGen).SetHeightMap(heightNoise); //Sends the version without any forced points.
         }
 
         public static void LoadLandforms(ICoreServerAPI api) {
@@ -148,8 +147,6 @@ namespace SmoothCoastlines.LandformHeights {
             }
 
             heightNoise.SetRequiredPoints(reqHeights);
-
-            ((MapLayerOceansSmooth)sapi.ModLoader.GetModSystem<GenMaps>().oceanGen).SetHeightMap(heightNoise); //Sends it again after the points have been initialized to update them.
         }
 
         public void FindForcedLandformID() {
