@@ -15,6 +15,12 @@ namespace SmoothCoastlines
         public double[] remappingKeys = { 0.125, 0.45 };
         public double[] remappingValues = {0.0, 1.0};
 
+        public float heightCompOceanicityMult = 100.0f;
+        public int heightCompOceanicityFlatFactor = 0;
+        public float lowRangeHeightForOceanicityComp = 0.2f;
+        public float highRangeHeightForOceanicityComp = 0.5f;
+        public int highRangeFlatFactor = 5;
+
         public int heightMapOctaves = 1;
         public float heightMapNoiseScale = 85.0f;
         public float heightMapPersistance = 0.1f;

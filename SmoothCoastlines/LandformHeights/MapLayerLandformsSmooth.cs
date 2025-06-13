@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Vintagestory.API.Common;
+using Vintagestory.API.Config;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.ServerMods;
@@ -12,7 +14,7 @@ namespace SmoothCoastlines.LandformHeights {
 
     public class MapLayerLandformsSmooth : MapLayerBase {
 
-        private LandformHeightNoise noiseLandforms;
+        public static LandformHeightNoise noiseLandforms;
         NoiseClimate climateNoise;
 
         NormalizedSimplexNoise noisegenX;
@@ -46,6 +48,7 @@ namespace SmoothCoastlines.LandformHeights {
                 noiseLandforms.SetForcedHeightPoints();
                 noiseLandforms.FindForcedLandformID();
             }
+            noiseLandforms.PrepareForNewHeightmap(xCoord, zCoord, sizeX, sizeZ);
 
             int[] result = new int[sizeX * sizeZ];
 
@@ -60,7 +63,7 @@ namespace SmoothCoastlines.LandformHeights {
                     int climate = climateNoise.GetLerpedClimateAt(finalX / TerraGenConfig.climateMapScale, finalZ / TerraGenConfig.climateMapScale);
                     int rain = climate >> 8 & 0xff;
                     int temp = Climate.GetScaledAdjustedTemperature(climate >> 16 & 0xff, 0);
-
+                    
                     result[z * sizeX + x] = noiseLandforms.GetLandformIndexAt(
                         finalX,
                         finalZ,
@@ -77,8 +80,9 @@ namespace SmoothCoastlines.LandformHeights {
             noiseLandforms.AddForcedLandform(forced);
         }
 
-        public double GetHeightAt(int x, int z) {
-            return noiseLandforms.GetHeightAt(x, z);
+        public void AddHeightmapToRegion(IMapRegion region) {
+            var heightMap = noiseLandforms.GetHeightData();
+            region.ModMaps["LandformHeightMap"] = heightMap;
         }
     }
 }

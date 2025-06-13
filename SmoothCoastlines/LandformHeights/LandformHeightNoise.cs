@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Vintagestory.API.Common;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.ServerMods;
@@ -45,11 +46,20 @@ namespace SmoothCoastlines.LandformHeights {
         protected WorldGenConfig config;
         protected int fallbackParentLandformID;
         public float scale;
+        public float oceanicityFactor;
         private ICoreServerAPI sapi;
+
+        public const int significantDigitMult = 10000;
+        protected int xPos;
+        protected int zPos;
+        protected int heightMapRegionXSize;
+        protected int heightMapRegionZSize;
+        public static int[] heightMapValues;
 
         public LandformHeightNoise(long seed, ICoreServerAPI api, float scale, WorldGenConfig config) : base(seed) {
             this.scale = scale;
             this.config = config;
+            this.oceanicityFactor = api.WorldManager.MapSizeY / 256 * 0.33333f;
             forcedLandforms = new List<ForceLandform>();
             sapi = api;
 
@@ -197,6 +207,7 @@ namespace SmoothCoastlines.LandformHeights {
 
             double weightSum = 0;
             double heightAtPoint = heightNoise.Height(unscaledXpos, unscaledZpos);
+            SaveValueToHeightmap(heightAtPoint);
             int i;
             for (i = 0; i < landforms.Variants.Length; i++) {
                 double weight = landforms.Variants[i].Weight;
@@ -228,8 +239,46 @@ namespace SmoothCoastlines.LandformHeights {
             return landforms.Variants[i].index;
         }
 
-        public double GetHeightAt(int x, int z) {
-            return heightNoise.Height(x, z);
+        public float GetCompValueForOceanicity(int worldX, int worldZ) {
+            var heightAtX = worldX / TerraGenConfig.landformMapScale;
+            var heightAtZ = worldZ / TerraGenConfig.landformMapScale;
+            var height = heightNoise.Height((int)heightAtX, (int)heightAtZ);
+            var compValue = (float)(height * config.heightCompOceanicityMult) * oceanicityFactor;
+
+            if (height < config.lowRangeHeightForOceanicityComp) {
+                compValue = 1;
+            } else if (height >= config.highRangeHeightForOceanicityComp) {
+                compValue += config.highRangeFlatFactor;
+            }
+            compValue += config.heightCompOceanicityFlatFactor;
+
+            return compValue;
+        }
+
+        public void PrepareForNewHeightmap(int xCoord, int zCoord, int sizeX, int sizeZ) {
+            heightMapValues = null;
+            heightMapValues = new int[sizeX * sizeZ];
+            heightMapRegionXSize = sizeX;
+            heightMapRegionZSize = sizeZ;
+            xPos = 0;
+            zPos = 0;
+        }
+
+        public void SaveValueToHeightmap(double height) {
+            heightMapValues[zPos * heightMapRegionXSize + xPos] = (int)(height * significantDigitMult);
+
+            zPos++;
+            if (zPos >= heightMapRegionZSize) {
+                zPos = 0;
+                xPos++;
+            }
+        }
+
+        public IntDataMap2D GetHeightData() {
+            return new IntDataMap2D {
+                Data = heightMapValues,
+                Size = heightMapRegionXSize
+            };
         }
     }
 }

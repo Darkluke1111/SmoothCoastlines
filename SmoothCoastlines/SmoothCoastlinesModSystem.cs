@@ -16,10 +16,12 @@ public class SmoothCoastlinesModSystem : ModSystem
     public static WorldGenConfig config;
 
     public Harmony harmony;
-    private ICoreServerAPI api;
+    public static ILogger Logger;
+    public static ICoreServerAPI Sapi;
 
     public override void StartPre(ICoreAPI api)
     {
+        Logger = Mod.Logger;
         if (!Harmony.HasAnyPatches(Mod.Info.ModID))
         {
             harmony = new Harmony(Mod.Info.ModID);
@@ -30,7 +32,7 @@ public class SmoothCoastlinesModSystem : ModSystem
 
     public override void StartServerSide(ICoreServerAPI api)
     {
-        this.api = api;
+        Sapi = api;
 
         TryToLoadConfig(api);
     }
