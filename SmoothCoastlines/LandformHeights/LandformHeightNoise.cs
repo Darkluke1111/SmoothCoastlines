@@ -239,20 +239,45 @@ namespace SmoothCoastlines.LandformHeights {
             return landforms.Variants[i].index;
         }
 
-        public float GetCompValueForOceanicity(int worldX, int worldZ) {
+        public float GetCompValueForOceanicity(int worldX, int worldZ, float oceanicity) {
             var heightAtX = worldX / TerraGenConfig.landformMapScale;
             var heightAtZ = worldZ / TerraGenConfig.landformMapScale;
             var height = heightNoise.Height((int)heightAtX, (int)heightAtZ);
-            var compValue = (float)(height * config.heightCompOceanicityMult) * oceanicityFactor;
 
-            if (height < config.lowRangeHeightForOceanicityComp) {
-                compValue = 1;
-            } else if (height >= config.highRangeHeightForOceanicityComp) {
-                compValue += config.highRangeFlatFactor;
+            if (height > config.heightAboveWhichToWatchOceanicity) {
+                if (oceanicity < config.highHeightLowOceanicityMin) {
+                    return config.highHeightLowOceanicityMin;
+                } else if (oceanicity < config.highHeightLowOceanicityMax) {
+                    return 1;
+                }
+            } else if (height > config.heightMidAboveWhichToWatchOceanicity) {
+                if (oceanicity < config.midHeightMidOceanicityMin) {
+                    return config.midHeightMidOceanicityMin;
+                } else if (oceanicity < config.midHeightMidOceanicityMax) {
+                    return 1;
+                }
             }
-            compValue += config.heightCompOceanicityFlatFactor;
+
+                var thresholdIndex = GetHeightThresholdIndex(height);
+            var compValue = (float)(height * config.heightMultsAtThresholdsForOceanicityComp[thresholdIndex]) * oceanicityFactor;
+            compValue += config.heightFlatsAtThresholdsForOceanicityComp[thresholdIndex];
 
             return compValue;
+        }
+
+        public int GetHeightThresholdIndex(double height) { //This will find a valid threshold or simply return the last one.
+            var thresholds = config.heightThresholdsForOceanicityComp;
+            var prevThreshold = 0.0f;
+            int i;
+
+            for (i = 0; i < thresholds.Length; i++) {
+                if (height >= prevThreshold && height <= thresholds[i]) {
+                    return i;
+                }
+                prevThreshold = thresholds[i];
+            }
+
+            return i;
         }
 
         public void PrepareForNewHeightmap(int xCoord, int zCoord, int sizeX, int sizeZ) {
@@ -275,9 +300,14 @@ namespace SmoothCoastlines.LandformHeights {
         }
 
         public IntDataMap2D GetHeightData() {
+            var pad = TerraGenConfig.landformMapPadding;
+            var landformScale = sapi.WorldManager.RegionSize / TerraGenConfig.landformMapScale;
+
             return new IntDataMap2D {
                 Data = heightMapValues,
-                Size = heightMapRegionXSize
+                Size = landformScale + 2 * pad,
+                TopLeftPadding = pad,
+                BottomRightPadding = pad
             };
         }
     }

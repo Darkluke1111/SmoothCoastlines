@@ -68,21 +68,6 @@ namespace SmoothCoastlines
             return true;
         }
 
-        /*[HarmonyTranspiler]
-        [HarmonyPatch(typeof(GenMaps), nameof(GenMaps.ForceLandformAt))]
-        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator ilGenerator) {
-            var codes = new List<CodeInstruction>(instructions);
-
-            var updateNoiseLandform = new List<CodeInstruction> { //Attempt to copy over and assign the Landforms file from HeightNoise into the vanilla NoiseLandforms so vanilla calls can still pull from it properly.
-                new CodeInstruction(OpCodes.Ldsfld, AccessTools.Field("LandformHeightNoise:landforms")),
-                new CodeInstruction(OpCodes.Stsfld, AccessTools.Field("NoiseLandforms:landforms"))
-            }; //Will this actually set it? I HAVE NO IDEA! It feels TOO simple to work like this... It worked? Hah! Yay.
-
-            codes.InsertRange(0, updateNoiseLandform);
-
-            return codes.AsEnumerable();
-        }*/
-
         [HarmonyTranspiler]
         [HarmonyPatch(typeof(GenMaps), "OnMapRegionGen")]
         public static IEnumerable<CodeInstruction> OnMapRegionGenTranspiler(IEnumerable<CodeInstruction> instructions) {
@@ -157,14 +142,13 @@ namespace SmoothCoastlines
                 }
             }
 
-            var getHeightmapCompMethod = AccessTools.Method(typeof(GenTerraPatches), "GetHeightmapCompValue", new Type[2] { typeof(int), typeof(int) });
-            var getHeightmapCompMethod2 = AccessTools.Method(typeof(GenTerraPatches), "GetHeightmapCompValue", new Type[3] { typeof(int), typeof(int), typeof(float) });
+            var getHeightmapCompMethod = AccessTools.Method(typeof(GenTerraPatches), "GetHeightmapCompValue", new Type[3] { typeof(int), typeof(int), typeof(float) });
 
             var factorHeightmapAgainstOceanicity = new List<CodeInstruction> { 
                 new CodeInstruction(OpCodes.Ldloc_2),
                 new CodeInstruction(OpCodes.Ldloc_3),
                 new CodeInstruction(OpCodes.Ldloc_S, oceanicity),
-                new CodeInstruction(OpCodes.Call, getHeightmapCompMethod2)
+                new CodeInstruction(OpCodes.Call, getHeightmapCompMethod)
             };
 
             if (indexOfOceanicityCompVal > -1) {
@@ -183,12 +167,8 @@ namespace SmoothCoastlines
             return codes.AsEnumerable();
         }
 
-        private static float GetHeightmapCompValue(int worldx, int worldz) {
-            return MapLayerLandformsSmooth.noiseLandforms.GetCompValueForOceanicity(worldx, worldz);
-        }
-
         private static float GetHeightmapCompValue(int worldx, int worldz, float oceanicity) {
-            return MapLayerLandformsSmooth.noiseLandforms.GetCompValueForOceanicity(worldx, worldz);
+            return MapLayerLandformsSmooth.noiseLandforms.GetCompValueForOceanicity(worldx, worldz, oceanicity);
         }
     }
 }
