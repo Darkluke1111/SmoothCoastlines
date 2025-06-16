@@ -1,5 +1,6 @@
 ﻿
 using SmoothCoastlines;
+using SmoothCoastlines.LandformHeights;
 using SmoothCoastLines.Noise;
 using System;
 using System.Collections.Generic;
@@ -53,7 +54,7 @@ namespace MapLayer
                     var unscaledZpos = nz + offsetZ;
                     var oceanicity = oceanNoise.getValueAt(unscaledXpos, unscaledZpos);
 
-                    result[z * sizeX + x] = (int) (oceanicity * 255);
+                    result[z * sizeX + x] = (int)(oceanicity * 255);
                 }
             }
 
