@@ -28,7 +28,9 @@ namespace SmoothCoastlines
         public int heightMapOctaves = 1;
         public float heightMapNoiseScale = 66.0f;
         public float heightMapPersistance = 0.1f;
-        public float radiusMultOutwardsForSmoothing = 8.0f;
+        public double[] heightmapRemapKeys = { 0.05, 0.2, 0.5, 0.8, 0.95 };
+        public double[] heightmapRemapValues = { 0.05, 0.35, 0.5, 0.65, 0.95 };
+        public float radiusMultOutwardsForSmoothing = 6.0f;
         public string fallbackParentLandformCode = "ultraflats"; //This is just in case it somehow rolls a height value with no valid Landforms that would fit it, it will use this one instead.
     }
 }

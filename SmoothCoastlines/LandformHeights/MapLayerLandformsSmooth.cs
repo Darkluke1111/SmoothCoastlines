@@ -51,7 +51,6 @@ namespace SmoothCoastlines.LandformHeights {
             noiseLandforms.PrepareForNewHeightmap(xCoord, zCoord, sizeX, sizeZ);
 
             int[] result = new int[sizeX * sizeZ];
-
             for (int x = 0; x < sizeX; x++) {
                 for (int z = 0; z < sizeZ; z++) {
                     int offsetX = (int)(wobbleIntensity * noisegenX.Noise(xCoord + x, zCoord + z) * 1.2f);
