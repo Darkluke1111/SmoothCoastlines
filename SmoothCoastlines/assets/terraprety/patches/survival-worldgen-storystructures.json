@@ -2,7 +2,7 @@
   {
     "op": "replace",
     "path": "/structures/0/requireLandform",
-    "value": "eternalrockyconcavegigantichillsdryvalley",
+    "value": "eternalrockyconcaveimmortalhillspond",
     "file": "game:worldgen/storystructures.json",
     "side": "Server"
   },

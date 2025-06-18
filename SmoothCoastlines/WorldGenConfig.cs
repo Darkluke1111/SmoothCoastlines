@@ -26,9 +26,9 @@ namespace SmoothCoastlines
         public float midHeightMidOceanicityMax = 16.4f; //These values are the oceanicity at the spot multiplied by the OceanicityFactor, this is what it recieves so it makes it easier to calculate them
 
         public int heightMapOctaves = 1;
-        public float heightMapNoiseScale = 85.0f;
+        public float heightMapNoiseScale = 66.0f;
         public float heightMapPersistance = 0.1f;
-        public float radiusMultOutwardsForSmoothing = 3.0f;
+        public float radiusMultOutwardsForSmoothing = 8.0f;
         public string fallbackParentLandformCode = "ultraflats"; //This is just in case it somehow rolls a height value with no valid Landforms that would fit it, it will use this one instead.
     }
 }

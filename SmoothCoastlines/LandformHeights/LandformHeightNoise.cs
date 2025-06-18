@@ -153,7 +153,11 @@ namespace SmoothCoastlines.LandformHeights {
                 } else {
                     heights = new LandformGenHeight();
                 }
-                reqHeights.Add(new RequiredHeightPoints(forcedLand.CenterPos.X, forcedLand.CenterPos.Z, forcedLand.Radius, heights.minHeight, heights.maxHeight));
+
+                var modifiedX = forcedLand.CenterPos.X + forcedLand.Radius;
+                var modifiedZ = forcedLand.CenterPos.Z + forcedLand.Radius;
+
+                reqHeights.Add(new RequiredHeightPoints(modifiedX, modifiedZ, forcedLand.Radius, heights.minHeight, heights.maxHeight));
             }
 
             heightNoise.SetRequiredPoints(reqHeights);
@@ -207,6 +211,7 @@ namespace SmoothCoastlines.LandformHeights {
 
             double weightSum = 0;
             double heightAtPoint = heightNoise.Height(unscaledXpos, unscaledZpos);
+
             SaveValueToHeightmap(heightAtPoint);
             int i;
             for (i = 0; i < landforms.Variants.Length; i++) {
@@ -258,7 +263,7 @@ namespace SmoothCoastlines.LandformHeights {
                 }
             }
 
-                var thresholdIndex = GetHeightThresholdIndex(height);
+            var thresholdIndex = GetHeightThresholdIndex(height);
             var compValue = (float)(height * config.heightMultsAtThresholdsForOceanicityComp[thresholdIndex]) * oceanicityFactor;
             compValue += config.heightFlatsAtThresholdsForOceanicityComp[thresholdIndex];
 
@@ -277,7 +282,7 @@ namespace SmoothCoastlines.LandformHeights {
                 prevThreshold = thresholds[i];
             }
 
-            return i;
+            return 0;
         }
 
         public void PrepareForNewHeightmap(int xCoord, int zCoord, int sizeX, int sizeZ) {
@@ -302,9 +307,11 @@ namespace SmoothCoastlines.LandformHeights {
         public IntDataMap2D GetHeightData() {
             var pad = TerraGenConfig.landformMapPadding;
             var landformScale = sapi.WorldManager.RegionSize / TerraGenConfig.landformMapScale;
+            int[] heightCopy = new int[heightMapValues.Length];
+            heightMapValues.CopyTo(heightCopy, 0);
 
             return new IntDataMap2D {
-                Data = heightMapValues,
+                Data = heightCopy,
                 Size = landformScale + 2 * pad,
                 TopLeftPadding = pad,
                 BottomRightPadding = pad

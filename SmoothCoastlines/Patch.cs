@@ -156,7 +156,7 @@ namespace SmoothCoastlines
                 //codes[indexOfOceanicityCompVal].opcode = OpCodes.Nop;
                 codes.InsertRange(indexOfOceanicityCompVal, factorHeightmapAgainstOceanicity);
             } else {
-                SmoothCoastlinesModSystem.Logger.Error("Transpiler on GenTerra's Generate Lambda Method has failed.");
+                SmoothCoastlinesModSystem.Logger.Error("Transpiler on GenTerra's Generate Lambda Method has failed. Shoving the Sea Water placement closer to the coast will not function.");
                 if (isOceanicitySet) {
                     SmoothCoastlinesModSystem.Logger.Error("Could not locate first loading of Oceanicity.");
                 } else if (ldlocCount < 2) {
