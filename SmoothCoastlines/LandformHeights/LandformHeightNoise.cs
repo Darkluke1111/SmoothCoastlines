@@ -66,7 +66,7 @@ namespace SmoothCoastlines.LandformHeights {
             int hOctaves = this.config.heightMapOctaves;
             float hScale = this.config.heightMapNoiseScale;
             float hPersistance = this.config.heightMapPersistance;
-            heightNoise = new WeightedNormalizedSimplexNoise(hOctaves, 1 / hScale, hPersistance, seed + 53247, this.config.radiusMultOutwardsForSmoothing, this.config.heightmapRemapKeys, this.config.heightmapRemapValues);
+            heightNoise = new WeightedNormalizedSimplexNoise(hOctaves, 1 / hScale, hPersistance, seed + 53247, this.config.radiusMultOutwardsForSmoothing);
 
             LoadLandforms(api);
         }

@@ -13,14 +13,10 @@ namespace SmoothCoastlines.LandformHeights {
         private NormalizedSimplexNoise SimplexNoise;
         private List<RequiredHeightPoints> RequiredPoints; //Any point here has a specific height for the Landform it is expecting, and this holds that min-max height.
         private float PointsOutwardsNeedingAverage; //This many steps outwards from a required point will be adjusted towards the required height.
-        private double[] remappingKeys;
-        private double[] remappingValues;
 
-        public WeightedNormalizedSimplexNoise(int quantityOctaves, double baseFrequency, double persistance, long seed, float pointsOutForAverage, double[] remapKeys, double[] remapValues) {
+        public WeightedNormalizedSimplexNoise(int quantityOctaves, double baseFrequency, double persistance, long seed, float pointsOutForAverage) {
             SimplexNoise = NormalizedSimplexNoise.FromDefaultOctaves(quantityOctaves, baseFrequency, persistance, seed);
             PointsOutwardsNeedingAverage = pointsOutForAverage;
-            remappingKeys = remapKeys;
-            remappingValues = remapValues;
         }
 
         public void SetRequiredPoints(List<RequiredHeightPoints> reqPoints) {
@@ -47,7 +43,6 @@ namespace SmoothCoastlines.LandformHeights {
             }
 
             var height = SimplexNoise.Noise(x, z); //First grab the height.
-            height = RemapHeight(height);
 
             if (wasWithinRange) { //If the point was within the range of the required heights...
                 //Handle the smoothing here. foundPoint is set.
@@ -59,31 +54,6 @@ namespace SmoothCoastlines.LandformHeights {
             }
 
             return height;
-        }
-
-        public double RemapHeight(double baseHeight) {
-            if (remappingKeys == null || remappingValues == null || remappingKeys.Length != remappingValues.Length) {
-                return baseHeight;
-            }
-
-            var keyCount = remappingKeys.Length;
-            var currentKey = 0.0;
-            var currentValue = 0.0;
-
-            for (int i = 0; i < keyCount + 1; i++) {
-                var nextKey = i < keyCount ? remappingKeys[i] : 1.0;
-                var nextValue = i < keyCount ? remappingValues[i] : 1.0;
-
-                if (nextKey > baseHeight) {
-                    var t = (baseHeight - currentKey) / (nextKey - currentKey);
-                    return GameMath.Lerp(currentValue, nextValue, t);
-                }
-
-                currentKey = nextKey;
-                currentValue = nextValue;
-            }
-
-            return remappingValues[keyCount];
         }
 
         public double GetAdjustmentFromGaussian(int radius, RequiredHeightPoints foundPoint, int x, int z) {
