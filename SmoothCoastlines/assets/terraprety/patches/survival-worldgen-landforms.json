@@ -4,10 +4,288 @@
     "path": "/variants",
     "value": [
       {
+        "code": "abridgedsmoothrotundgentleslopespond",
+        "comment": "abridgedsmoothrotundgentleslopespond",
+        "hexcolor": "#333333",
+        "weight": 5.6,
+        "terrainOctaves": [
+          0,
+          0,
+          0,
+          0,
+          0.25,
+          0,
+          0.16,
+          0,
+          0.04
+        ],
+        "terrainOctaveThresholds": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "terrainYKeyPositions": [
+          0.371,
+          0.433,
+          0.473,
+          0.514
+        ],
+        "terrainYKeyThresholds": [
+          0.832,
+          0.744,
+          0.476,
+          0.003
+        ],
+        "mutations": [
+          {
+            "code": "abridgedsmoothrotundgentleslopespond",
+            "comment": "abridgedsmoothrotundgentleslopespond",
+            "chance": 0.15,
+            "hexcolor": "#AAAA00",
+            "terrainOctaves": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0.3,
+              0,
+              0.03
+            ],
+            "terrainOctaveThresholds": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "terrainYKeyPositions": [
+              0.373,
+              0.433,
+              0.486
+            ],
+            "terrainYKeyThresholds": [
+              0.832,
+              0.744,
+              0.0
+            ]
+          }
+        ]
+      },
+      {
+        "code": "abridgedruggedrotundgentleslopespond",
+        "comment": "abridgedruggedrotundgentleslopespond",
+        "hexcolor": "#333333",
+        "weight": 2.8,
+        "terrainOctaves": [
+          0,
+          0,
+          0,
+          0,
+          0.25,
+          0.2,
+          0.2,
+          0.2,
+          0.14
+        ],
+        "terrainOctaveThresholds": [
+          0,
+          0,
+          0,
+          0,
+          0.02,
+          0.02,
+          0.02,
+          0.02,
+          0.042
+        ],
+        "terrainYKeyPositions": [
+          0.371,
+          0.433,
+          0.473,
+          0.514
+        ],
+        "terrainYKeyThresholds": [
+          0.832,
+          0.744,
+          0.476,
+          0.003
+        ],
+        "mutations": [
+          {
+            "code": "abridgedruggedrotundgentleslopespond",
+            "comment": "abridgedruggedrotundgentleslopespond",
+            "chance": 0.15,
+            "hexcolor": "#AAAA00",
+            "terrainOctaves": [
+              0,
+              0,
+              0,
+              0,
+              0.8,
+              0,
+              0.3,
+              0.04,
+              0.01
+            ],
+            "terrainOctaveThresholds": [
+              0,
+              0,
+              0,
+              0,
+              0.06,
+              0.06,
+              0.06,
+              0.06,
+              0.015
+            ],
+            "terrainYKeyPositions": [
+              0.373,
+              0.433,
+              0.486
+            ],
+            "terrainYKeyThresholds": [
+              0.832,
+              0.744,
+              0.0
+            ]
+          }
+        ]
+      },
+      {
+        "code": "abridgedrockyrotundgentleslopespond",
+        "comment": "abridgedrockyrotundgentleslopespond",
+        "hexcolor": "#333333",
+        "weight": 2.8,
+        "terrainOctaves": [
+          0,
+          0,
+          0,
+          0,
+          0.25,
+          0.2,
+          0.2,
+          0.2,
+          0.16
+        ],
+        "terrainOctaveThresholds": [
+          0,
+          0,
+          0,
+          0,
+          0.02,
+          0.02,
+          0.02,
+          0.02,
+          0.042
+        ],
+        "terrainYKeyPositions": [
+          0.396,
+          0.505,
+          0.591
+        ],
+        "terrainYKeyThresholds": [
+          1.0,
+          0.59,
+          0.0
+        ],
+        "mutations": [
+          {
+            "code": "abridgedrockyrotundgentleslopespond",
+            "comment": "abridgedrockyrotundgentleslopespond",
+            "chance": 0.15,
+            "hexcolor": "#AAAA00",
+            "terrainOctaves": [
+              0,
+              0,
+              0,
+              0,
+              0.8,
+              0,
+              0.3,
+              0.04,
+              0.01
+            ],
+            "terrainOctaveThresholds": [
+              0,
+              0,
+              0,
+              0,
+              0.06,
+              0.06,
+              0.06,
+              0.06,
+              0.015
+            ],
+            "terrainYKeyPositions": [
+              0.373,
+              0.433,
+              0.486
+            ],
+            "terrainYKeyThresholds": [
+              0.832,
+              0.744,
+              0.0
+            ]
+          },
+          {
+            "code": "abridgedrockyrotundgentleslopespond",
+            "comment": "abridgedrockyrotundgentleslopespond",
+            "chance": 0.15,
+            "hexcolor": "#AAAA00",
+            "terrainOctaves": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0.2,
+              0.2,
+              0.2,
+              0.16
+            ],
+            "terrainOctaveThresholds": [
+              0,
+              0,
+              0,
+              0,
+              0.02,
+              0.02,
+              0.02,
+              0.02,
+              0.042
+            ],
+            "terrainYKeyPositions": [
+              0.371,
+              0.433,
+              0.473,
+              0.514
+            ],
+            "terrainYKeyThresholds": [
+              0.832,
+              0.744,
+              0.476,
+              0.003
+            ]
+          }
+        ]
+      },
+      {
         "code": "abridgedsmoothrotundfoothillspond",
         "comment": "abridgedsmoothrotundfoothillspond",
         "hexcolor": "#333333",
-        "weight": 2.8,
+        "weight": 5.6,
         "terrainOctaves": [
           0,
           0,
@@ -83,7 +361,7 @@
         "code": "abridgedruggedrotundfoothillspond",
         "comment": "abridgedruggedrotundfoothillspond",
         "hexcolor": "#333333",
-        "weight": 1.4,
+        "weight": 2.8,
         "terrainOctaves": [
           0,
           0,
@@ -159,7 +437,7 @@
         "code": "abridgedrockyrotundfoothillspond",
         "comment": "abridgedrockyrotundfoothillspond",
         "hexcolor": "#333333",
-        "weight": 1.4,
+        "weight": 2.8,
         "terrainOctaves": [
           0,
           0,
@@ -270,10 +548,292 @@
         ]
       },
       {
+        "code": "abridgedsmoothconcavegentleslopespond",
+        "comment": "abridgedsmoothconcavegentleslopespond",
+        "hexcolor": "#333333",
+        "weight": 15,
+        "terrainOctaves": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0.3,
+          0,
+          0.06
+        ],
+        "terrainOctaveThresholds": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "terrainYKeyPositions": [
+          0.37,
+          0.431,
+          0.458,
+          0.514
+        ],
+        "terrainYKeyThresholds": [
+          0.829,
+          0.711,
+          0.429,
+          0.0
+        ],
+        "mutations": [
+          {
+            "code": "abridgedsmoothconcavegentleslopespond",
+            "comment": "abridgedsmoothconcavegentleslopespond",
+            "chance": 0.15,
+            "hexcolor": "#AAAA00",
+            "terrainOctaves": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0.3,
+              0,
+              0.03
+            ],
+            "terrainOctaveThresholds": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "terrainYKeyPositions": [
+              0.37,
+              0.431,
+              0.46,
+              0.486
+            ],
+            "terrainYKeyThresholds": [
+              0.83,
+              0.711,
+              0.197,
+              0.0
+            ]
+          }
+        ]
+      },
+      {
+        "code": "abridgedruggedconcavegentleslopespond",
+        "comment": "abridgedruggedconcavegentleslopespond",
+        "hexcolor": "#333333",
+        "weight": 7.5,
+        "terrainOctaves": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0.2,
+          0.2,
+          0.2,
+          0.14
+        ],
+        "terrainOctaveThresholds": [
+          0,
+          0,
+          0,
+          0,
+          0.02,
+          0.02,
+          0.02,
+          0.02,
+          0.042
+        ],
+        "terrainYKeyPositions": [
+          0.37,
+          0.431,
+          0.458,
+          0.514
+        ],
+        "terrainYKeyThresholds": [
+          0.829,
+          0.711,
+          0.429,
+          0.0
+        ],
+        "mutations": [
+          {
+            "code": "abridgedruggedconcavegentleslopespond",
+            "comment": "abridgedruggedconcavegentleslopespond",
+            "chance": 0.15,
+            "hexcolor": "#AAAA00",
+            "terrainOctaves": [
+              0,
+              0,
+              0,
+              0,
+              0.8,
+              0,
+              0.3,
+              0.04,
+              0.01
+            ],
+            "terrainOctaveThresholds": [
+              0,
+              0,
+              0,
+              0,
+              0.06,
+              0.06,
+              0.06,
+              0.06,
+              0.015
+            ],
+            "terrainYKeyPositions": [
+              0.37,
+              0.431,
+              0.46,
+              0.486
+            ],
+            "terrainYKeyThresholds": [
+              0.83,
+              0.711,
+              0.197,
+              0.0
+            ]
+          }
+        ]
+      },
+      {
+        "code": "abridgedrockyconcavegentleslopespond",
+        "comment": "abridgedrockyconcavegentleslopespond",
+        "hexcolor": "#333333",
+        "weight": 7.5,
+        "terrainOctaves": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0.2,
+          0.2,
+          0.2,
+          0.16
+        ],
+        "terrainOctaveThresholds": [
+          0,
+          0,
+          0,
+          0,
+          0.02,
+          0.02,
+          0.02,
+          0.02,
+          0.042
+        ],
+        "terrainYKeyPositions": [
+          0.413,
+          0.59
+        ],
+        "terrainYKeyThresholds": [
+          1.0,
+          0.0
+        ],
+        "mutations": [
+          {
+            "code": "abridgedrockyconcavegentleslopespond",
+            "comment": "abridgedrockyconcavegentleslopespond",
+            "chance": 0.15,
+            "hexcolor": "#AAAA00",
+            "terrainOctaves": [
+              0,
+              0,
+              0,
+              0,
+              0.8,
+              0,
+              0.3,
+              0.04,
+              0.01
+            ],
+            "terrainOctaveThresholds": [
+              0,
+              0,
+              0,
+              0,
+              0.06,
+              0.06,
+              0.06,
+              0.06,
+              0.015
+            ],
+            "terrainYKeyPositions": [
+              0.37,
+              0.431,
+              0.46,
+              0.486
+            ],
+            "terrainYKeyThresholds": [
+              0.83,
+              0.711,
+              0.197,
+              0.0
+            ]
+          },
+          {
+            "code": "abridgedrockyconcavegentleslopespond",
+            "comment": "abridgedrockyconcavegentleslopespond",
+            "chance": 0.15,
+            "hexcolor": "#AAAA00",
+            "terrainOctaves": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0.2,
+              0.2,
+              0.2,
+              0.16
+            ],
+            "terrainOctaveThresholds": [
+              0,
+              0,
+              0,
+              0,
+              0.02,
+              0.02,
+              0.02,
+              0.02,
+              0.042
+            ],
+            "terrainYKeyPositions": [
+              0.37,
+              0.431,
+              0.458,
+              0.514
+            ],
+            "terrainYKeyThresholds": [
+              0.829,
+              0.711,
+              0.429,
+              0.0
+            ]
+          }
+        ]
+      },
+      {
         "code": "abridgedsmoothconcavefoothillspond",
         "comment": "abridgedsmoothconcavefoothillspond",
         "hexcolor": "#333333",
-        "weight": 5.6,
+        "weight": 15,
         "terrainOctaves": [
           0,
           0,
@@ -353,7 +913,7 @@
         "code": "abridgedruggedconcavefoothillspond",
         "comment": "abridgedruggedconcavefoothillspond",
         "hexcolor": "#333333",
-        "weight": 2.8,
+        "weight": 7.5,
         "terrainOctaves": [
           0,
           0,
@@ -433,7 +993,7 @@
         "code": "abridgedrockyconcavefoothillspond",
         "comment": "abridgedrockyconcavefoothillspond",
         "hexcolor": "#333333",
-        "weight": 2.8,
+        "weight": 7.5,
         "terrainOctaves": [
           0,
           0,
@@ -546,10 +1106,288 @@
         ]
       },
       {
+        "code": "broadsmoothrotundgentleslopespond",
+        "comment": "broadsmoothrotundgentleslopespond",
+        "hexcolor": "#333333",
+        "weight": 5.6,
+        "terrainOctaves": [
+          0,
+          0,
+          0,
+          0.5,
+          0.5,
+          0,
+          0.16,
+          0,
+          0.04
+        ],
+        "terrainOctaveThresholds": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "terrainYKeyPositions": [
+          0.373,
+          0.433,
+          0.473,
+          0.514
+        ],
+        "terrainYKeyThresholds": [
+          0.865,
+          0.777,
+          0.476,
+          0.003
+        ],
+        "mutations": [
+          {
+            "code": "broadsmoothrotundgentleslopespond",
+            "comment": "broadsmoothrotundgentleslopespond",
+            "chance": 0.15,
+            "hexcolor": "#AAAA00",
+            "terrainOctaves": [
+              0,
+              0,
+              0,
+              1,
+              1,
+              0,
+              0.3,
+              0,
+              0.03
+            ],
+            "terrainOctaveThresholds": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "terrainYKeyPositions": [
+              0.371,
+              0.433,
+              0.486
+            ],
+            "terrainYKeyThresholds": [
+              0.865,
+              0.777,
+              0.0
+            ]
+          }
+        ]
+      },
+      {
+        "code": "broadruggedrotundgentleslopespond",
+        "comment": "broadruggedrotundgentleslopespond",
+        "hexcolor": "#333333",
+        "weight": 2.8,
+        "terrainOctaves": [
+          0,
+          0,
+          0,
+          0.5,
+          0.5,
+          0.2,
+          0.2,
+          0.2,
+          0.14
+        ],
+        "terrainOctaveThresholds": [
+          0,
+          0,
+          0,
+          0.02,
+          0.02,
+          0.02,
+          0.02,
+          0.02,
+          0.042
+        ],
+        "terrainYKeyPositions": [
+          0.373,
+          0.433,
+          0.473,
+          0.514
+        ],
+        "terrainYKeyThresholds": [
+          0.865,
+          0.777,
+          0.476,
+          0.003
+        ],
+        "mutations": [
+          {
+            "code": "broadruggedrotundgentleslopespond",
+            "comment": "broadruggedrotundgentleslopespond",
+            "chance": 0.15,
+            "hexcolor": "#AAAA00",
+            "terrainOctaves": [
+              0,
+              0,
+              0,
+              0.8,
+              0.8,
+              0,
+              0.3,
+              0.04,
+              0.01
+            ],
+            "terrainOctaveThresholds": [
+              0,
+              0,
+              0,
+              0.06,
+              0.06,
+              0.06,
+              0.06,
+              0.06,
+              0.015
+            ],
+            "terrainYKeyPositions": [
+              0.371,
+              0.433,
+              0.486
+            ],
+            "terrainYKeyThresholds": [
+              0.865,
+              0.777,
+              0.0
+            ]
+          }
+        ]
+      },
+      {
+        "code": "broadrockyrotundgentleslopespond",
+        "comment": "broadrockyrotundgentleslopespond",
+        "hexcolor": "#333333",
+        "weight": 2.8,
+        "terrainOctaves": [
+          0,
+          0,
+          0,
+          0.5,
+          0.5,
+          0.2,
+          0.2,
+          0.2,
+          0.16
+        ],
+        "terrainOctaveThresholds": [
+          0,
+          0,
+          0,
+          0.02,
+          0.02,
+          0.02,
+          0.02,
+          0.02,
+          0.042
+        ],
+        "terrainYKeyPositions": [
+          0.396,
+          0.505,
+          0.591
+        ],
+        "terrainYKeyThresholds": [
+          1.0,
+          0.59,
+          0.0
+        ],
+        "mutations": [
+          {
+            "code": "broadrockyrotundgentleslopespond",
+            "comment": "broadrockyrotundgentleslopespond",
+            "chance": 0.15,
+            "hexcolor": "#AAAA00",
+            "terrainOctaves": [
+              0,
+              0,
+              0,
+              0.8,
+              0.8,
+              0,
+              0.3,
+              0.04,
+              0.01
+            ],
+            "terrainOctaveThresholds": [
+              0,
+              0,
+              0,
+              0.06,
+              0.06,
+              0.06,
+              0.06,
+              0.06,
+              0.015
+            ],
+            "terrainYKeyPositions": [
+              0.371,
+              0.433,
+              0.486
+            ],
+            "terrainYKeyThresholds": [
+              0.865,
+              0.777,
+              0.0
+            ]
+          },
+          {
+            "code": "broadrockyrotundgentleslopespond",
+            "comment": "broadrockyrotundgentleslopespond",
+            "chance": 0.15,
+            "hexcolor": "#AAAA00",
+            "terrainOctaves": [
+              0,
+              0,
+              0,
+              1,
+              1,
+              0.2,
+              0.2,
+              0.2,
+              0.16
+            ],
+            "terrainOctaveThresholds": [
+              0,
+              0,
+              0,
+              0.02,
+              0.02,
+              0.02,
+              0.02,
+              0.02,
+              0.042
+            ],
+            "terrainYKeyPositions": [
+              0.373,
+              0.433,
+              0.473,
+              0.514
+            ],
+            "terrainYKeyThresholds": [
+              0.865,
+              0.777,
+              0.476,
+              0.003
+            ]
+          }
+        ]
+      },
+      {
         "code": "broadsmoothrotundfoothillspond",
         "comment": "broadsmoothrotundfoothillspond",
         "hexcolor": "#333333",
-        "weight": 2.8,
+        "weight": 5.6,
         "terrainOctaves": [
           0,
           0,
@@ -625,7 +1463,7 @@
         "code": "broadruggedrotundfoothillspond",
         "comment": "broadruggedrotundfoothillspond",
         "hexcolor": "#333333",
-        "weight": 1.4,
+        "weight": 2.8,
         "terrainOctaves": [
           0,
           0,
@@ -701,7 +1539,7 @@
         "code": "broadrockyrotundfoothillspond",
         "comment": "broadrockyrotundfoothillspond",
         "hexcolor": "#333333",
-        "weight": 1.4,
+        "weight": 2.8,
         "terrainOctaves": [
           0,
           0,
@@ -815,7 +1653,7 @@
         "code": "broadsmoothrotundgrandhillspond",
         "comment": "broadsmoothrotundgrandhillspond",
         "hexcolor": "#333333",
-        "weight": 1.4,
+        "weight": 2.8,
         "terrainOctaves": [
           0,
           0,
@@ -893,7 +1731,7 @@
         "code": "broadruggedrotundgrandhillspond",
         "comment": "broadruggedrotundgrandhillspond",
         "hexcolor": "#333333",
-        "weight": 0.6,
+        "weight": 1.4,
         "terrainOctaves": [
           0,
           0,
@@ -971,7 +1809,7 @@
         "code": "broadrockyrotundgrandhillspond",
         "comment": "broadrockyrotundgrandhillspond",
         "hexcolor": "#333333",
-        "weight": 0.6,
+        "weight": 1.4,
         "terrainOctaves": [
           0,
           0,
@@ -1082,10 +1920,292 @@
         ]
       },
       {
+        "code": "broadsmoothconcavegentleslopespond",
+        "comment": "broadsmoothconcavegentleslopespond",
+        "hexcolor": "#333333",
+        "weight": 15,
+        "terrainOctaves": [
+          0,
+          0,
+          0,
+          0.5,
+          0.5,
+          0,
+          0.3,
+          0,
+          0.06
+        ],
+        "terrainOctaveThresholds": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "terrainYKeyPositions": [
+          0.352,
+          0.431,
+          0.461,
+          0.514
+        ],
+        "terrainYKeyThresholds": [
+          0.865,
+          0.744,
+          0.436,
+          0.0
+        ],
+        "mutations": [
+          {
+            "code": "broadsmoothconcavegentleslopespond",
+            "comment": "broadsmoothconcavegentleslopespond",
+            "chance": 0.15,
+            "hexcolor": "#AAAA00",
+            "terrainOctaves": [
+              0,
+              0,
+              0,
+              1,
+              1,
+              0,
+              0.3,
+              0,
+              0.03
+            ],
+            "terrainOctaveThresholds": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "terrainYKeyPositions": [
+              0.353,
+              0.431,
+              0.46,
+              0.486
+            ],
+            "terrainYKeyThresholds": [
+              0.867,
+              0.744,
+              0.197,
+              0.0
+            ]
+          }
+        ]
+      },
+      {
+        "code": "broadruggedconcavegentleslopespond",
+        "comment": "broadruggedconcavegentleslopespond",
+        "hexcolor": "#333333",
+        "weight": 7.5,
+        "terrainOctaves": [
+          0,
+          0,
+          0,
+          0.5,
+          0.5,
+          0.2,
+          0.2,
+          0.2,
+          0.14
+        ],
+        "terrainOctaveThresholds": [
+          0,
+          0,
+          0,
+          0.02,
+          0.02,
+          0.02,
+          0.02,
+          0.02,
+          0.042
+        ],
+        "terrainYKeyPositions": [
+          0.352,
+          0.431,
+          0.461,
+          0.514
+        ],
+        "terrainYKeyThresholds": [
+          0.865,
+          0.744,
+          0.436,
+          0.0
+        ],
+        "mutations": [
+          {
+            "code": "broadruggedconcavegentleslopespond",
+            "comment": "broadruggedconcavegentleslopespond",
+            "chance": 0.15,
+            "hexcolor": "#AAAA00",
+            "terrainOctaves": [
+              0,
+              0,
+              0,
+              0.8,
+              0.8,
+              0,
+              0.3,
+              0.04,
+              0.01
+            ],
+            "terrainOctaveThresholds": [
+              0,
+              0,
+              0,
+              0.06,
+              0.06,
+              0.06,
+              0.06,
+              0.06,
+              0.015
+            ],
+            "terrainYKeyPositions": [
+              0.353,
+              0.431,
+              0.46,
+              0.486
+            ],
+            "terrainYKeyThresholds": [
+              0.867,
+              0.744,
+              0.197,
+              0.0
+            ]
+          }
+        ]
+      },
+      {
+        "code": "broadrockyconcavegentleslopespond",
+        "comment": "broadrockyconcavegentleslopespond",
+        "hexcolor": "#333333",
+        "weight": 7.5,
+        "terrainOctaves": [
+          0,
+          0,
+          0,
+          0.5,
+          0.5,
+          0.2,
+          0.2,
+          0.2,
+          0.16
+        ],
+        "terrainOctaveThresholds": [
+          0,
+          0,
+          0,
+          0.02,
+          0.02,
+          0.02,
+          0.02,
+          0.02,
+          0.042
+        ],
+        "terrainYKeyPositions": [
+          0.413,
+          0.59
+        ],
+        "terrainYKeyThresholds": [
+          1.0,
+          0.0
+        ],
+        "mutations": [
+          {
+            "code": "broadrockyconcavegentleslopespond",
+            "comment": "broadrockyconcavegentleslopespond",
+            "chance": 0.15,
+            "hexcolor": "#AAAA00",
+            "terrainOctaves": [
+              0,
+              0,
+              0,
+              0.8,
+              0.8,
+              0,
+              0.3,
+              0.04,
+              0.01
+            ],
+            "terrainOctaveThresholds": [
+              0,
+              0,
+              0,
+              0.06,
+              0.06,
+              0.06,
+              0.06,
+              0.06,
+              0.015
+            ],
+            "terrainYKeyPositions": [
+              0.353,
+              0.431,
+              0.46,
+              0.486
+            ],
+            "terrainYKeyThresholds": [
+              0.867,
+              0.744,
+              0.197,
+              0.0
+            ]
+          },
+          {
+            "code": "broadrockyconcavegentleslopespond",
+            "comment": "broadrockyconcavegentleslopespond",
+            "chance": 0.15,
+            "hexcolor": "#AAAA00",
+            "terrainOctaves": [
+              0,
+              0,
+              0,
+              1,
+              1,
+              0.2,
+              0.2,
+              0.2,
+              0.16
+            ],
+            "terrainOctaveThresholds": [
+              0,
+              0,
+              0,
+              0.02,
+              0.02,
+              0.02,
+              0.02,
+              0.02,
+              0.042
+            ],
+            "terrainYKeyPositions": [
+              0.352,
+              0.431,
+              0.461,
+              0.514
+            ],
+            "terrainYKeyThresholds": [
+              0.865,
+              0.744,
+              0.436,
+              0.0
+            ]
+          }
+        ]
+      },
+      {
         "code": "broadsmoothconcavefoothillspond",
         "comment": "broadsmoothconcavefoothillspond",
         "hexcolor": "#333333",
-        "weight": 7.5,
+        "weight": 15,
         "terrainOctaves": [
           0,
           0,
@@ -1165,7 +2285,7 @@
         "code": "broadruggedconcavefoothillspond",
         "comment": "broadruggedconcavefoothillspond",
         "hexcolor": "#333333",
-        "weight": 3.75,
+        "weight": 7.5,
         "terrainOctaves": [
           0,
           0,
@@ -1245,7 +2365,7 @@
         "code": "broadrockyconcavefoothillspond",
         "comment": "broadrockyconcavefoothillspond",
         "hexcolor": "#333333",
-        "weight": 3.75,
+        "weight": 7.5,
         "terrainOctaves": [
           0,
           0,
@@ -1361,7 +2481,7 @@
         "code": "broadsmoothconcavegrandhillspond",
         "comment": "broadsmoothconcavegrandhillspond",
         "hexcolor": "#333333",
-        "weight": 3.75,
+        "weight": 7.5,
         "terrainOctaves": [
           0,
           0,
@@ -1443,7 +2563,7 @@
         "code": "broadruggedconcavegrandhillspond",
         "comment": "broadruggedconcavegrandhillspond",
         "hexcolor": "#333333",
-        "weight": 1.875,
+        "weight": 3.75,
         "terrainOctaves": [
           0,
           0,
@@ -1525,7 +2645,7 @@
         "code": "broadrockyconcavegrandhillspond",
         "comment": "broadrockyconcavegrandhillspond",
         "hexcolor": "#333333",
-        "weight": 1.875,
+        "weight": 3.75,
         "terrainOctaves": [
           0,
           0,
@@ -1669,16 +2789,14 @@
           0
         ],
         "terrainYKeyPositions": [
-          0.413,
+          0.37,
           0.433,
-          0.44,
           0.473,
           0.514
         ],
         "terrainYKeyThresholds": [
-          1.0,
-          0.91,
-          0.8,
+          0.9,
+          0.81,
           0.476,
           0.003
         ],
@@ -1711,15 +2829,13 @@
               0
             ],
             "terrainYKeyPositions": [
-              0.413,
+              0.37,
               0.433,
-              0.44,
               0.486
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.91,
-              0.8,
+              0.9,
+              0.81,
               0.0
             ]
           }
@@ -1753,16 +2869,14 @@
           0.042
         ],
         "terrainYKeyPositions": [
-          0.413,
+          0.37,
           0.433,
-          0.44,
           0.473,
           0.514
         ],
         "terrainYKeyThresholds": [
-          1.0,
-          0.91,
-          0.8,
+          0.9,
+          0.81,
           0.476,
           0.003
         ],
@@ -1795,15 +2909,13 @@
               0.015
             ],
             "terrainYKeyPositions": [
-              0.413,
+              0.37,
               0.433,
-              0.44,
               0.486
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.91,
-              0.8,
+              0.9,
+              0.81,
               0.0
             ]
           }
@@ -1875,15 +2987,13 @@
               0.015
             ],
             "terrainYKeyPositions": [
-              0.413,
+              0.37,
               0.433,
-              0.44,
               0.486
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.91,
-              0.8,
+              0.9,
+              0.81,
               0.0
             ]
           },
@@ -1915,16 +3025,14 @@
               0.042
             ],
             "terrainYKeyPositions": [
-              0.413,
+              0.37,
               0.433,
-              0.44,
               0.473,
               0.514
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.91,
-              0.8,
+              0.9,
+              0.81,
               0.476,
               0.003
             ]
@@ -2497,15 +3605,13 @@
           0
         ],
         "terrainYKeyPositions": [
-          0.39,
+          0.37,
           0.431,
-          0.435,
           0.44,
           0.461
         ],
         "terrainYKeyThresholds": [
-          1.0,
-          0.877,
+          0.893,
           0.777,
           0.436,
           0.0
@@ -2539,15 +3645,13 @@
               0
             ],
             "terrainYKeyPositions": [
-              0.39,
+              0.37,
               0.431,
-              0.439,
               0.451
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.877,
-              0.455,
+              0.896,
+              0.777,
               0.0
             ]
           }
@@ -2581,15 +3685,13 @@
           0.042
         ],
         "terrainYKeyPositions": [
-          0.39,
+          0.37,
           0.431,
-          0.435,
           0.44,
           0.461
         ],
         "terrainYKeyThresholds": [
-          1.0,
-          0.877,
+          0.893,
           0.777,
           0.436,
           0.0
@@ -2623,15 +3725,13 @@
               0.015
             ],
             "terrainYKeyPositions": [
-              0.39,
+              0.37,
               0.431,
-              0.439,
               0.451
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.877,
-              0.455,
+              0.896,
+              0.777,
               0.0
             ]
           }
@@ -2665,17 +3765,15 @@
           0
         ],
         "terrainYKeyPositions": [
-          0.39,
+          0.373,
           0.431,
-          0.435,
-          0.459,
+          0.454,
           0.489
         ],
         "terrainYKeyThresholds": [
-          1.0,
-          0.877,
+          0.888,
           0.777,
-          0.431,
+          0.418,
           0.0
         ],
         "mutations": [
@@ -2707,16 +3805,14 @@
               0
             ],
             "terrainYKeyPositions": [
-              0.39,
+              0.368,
               0.431,
-              0.446,
               0.46,
               0.486
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.877,
-              0.457,
+              0.888,
+              0.777,
               0.197,
               0.0
             ]
@@ -2751,17 +3847,15 @@
           0.042
         ],
         "terrainYKeyPositions": [
-          0.39,
+          0.373,
           0.431,
-          0.435,
-          0.459,
+          0.454,
           0.489
         ],
         "terrainYKeyThresholds": [
-          1.0,
-          0.877,
+          0.888,
           0.777,
-          0.431,
+          0.418,
           0.0
         ],
         "mutations": [
@@ -2793,16 +3887,14 @@
               0.015
             ],
             "terrainYKeyPositions": [
-              0.39,
+              0.368,
               0.431,
-              0.446,
               0.46,
               0.486
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.877,
-              0.457,
+              0.888,
+              0.777,
               0.197,
               0.0
             ]
@@ -2837,15 +3929,13 @@
           0
         ],
         "terrainYKeyPositions": [
-          0.39,
+          0.35,
           0.431,
-          0.435,
           0.461,
           0.514
         ],
         "terrainYKeyThresholds": [
-          1.0,
-          0.877,
+          0.9,
           0.777,
           0.436,
           0.0
@@ -2879,16 +3969,14 @@
               0
             ],
             "terrainYKeyPositions": [
-              0.39,
+              0.348,
               0.431,
-              0.446,
               0.46,
               0.486
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.877,
-              0.457,
+              0.898,
+              0.777,
               0.197,
               0.0
             ]
@@ -2923,15 +4011,13 @@
           0.042
         ],
         "terrainYKeyPositions": [
-          0.39,
+          0.35,
           0.431,
-          0.435,
           0.461,
           0.514
         ],
         "terrainYKeyThresholds": [
-          1.0,
-          0.877,
+          0.9,
           0.777,
           0.436,
           0.0
@@ -2965,16 +4051,14 @@
               0.015
             ],
             "terrainYKeyPositions": [
-              0.39,
+              0.348,
               0.431,
-              0.446,
               0.46,
               0.486
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.877,
-              0.457,
+              0.898,
+              0.777,
               0.197,
               0.0
             ]
@@ -3045,16 +4129,14 @@
               0.015
             ],
             "terrainYKeyPositions": [
-              0.39,
+              0.348,
               0.431,
-              0.446,
               0.46,
               0.486
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.877,
-              0.457,
+              0.898,
+              0.777,
               0.197,
               0.0
             ]
@@ -3087,15 +4169,13 @@
               0.042
             ],
             "terrainYKeyPositions": [
-              0.39,
+              0.35,
               0.431,
-              0.435,
               0.461,
               0.514
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.877,
+              0.9,
               0.777,
               0.436,
               0.0
@@ -3889,16 +4969,14 @@
           0
         ],
         "terrainYKeyPositions": [
-          0.413,
+          0.368,
           0.433,
-          0.44,
           0.473,
           0.514
         ],
         "terrainYKeyThresholds": [
-          1.0,
-          0.91,
-          0.8,
+          0.93,
+          0.844,
           0.476,
           0.003
         ],
@@ -3931,15 +5009,13 @@
               0
             ],
             "terrainYKeyPositions": [
-              0.413,
+              0.373,
               0.433,
-              0.44,
               0.486
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.91,
-              0.8,
+              0.934,
+              0.844,
               0.0
             ]
           }
@@ -3973,16 +5049,14 @@
           0.042
         ],
         "terrainYKeyPositions": [
-          0.413,
+          0.368,
           0.433,
-          0.44,
           0.473,
           0.514
         ],
         "terrainYKeyThresholds": [
-          1.0,
-          0.91,
-          0.8,
+          0.93,
+          0.844,
           0.476,
           0.003
         ],
@@ -4015,15 +5089,13 @@
               0.015
             ],
             "terrainYKeyPositions": [
-              0.413,
+              0.373,
               0.433,
-              0.44,
               0.486
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.91,
-              0.8,
+              0.934,
+              0.844,
               0.0
             ]
           }
@@ -4095,15 +5167,13 @@
               0.015
             ],
             "terrainYKeyPositions": [
-              0.413,
+              0.373,
               0.433,
-              0.44,
               0.486
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.91,
-              0.8,
+              0.934,
+              0.844,
               0.0
             ]
           },
@@ -4135,16 +5205,14 @@
               0.042
             ],
             "terrainYKeyPositions": [
-              0.413,
+              0.368,
               0.433,
-              0.44,
               0.473,
               0.514
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.91,
-              0.8,
+              0.93,
+              0.844,
               0.476,
               0.003
             ]
@@ -4717,16 +5785,14 @@
           0
         ],
         "terrainYKeyPositions": [
-          0.39,
+          0.366,
           0.431,
-          0.435,
           0.44,
           0.461
         ],
         "terrainYKeyThresholds": [
-          1.0,
-          0.877,
-          0.777,
+          0.91,
+          0.811,
           0.436,
           0.0
         ],
@@ -4759,15 +5825,13 @@
               0
             ],
             "terrainYKeyPositions": [
-              0.39,
+              0.368,
               0.431,
-              0.439,
               0.451
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.877,
-              0.455,
+              0.905,
+              0.811,
               0.0
             ]
           }
@@ -4801,16 +5865,14 @@
           0.042
         ],
         "terrainYKeyPositions": [
-          0.39,
+          0.366,
           0.431,
-          0.435,
           0.44,
           0.461
         ],
         "terrainYKeyThresholds": [
-          1.0,
-          0.877,
-          0.777,
+          0.91,
+          0.811,
           0.436,
           0.0
         ],
@@ -4843,15 +5905,13 @@
               0.015
             ],
             "terrainYKeyPositions": [
-              0.39,
+              0.368,
               0.431,
-              0.439,
               0.451
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.877,
-              0.455,
+              0.905,
+              0.811,
               0.0
             ]
           }
@@ -4885,17 +5945,15 @@
           0
         ],
         "terrainYKeyPositions": [
-          0.39,
+          0.368,
           0.431,
-          0.435,
-          0.459,
+          0.453,
           0.489
         ],
         "terrainYKeyThresholds": [
-          1.0,
-          0.877,
-          0.777,
-          0.431,
+          0.904,
+          0.811,
+          0.423,
           0.0
         ],
         "mutations": [
@@ -4927,16 +5985,14 @@
               0
             ],
             "terrainYKeyPositions": [
-              0.39,
+              0.368,
               0.431,
-              0.446,
               0.46,
               0.486
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.877,
-              0.457,
+              0.907,
+              0.811,
               0.197,
               0.0
             ]
@@ -4971,17 +6027,15 @@
           0.042
         ],
         "terrainYKeyPositions": [
-          0.39,
+          0.368,
           0.431,
-          0.435,
-          0.459,
+          0.453,
           0.489
         ],
         "terrainYKeyThresholds": [
-          1.0,
-          0.877,
-          0.777,
-          0.431,
+          0.904,
+          0.811,
+          0.423,
           0.0
         ],
         "mutations": [
@@ -5013,16 +6067,14 @@
               0.015
             ],
             "terrainYKeyPositions": [
-              0.39,
+              0.368,
               0.431,
-              0.446,
               0.46,
               0.486
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.877,
-              0.457,
+              0.907,
+              0.811,
               0.197,
               0.0
             ]
@@ -5057,16 +6109,14 @@
           0
         ],
         "terrainYKeyPositions": [
-          0.39,
+          0.372,
           0.431,
-          0.435,
           0.461,
           0.514
         ],
         "terrainYKeyThresholds": [
-          1.0,
-          0.877,
-          0.777,
+          0.937,
+          0.844,
           0.436,
           0.0
         ],
@@ -5099,16 +6149,14 @@
               0
             ],
             "terrainYKeyPositions": [
-              0.39,
+              0.37,
               0.431,
-              0.446,
               0.46,
               0.486
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.877,
-              0.457,
+              0.937,
+              0.844,
               0.197,
               0.0
             ]
@@ -5143,16 +6191,14 @@
           0.042
         ],
         "terrainYKeyPositions": [
-          0.39,
+          0.372,
           0.431,
-          0.435,
           0.461,
           0.514
         ],
         "terrainYKeyThresholds": [
-          1.0,
-          0.877,
-          0.777,
+          0.937,
+          0.844,
           0.436,
           0.0
         ],
@@ -5185,16 +6231,14 @@
               0.015
             ],
             "terrainYKeyPositions": [
-              0.39,
+              0.37,
               0.431,
-              0.446,
               0.46,
               0.486
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.877,
-              0.457,
+              0.937,
+              0.844,
               0.197,
               0.0
             ]
@@ -5265,16 +6309,14 @@
               0.015
             ],
             "terrainYKeyPositions": [
-              0.39,
+              0.37,
               0.431,
-              0.446,
               0.46,
               0.486
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.877,
-              0.457,
+              0.937,
+              0.844,
               0.197,
               0.0
             ]
@@ -5307,16 +6349,14 @@
               0.042
             ],
             "terrainYKeyPositions": [
-              0.39,
+              0.372,
               0.431,
-              0.435,
               0.461,
               0.514
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.877,
-              0.777,
+              0.937,
+              0.844,
               0.436,
               0.0
             ]
@@ -6479,16 +7519,16 @@
           0
         ],
         "terrainYKeyPositions": [
-          0.413,
+          0.371,
           0.433,
-          0.44,
+          0.442,
           0.473,
           0.514
         ],
         "terrainYKeyThresholds": [
-          1.0,
-          0.91,
-          0.8,
+          0.959,
+          0.877,
+          0.765,
           0.476,
           0.003
         ],
@@ -6521,15 +7561,15 @@
               0
             ],
             "terrainYKeyPositions": [
-              0.413,
+              0.37,
               0.433,
               0.44,
               0.486
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.91,
-              0.8,
+              0.955,
+              0.877,
+              0.767,
               0.0
             ]
           }
@@ -6563,16 +7603,16 @@
           0.042
         ],
         "terrainYKeyPositions": [
-          0.413,
+          0.371,
           0.433,
-          0.44,
+          0.442,
           0.473,
           0.514
         ],
         "terrainYKeyThresholds": [
-          1.0,
-          0.91,
-          0.8,
+          0.959,
+          0.877,
+          0.765,
           0.476,
           0.003
         ],
@@ -6605,15 +7645,15 @@
               0.015
             ],
             "terrainYKeyPositions": [
-              0.413,
+              0.37,
               0.433,
               0.44,
               0.486
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.91,
-              0.8,
+              0.955,
+              0.877,
+              0.767,
               0.0
             ]
           }
@@ -6685,15 +7725,15 @@
               0.015
             ],
             "terrainYKeyPositions": [
-              0.413,
+              0.37,
               0.433,
               0.44,
               0.486
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.91,
-              0.8,
+              0.955,
+              0.877,
+              0.767,
               0.0
             ]
           },
@@ -6725,16 +7765,16 @@
               0.042
             ],
             "terrainYKeyPositions": [
-              0.413,
+              0.371,
               0.433,
-              0.44,
+              0.442,
               0.473,
               0.514
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.91,
-              0.8,
+              0.959,
+              0.877,
+              0.765,
               0.476,
               0.003
             ]
@@ -7349,16 +8389,14 @@
           0
         ],
         "terrainYKeyPositions": [
-          0.39,
+          0.37,
           0.431,
-          0.435,
           0.44,
           0.461
         ],
         "terrainYKeyThresholds": [
-          1.0,
-          0.877,
-          0.777,
+          0.933,
+          0.844,
           0.436,
           0.0
         ],
@@ -7391,14 +8429,14 @@
               0
             ],
             "terrainYKeyPositions": [
-              0.39,
+              0.37,
               0.431,
               0.439,
               0.451
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.877,
+              0.933,
+              0.844,
               0.455,
               0.0
             ]
@@ -7433,16 +8471,14 @@
           0.042
         ],
         "terrainYKeyPositions": [
-          0.39,
+          0.37,
           0.431,
-          0.435,
           0.44,
           0.461
         ],
         "terrainYKeyThresholds": [
-          1.0,
-          0.877,
-          0.777,
+          0.933,
+          0.844,
           0.436,
           0.0
         ],
@@ -7475,14 +8511,14 @@
               0.015
             ],
             "terrainYKeyPositions": [
-              0.39,
+              0.37,
               0.431,
               0.439,
               0.451
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.877,
+              0.933,
+              0.844,
               0.455,
               0.0
             ]
@@ -7517,17 +8553,17 @@
           0
         ],
         "terrainYKeyPositions": [
-          0.39,
+          0.368,
           0.431,
           0.435,
-          0.459,
+          0.456,
           0.489
         ],
         "terrainYKeyThresholds": [
-          1.0,
-          0.877,
+          0.935,
+          0.844,
           0.777,
-          0.431,
+          0.426,
           0.0
         ],
         "mutations": [
@@ -7559,15 +8595,15 @@
               0
             ],
             "terrainYKeyPositions": [
-              0.39,
+              0.373,
               0.431,
               0.446,
               0.46,
               0.486
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.877,
+              0.932,
+              0.844,
               0.457,
               0.197,
               0.0
@@ -7603,17 +8639,17 @@
           0.042
         ],
         "terrainYKeyPositions": [
-          0.39,
+          0.368,
           0.431,
           0.435,
-          0.459,
+          0.456,
           0.489
         ],
         "terrainYKeyThresholds": [
-          1.0,
-          0.877,
+          0.935,
+          0.844,
           0.777,
-          0.431,
+          0.426,
           0.0
         ],
         "mutations": [
@@ -7645,15 +8681,15 @@
               0.015
             ],
             "terrainYKeyPositions": [
-              0.39,
+              0.373,
               0.431,
               0.446,
               0.46,
               0.486
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.877,
+              0.932,
+              0.844,
               0.457,
               0.197,
               0.0
@@ -7689,16 +8725,14 @@
           0
         ],
         "terrainYKeyPositions": [
-          0.39,
+          0.35,
           0.431,
-          0.435,
           0.461,
           0.514
         ],
         "terrainYKeyThresholds": [
-          1.0,
-          0.877,
-          0.777,
+          0.945,
+          0.844,
           0.436,
           0.0
         ],
@@ -7731,16 +8765,14 @@
               0
             ],
             "terrainYKeyPositions": [
-              0.39,
+              0.353,
               0.431,
-              0.446,
               0.46,
               0.486
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.877,
-              0.457,
+              0.932,
+              0.844,
               0.197,
               0.0
             ]
@@ -7775,16 +8807,14 @@
           0.042
         ],
         "terrainYKeyPositions": [
-          0.39,
+          0.35,
           0.431,
-          0.435,
           0.461,
           0.514
         ],
         "terrainYKeyThresholds": [
-          1.0,
-          0.877,
-          0.777,
+          0.945,
+          0.844,
           0.436,
           0.0
         ],
@@ -7817,16 +8847,14 @@
               0.015
             ],
             "terrainYKeyPositions": [
-              0.39,
+              0.353,
               0.431,
-              0.446,
               0.46,
               0.486
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.877,
-              0.457,
+              0.932,
+              0.844,
               0.197,
               0.0
             ]
@@ -7897,16 +8925,14 @@
               0.015
             ],
             "terrainYKeyPositions": [
-              0.39,
+              0.353,
               0.431,
-              0.446,
               0.46,
               0.486
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.877,
-              0.457,
+              0.932,
+              0.844,
               0.197,
               0.0
             ]
@@ -7939,16 +8965,14 @@
               0.042
             ],
             "terrainYKeyPositions": [
-              0.39,
+              0.35,
               0.431,
-              0.435,
               0.461,
               0.514
             ],
             "terrainYKeyThresholds": [
-              1.0,
-              0.877,
-              0.777,
+              0.945,
+              0.844,
               0.436,
               0.0
             ]
