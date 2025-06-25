@@ -249,25 +249,19 @@ namespace SmoothCoastlines.LandformHeights {
             var heightAtZ = worldZ / TerraGenConfig.landformMapScale;
             var height = heightNoise.Height((int)heightAtX, (int)heightAtZ);
 
-            if (height > config.heightAboveWhichToWatchOceanicity) {
-                if (oceanicity < config.highHeightLowOceanicityMin) {
+            /*if (height > config.heightAboveWhichToWatchOceanicity) {
+                if (oceanicity < (config.highHeightLowOceanicityMin * oceanicityFactor)) {
                     return config.highHeightLowOceanicityMin;
-                } else if (oceanicity < config.highHeightLowOceanicityMax) {
-                    return 1;
                 }
             } else if (height > config.heightMidAboveWhichToWatchOceanicity) {
-                if (oceanicity < config.midHeightMidOceanicityMin) {
+                if (oceanicity < (config.midHeightMidOceanicityMin * oceanicityFactor)) {
                     return config.midHeightMidOceanicityMin;
-                } else if (oceanicity < config.midHeightMidOceanicityMax) {
-                    return 1;
                 }
-            }
+            }*/
 
             var thresholdIndex = GetHeightThresholdIndex(height);
             var compValue = (float)(height * config.heightMultsAtThresholdsForOceanicityComp[thresholdIndex]) * oceanicityFactor;
-            compValue += config.heightFlatsAtThresholdsForOceanicityComp[thresholdIndex];
-
-            return compValue;
+            return (compValue + config.heightFlatsAtThresholdsForOceanicityComp[thresholdIndex]);
         }
 
         public int GetHeightThresholdIndex(double height) { //This will find a valid threshold or simply return the last one.
@@ -276,7 +270,7 @@ namespace SmoothCoastlines.LandformHeights {
             int i;
 
             for (i = 0; i < thresholds.Length; i++) {
-                if (height >= prevThreshold && height <= thresholds[i]) {
+                if (height > prevThreshold && height <= thresholds[i]) {
                     return i;
                 }
                 prevThreshold = thresholds[i];

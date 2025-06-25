@@ -30,7 +30,7 @@ namespace SmoothCoastlines.LandformHeights {
 
             float scale = TerraGenConfig.landformMapScale * landformScale;
 
-            scale *= Math.Max(1, api.WorldManager.MapSizeY / 256f);
+            scale *= Math.Max(1, (api.WorldManager.MapSizeY - 64) / 256f); //The -64 here is to account for the possible shifting of the world Downwards by 64 blocks, so we can fit more Mountain above.
 
             noiseLandforms = new LandformHeightNoise(seed, api, scale, config);
 

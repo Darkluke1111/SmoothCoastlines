@@ -24,14 +24,14 @@ namespace SmoothCoastlines
         public float heightMapPersistance = 0.1f;
 
         public float radiusMultOutwardsForSmoothing = 6.0f;
-        public float[] heightThresholdsForOceanicityComp = { 0.2f, 0.5f, 0.7f, 1.0f };
-        public float[] heightMultsAtThresholdsForOceanicityComp = { 0.0f, 40.0f, 70.0f, 90.0f };
-        public float[] heightFlatsAtThresholdsForOceanicityComp = { 4.2f, 1f, 2f, 4f };
-        public float heightAboveWhichToWatchOceanicity = 0.5f;
-        public float highHeightLowOceanicityMin = 6.15f;
-        public float highHeightLowOceanicityMax = 24.6f;
-        public float heightMidAboveWhichToWatchOceanicity = 0.2f;
-        public float midHeightMidOceanicityMin = 4.1f;
-        public float midHeightMidOceanicityMax = 16.4f; //These values are the oceanicity at the spot multiplied by the OceanicityFactor, this is what it recieves so it makes it easier to calculate them
+        public float[] heightThresholdsForOceanicityComp = { 0.2f, 0.7f, 1.0f };
+        public float[] heightMultsAtThresholdsForOceanicityComp = { 0.0f, 70.0f, 115.0f };
+        public float[] heightFlatsAtThresholdsForOceanicityComp = { 4.2f, 2f, 4f };
+        //public float heightAboveWhichToWatchOceanicity = 0.8f;
+        //public float highHeightLowOceanicityMin = 6.15f;
+        //public float highHeightLowOceanicityMax = 24.6f;
+        //public float heightMidAboveWhichToWatchOceanicity = 0.5f;
+        //public float midHeightMidOceanicityMin = 4.1f;
+        //public float midHeightMidOceanicityMax = 16.4f; //These values are the oceanicity at the spot multiplied by the OceanicityFactor, this is what it recieves so it makes it easier to calculate them
     }
 }
