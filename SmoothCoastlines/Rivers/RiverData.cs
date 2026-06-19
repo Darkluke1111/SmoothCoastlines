@@ -406,7 +406,7 @@ namespace SmoothCoastlines.Rivers {
                     chances.NorthWestFree = false;
                     chances.NorthWestWeight = 0;
                     XZ newXZ = new XZ(currentPoint.worldX + (RiverMap.NorthWest.X * stepBlocks), currentPoint.worldZ + (RiverMap.NorthWest.Z * stepBlocks));
-                    return new RiverPoint(newXZ.X, chances.NorthWestHeight, newXZ.Z, chances.NorthWestOceanicity);
+                    return new RiverPoint(newXZ.X, 0, newXZ.Z, chances.NorthWestOceanicity);
                 }
             }
 
@@ -416,7 +416,7 @@ namespace SmoothCoastlines.Rivers {
                     chances.NorthFree = false;
                     chances.NorthWeight = 0;
                     XZ newXZ = new XZ(currentPoint.worldX + (RiverMap.North.X * stepBlocks), currentPoint.worldZ + (RiverMap.North.Z * stepBlocks));
-                    return new RiverPoint(newXZ.X, chances.NorthHeight, newXZ.Z, chances.NorthOceanicity);
+                    return new RiverPoint(newXZ.X, 0, newXZ.Z, chances.NorthOceanicity);
                 }
             }
 
@@ -426,7 +426,7 @@ namespace SmoothCoastlines.Rivers {
                     chances.NorthEastFree = false;
                     chances.NorthEastWeight = 0;
                     XZ newXZ = new XZ(currentPoint.worldX + (RiverMap.NorthEast.X * stepBlocks), currentPoint.worldZ + (RiverMap.NorthEast.Z * stepBlocks));
-                    return new RiverPoint(newXZ.X, chances.NorthEastHeight, newXZ.Z, chances.NorthEastOceanicity);
+                    return new RiverPoint(newXZ.X, 0, newXZ.Z, chances.NorthEastOceanicity);
                 }
             }
 
@@ -436,7 +436,7 @@ namespace SmoothCoastlines.Rivers {
                     chances.WestFree = false;
                     chances.WestWeight = 0;
                     XZ newXZ = new XZ(currentPoint.worldX + (RiverMap.West.X * stepBlocks), currentPoint.worldZ + (RiverMap.West.Z * stepBlocks));
-                    return new RiverPoint(newXZ.X, chances.WestHeight, newXZ.Z, chances.WestOceanicity);
+                    return new RiverPoint(newXZ.X, 0, newXZ.Z, chances.WestOceanicity);
                 }
             }
 
@@ -446,7 +446,7 @@ namespace SmoothCoastlines.Rivers {
                     chances.EastFree = false;
                     chances.EastWeight = 0;
                     XZ newXZ = new XZ(currentPoint.worldX + (RiverMap.East.X * stepBlocks), currentPoint.worldZ + (RiverMap.East.Z * stepBlocks));
-                    return new RiverPoint(newXZ.X, chances.EastHeight, newXZ.Z, chances.EastOceanicity);
+                    return new RiverPoint(newXZ.X, 0, newXZ.Z, chances.EastOceanicity);
                 }
             }
 
@@ -456,7 +456,7 @@ namespace SmoothCoastlines.Rivers {
                     chances.SouthWestFree = false;
                     chances.SouthWestWeight = 0;
                     XZ newXZ = new XZ(currentPoint.worldX + (RiverMap.SouthWest.X * stepBlocks), currentPoint.worldZ + (RiverMap.SouthWest.Z * stepBlocks));
-                    return new RiverPoint(newXZ.X, chances.SouthWestHeight, newXZ.Z, chances.SouthWestOceanicity);
+                    return new RiverPoint(newXZ.X, 0, newXZ.Z, chances.SouthWestOceanicity);
                 }
             }
 
@@ -466,7 +466,7 @@ namespace SmoothCoastlines.Rivers {
                     chances.SouthFree = false;
                     chances.SouthWeight = 0;
                     XZ newXZ = new XZ(currentPoint.worldX + (RiverMap.South.X * stepBlocks), currentPoint.worldZ + (RiverMap.South.Z * stepBlocks));
-                    return new RiverPoint(newXZ.X, chances.SouthHeight, newXZ.Z, chances.SouthOceanicity);
+                    return new RiverPoint(newXZ.X, 0, newXZ.Z, chances.SouthOceanicity);
                 }
             }
 
@@ -476,7 +476,7 @@ namespace SmoothCoastlines.Rivers {
                     chances.SouthEastFree = false;
                     chances.SouthEastWeight = 0;
                     XZ newXZ = new XZ(currentPoint.worldX + (RiverMap.SouthEast.X * stepBlocks), currentPoint.worldZ + (RiverMap.SouthEast.Z * stepBlocks));
-                    return new RiverPoint(newXZ.X, chances.SouthEastHeight, newXZ.Z, chances.SouthEastOceanicity);
+                    return new RiverPoint(newXZ.X, 0, newXZ.Z, chances.SouthEastOceanicity);
                 }
             }
 

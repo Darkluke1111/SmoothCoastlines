@@ -67,7 +67,8 @@ namespace SmoothCoastlines.Rivers {
         int[] borderIndicesByCardinal;
 
         public override bool ShouldLoad(EnumAppSide side) {
-            return side == EnumAppSide.Server;
+            return false;
+            //return side == EnumAppSide.Server;
         }
 
         public override double ExecuteOrder() {
@@ -136,7 +137,7 @@ namespace SmoothCoastlines.Rivers {
             terrainGenOctaves = TerraGenConfig.GetTerrainOctaveCount(api.WorldManager.MapSizeY - 64);
 
             terrainNoise = NewNormalizedSimplexFractalNoise.FromDefaultOctaves(
-                terrainGenOctaves, 0.0005 * NewSimplexNoiseLayer.OldToNewFrequency / noiseScale, 0.9, api.WorldManager.Seed //0.0005 * NewSimplexNoiseLayer.OldToNewFrequency   <- This was replaced by the Configurable Version, just in case. But probably not needed anymore. Default Persistence is 0.9.
+                terrainGenOctaves, 0.0005 * NewSimplexNoiseLayer.OldToNewFrequency / noiseScale, 0.9, api.WorldManager.Seed
             );
             distort2dx = new SimplexNoise(
                 new double[] { 55, 40, 30, 10 },
@@ -202,7 +203,7 @@ namespace SmoothCoastlines.Rivers {
         }
 
         private void OnChunkColumnGen(IChunkColumnGenerateRequest request) {
-            if (request.RequiresChunkBorderSmoothing) {
+            if (request.RequiresChunkBorderSmoothing && !PreventSmoothing(request.ChunkX, request.ChunkZ)) {
                 var neibHeightMaps = request.NeighbourTerrainHeight;
 
                 // Ignore diagonals if direct adjacent faces are available, otherwise the corners get weighted too strongly
@@ -285,6 +286,12 @@ namespace SmoothCoastlines.Rivers {
             generate(request.Chunks, request.ChunkX, request.ChunkZ, request.RequiresChunkBorderSmoothing);
         }
 
+        private bool PreventSmoothing(int chunkX, int chunkZ) {
+            BoolRef result = new BoolRef();
+            api.Event.IsTerrainHeightSmoothingPrevented(chunkX, chunkZ, result);
+            return result.GetValue();
+        }
+
         private void generate(IServerChunk[] chunks, int chunkX, int chunkZ, bool requiresChunkBorderSmoothing) {
             IMapChunk mapchunk = chunks[0].MapChunk;
             const int chunksize = GlobalConstants.ChunkSize;
@@ -341,7 +348,7 @@ namespace SmoothCoastlines.Rivers {
                 coastMapBotRight = coastMap.GetUnpaddedInt((int)(rlX * hfac + hfac), (int)(rlZ * hfac + hfac));
             }
 
-            int rockID = GlobalConfig.defaultRockId;
+            int rockID = gcfg.defaultRockId;
             float oceanicityFac = (api.WorldManager.MapSizeY - 64) / 256 * 0.33333f; // At a mapheight of 255, submerge land by up to 85 blocks
 
             IntDataMap2D landformMap = mapchunk.MapRegion.LandformMap;
@@ -409,7 +416,7 @@ namespace SmoothCoastlines.Rivers {
                 //Added this in for TP, to help with the Salt/Freshwater determination.
                 float coastMapFactor = GameMath.BiLerp(coastMapUpLeft, coastMapUpRight, coastMapBotLeft, coastMapBotRight, lX * chunkBlockDelta, lZ * chunkBlockDelta);
                 var salinity = Math.Round(coastMapFactor);
-                columnResults[chunkIndex2d].WaterBlockID = salinity >= 1 ? GlobalConfig.saltWaterBlockId : GlobalConfig.waterBlockId;
+                columnResults[chunkIndex2d].WaterBlockID = salinity >= 1 ? gcfg.saltWaterBlockId : gcfg.waterBlockId;
 
                 VectorXZ distGeo = ApplyIsotropicDistortionThreshold(dist * geoDistortionMultiplier, geoDistortionThreshold, geoDistortionMultiplier * maxDistortionAmount);
 
@@ -486,7 +493,7 @@ namespace SmoothCoastlines.Rivers {
             IChunkBlocks chunkBlockData = chunks[0].Data;
 
             // First set all the fully solid layers in bulk, as much as possible
-            chunkBlockData.SetBlockBulk(0, chunksize, chunksize, GlobalConfig.mantleBlockId);
+            chunkBlockData.SetBlockBulk(0, chunksize, chunksize, gcfg.mantleBlockId);
             int yBase = 1;
             for (; yBase < mapsizeY - 1; yBase++) {
                 if (layerFullySolid[yBase]) {
@@ -515,12 +522,12 @@ namespace SmoothCoastlines.Rivers {
                     int waterID = columnResult.WaterBlockID; //GlobalConfig in the check below has been modified to compare water instead of saltwater!
                     surfaceWaterId = waterID;
 
-                    if (yBase < seaLevel && waterID != GlobalConfig.saltWaterBlockId && !columnResult.ColumnBlockSolidities[seaLevel - 1])     // Should surface water be lake ice? Relevant only for fresh water and only if this particular XZ column has a non-solid block at sea-level
+                    if (yBase < seaLevel && waterID != gcfg.saltWaterBlockId && !columnResult.ColumnBlockSolidities[seaLevel - 1])     // Should surface water be lake ice? Relevant only for fresh water and only if this particular XZ column has a non-solid block at sea-level
                     {
                         int temp = (GameMath.BiLerpRgbColor(lX * chunkBlockDelta, lZ * chunkBlockDelta, climateUpLeft, climateUpRight, climateBotLeft, climateBotRight) >> 16) & 0xFF;
                         float distort = (float)distort2dx.Noise(chunkX * chunksize + lX, worldZ) / 20f;
                         float tempf = Climate.GetScaledAdjustedTemperatureFloat(temp, 0) + distort;
-                        if (tempf < TerraGenConfig.WaterFreezingTempOnGen) surfaceWaterId = GlobalConfig.lakeIceBlockId;
+                        if (tempf < TerraGenConfig.WaterFreezingTempOnGen) surfaceWaterId = gcfg.lakeIceBlockId;
                     }
 
                     terrainheightmap[mapIndex] = (ushort)(yBase - 1);   // Initially set the heightmaps to values reflecting the top of the fully solid layers

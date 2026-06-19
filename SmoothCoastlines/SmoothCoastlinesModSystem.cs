@@ -1,12 +1,13 @@
-﻿using Vintagestory.API.Server;
-using Vintagestory.API.Common;
-using HarmonyLib;
-using System;
-using Vintagestory.API.MathTools;
+﻿using HarmonyLib;
 using MapLayer;
-using Vintagestory.ServerMods;
-using Vintagestory.GameContent;
+using System;
 using System.Collections.Generic;
+using Vintagestory.API.Common;
+using Vintagestory.API.MathTools;
+using Vintagestory.API.Server;
+using Vintagestory.GameContent;
+using Vintagestory.ServerMods;
+using Vintagestory.ServerMods.NoObf;
 
 namespace SmoothCoastlines;
 
@@ -18,6 +19,13 @@ public class SmoothCoastlinesModSystem : ModSystem
     public Harmony harmony;
     public static ILogger Logger;
     public static ICoreServerAPI Sapi;
+
+    public int NoiseSizeRivers;
+    public int NoiseSizeCoast;
+    public int regionMapSize;
+    public MapLayerBase CoastMap;
+    public MapLayerBase RiverMap;
+    public LandformsWorldProperty landforms;
 
     public override void StartPre(ICoreAPI api)
     {

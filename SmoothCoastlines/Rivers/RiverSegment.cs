@@ -108,6 +108,7 @@ namespace SmoothCoastlines.Rivers {
                 maximumWorldX = point.worldX;
                 maximumWorldZ = point.worldZ;
                 points.Add(point);
+                point.parentSegment = this;
                 return true;
             }
 
@@ -129,6 +130,7 @@ namespace SmoothCoastlines.Rivers {
             }
 
             points.Add(point);
+            point.parentSegment = this;
             return true;
         }
 

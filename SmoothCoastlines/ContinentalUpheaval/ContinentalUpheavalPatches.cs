@@ -94,13 +94,13 @@ namespace SmoothCoastlines.ContinentalUpheaval {
         }
 
         //A series of patches to attempt sinking the overall world-level downwards by one step while keeping the blocks free above it up to world level.
-        //[HarmonyTranspiler]
-        //[HarmonyPatch(typeof(GenTerra), "generate")]
+        [HarmonyTranspiler]
+        [HarmonyPatch(typeof(GenTerra), "generate")]
         public static IEnumerable<CodeInstruction> GenTerraGenerateTranspiler(IEnumerable<CodeInstruction> instructions, ILGenerator ilGenerator) {
             var codes = new List<CodeInstruction>(instructions);
 
             int indexOfSealevelWorldHeight = -1;
-            int indexOfTimesPointNine = -1;
+            //int indexOfTimesPointNine = -1;
             //int indexOfSetMapChunk = -1;
             //int numDupCalls = 0;
             //int indexOfSetRLZ = -1;
@@ -121,18 +121,26 @@ namespace SmoothCoastlines.ContinentalUpheaval {
 
                 if (indexOfSealevelWorldHeight == -1 && codes[i].opcode == OpCodes.Ldc_I4 && (int)codes[i].operand == 256) {
                     indexOfSealevelWorldHeight = i;
-                    continue;
+                    break; //continue;
                 }
 
-                if (indexOfSealevelWorldHeight > -1 && codes[i].opcode == OpCodes.Ldc_R4 && (float)codes[i].operand == 0.9f) {
+                /*if (indexOfSealevelWorldHeight > -1 && codes[i].opcode == OpCodes.Ldc_R4 && (float)codes[i].operand == 0.9f) {
                     indexOfTimesPointNine = i;
                     break;
-                }
+                }*/
             }
 
             var sub64FromWorldHeight = new List<CodeInstruction> {
                 new CodeInstruction(OpCodes.Ldc_I4, 64),
                 new CodeInstruction(OpCodes.Sub)
+            };
+
+            var initCoastmap = new List<CodeInstruction> {
+                new CodeInstruction(OpCodes.Ldarg_1),
+                new CodeInstruction(OpCodes.Ldloc_S, 5),
+                new CodeInstruction(OpCodes.Ldloc_S, 6),
+                new CodeInstruction(OpCodes.Ldloc_S, 3),
+                new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(ContinentalUpheavalPatches), "initCoastmapForChunk", [typeof(IServerChunk[]), typeof(int), typeof(int), typeof(int)]))
             };
 
             /*var setMapChunkField = new List<CodeInstruction> {
@@ -152,14 +160,30 @@ namespace SmoothCoastlines.ContinentalUpheaval {
 
             //codes.InsertRange(indexOfTimesPointNine - 1, sub64FromWorldHeight); //Tweaks the Taper Threshold to account for the - 64 to World Height
             codes.InsertRange(indexOfSealevelWorldHeight, sub64FromWorldHeight); //Sets the Oceanicity Factor WorldHeight - 64
+            codes.InsertRange(indexOfSealevelWorldHeight - 5, initCoastmap); //Attempt to init the static vars in the Coastmap for this chunk.
             //codes.InsertRange(indexOfSetRLZ, setXAndZField);
             //codes.InsertRange(indexOfSetMapChunk, setMapChunkField);
 
             return codes.AsEnumerable();
         }
 
-        //[HarmonyTranspiler] //Commented out cause it has been implemented in GenTerraPrety
-        //[HarmonyPatch(typeof(GenTerra), nameof(GenTerra.initWorldGen))]
+        public static void initCoastmapForChunk(IServerChunk[] chunks, int rlX, int rlZ, int regionChunkSize) {
+            CoastMap.coastMapUpLeft = -1;
+            CoastMap.coastMapUpRight = -1;
+            CoastMap.coastMapBotLeft = -1;
+            CoastMap.coastMapBotRight = -1;
+            IntDataMap2D coastMap = chunks[0].MapChunk.MapRegion.ModMaps["TerraPretyCoastMap"];
+            if (coastMap != null) {
+                float hfac = (float)coastMap.InnerSize / regionChunkSize;
+                CoastMap.coastMapUpLeft = coastMap.GetUnpaddedInt((int)(rlX * hfac), (int)(rlZ * hfac));
+                CoastMap.coastMapUpRight = coastMap.GetUnpaddedInt((int)(rlX * hfac + hfac), (int)(rlZ * hfac));
+                CoastMap.coastMapBotLeft = coastMap.GetUnpaddedInt((int)(rlX * hfac), (int)(rlZ * hfac + hfac));
+                CoastMap.coastMapBotRight = coastMap.GetUnpaddedInt((int)(rlX * hfac + hfac), (int)(rlZ * hfac + hfac));
+            }
+        }
+
+        [HarmonyTranspiler]
+        [HarmonyPatch(typeof(GenTerra), nameof(GenTerra.initWorldGen))]
         public static IEnumerable<CodeInstruction> GenTerraInitWorldGenTranspiler(IEnumerable<CodeInstruction> instructions, ILGenerator ilGenerator) {
             var codes = new List<CodeInstruction>(instructions);
 
@@ -195,8 +219,8 @@ namespace SmoothCoastlines.ContinentalUpheaval {
             return SmoothCoastlinesModSystem.config.terrainNoisePersistance;
         }*/
 
-        //[HarmonyTranspiler] //Commented out cause it has been implemented in GenTerraPrety
-        //[HarmonyPatch(typeof(GenTerra), nameof(GenTerra.AssetsFinalize))] //This patch drops the SeaLevel down by 64 blocks, which is 1 step on the World Size scale.
+        [HarmonyTranspiler]
+        [HarmonyPatch(typeof(GenTerra), nameof(GenTerra.AssetsFinalize))] //This patch drops the SeaLevel down by 64 blocks, which is 1 step on the World Size scale.
         public static IEnumerable<CodeInstruction> GenTerraAssetsFinalizeTranspiler(IEnumerable<CodeInstruction> instructions, ILGenerator ilGenerator) {
             var codes = new List<CodeInstruction>(instructions);
 
@@ -300,11 +324,11 @@ namespace SmoothCoastlines.ContinentalUpheaval {
         }
     }
 
-    /*[HarmonyPatch]
+    [HarmonyPatch]
     public class MoreContinentalUpheavalPatches {
 
         public static MethodBase TargetMethod() {
-            var type = AccessTools.FirstInner(typeof(GenTerra), t => t.Name.Contains("<>c__DisplayClass33_0"));
+            var type = AccessTools.FirstInner(typeof(GenTerra), t => t.Name.Contains("<>c__DisplayClass34_0"));
             var method = AccessTools.FirstMethod(type, m => m.Name.Contains("<generate>b__0"));
             return method;
         }
@@ -314,12 +338,11 @@ namespace SmoothCoastlines.ContinentalUpheaval {
             var codes = new List<CodeInstruction>(instructions);
 
             int ldelemaCount = 0;
-            int indexOfOceanicityCompVal = -1;
-            var mapsizeField = AccessTools.Field(AccessTools.FirstInner(typeof(GenTerra), t => t.Name.Contains("<>c__DisplayClass33_0")), "mapsizeY");
-            var mapsizem2Field = AccessTools.Field(AccessTools.FirstInner(typeof(GenTerra), t => t.Name.Contains("<>c__DisplayClass33_0")), "mapsizeYm2");
-            int indexMapsizeField = -1;
+            int indexOfOceanicityComp = -1;
+            //var mapsizeField = AccessTools.Field(AccessTools.FirstInner(typeof(GenTerra), t => t.Name.Contains("<>c__DisplayClass34_0")), "mapsizeY");
+            var mapsizem2Field = AccessTools.Field(AccessTools.FirstInner(typeof(GenTerra), t => t.Name.Contains("<>c__DisplayClass34_0")), "mapsizeYm2");
+            //int indexMapsizeField = -1;
             int indexMapsizeM2Field = -1;
-            int indexLdelemaRef = -1;
 
             for (int i = 0; i < codes.Count; i++) {
                 if (ldelemaCount == 0 && codes[i].opcode == OpCodes.Ldelema) {
@@ -330,34 +353,24 @@ namespace SmoothCoastlines.ContinentalUpheaval {
                 if (ldelemaCount == 1 && codes[i].opcode == OpCodes.Ldelema) {
                     if (codes[i + 2].opcode == OpCodes.Ldc_R4) {
                         ldelemaCount++;
-                        indexOfOceanicityCompVal = i + 2;
+                        indexOfOceanicityComp = i + 1;
                         continue;
                     }
                 }
 
-                if (indexOfOceanicityCompVal > -1 && codes[i].opcode == OpCodes.Ldfld && (FieldInfo)codes[i].operand == mapsizem2Field) {
+                if (indexOfOceanicityComp > -1 && codes[i].opcode == OpCodes.Ldfld && (FieldInfo)codes[i].operand == mapsizem2Field) {
                     indexMapsizeM2Field = i + 1;
                     continue;
                 }
-
-                if (indexMapsizeM2Field > -1 && codes[i].opcode == OpCodes.Ldelem_Ref) {
-                    indexLdelemaRef = i;
-                    continue;
-                }
-
-                if (indexLdelemaRef > -1 && codes[i].opcode == OpCodes.Ldfld && (FieldInfo)codes[i].operand == mapsizeField) {
-                    indexMapsizeField = i + 1;
-                    break;
-                }
             }
 
-            var getHeightmapCompMethod = AccessTools.Method(typeof(MoreContinentalUpheavalPatches), "GetHeightmapCompValue", new Type[3] { typeof(int), typeof(int), typeof(float) });
-            
+            var getSalinityMethod = AccessTools.Method(typeof(MoreContinentalUpheavalPatches), "getSalinityFor", [typeof(int), typeof(int), typeof(float)]);
+
             var factorHeightmapAgainstOceanicity = new List<CodeInstruction> {
-                new CodeInstruction(OpCodes.Ldloc_2),
-                new CodeInstruction(OpCodes.Ldloc_3),
-                new CodeInstruction(OpCodes.Ldloc_S, 11),
-                new CodeInstruction(OpCodes.Call, getHeightmapCompMethod)
+                new CodeInstruction(OpCodes.Ldloc_0),
+                new CodeInstruction(OpCodes.Ldloc_1),
+                new CodeInstruction(OpCodes.Ldc_R4, 0.03125f),
+                new CodeInstruction(OpCodes.Call, getSalinityMethod)
             };
 
             var sub64FromWorldHeight = new List<CodeInstruction> {
@@ -365,73 +378,31 @@ namespace SmoothCoastlines.ContinentalUpheaval {
                 new CodeInstruction(OpCodes.Sub)
             };
 
-            if (indexOfOceanicityCompVal > -1 && indexMapsizeM2Field > -1 && indexMapsizeField > -1 && indexLdelemaRef > -1) {
-                var examineMethod = AccessTools.Method(typeof(MoreContinentalUpheavalPatches), "InjectAndExamineThresholdLerp", new Type[] { typeof(float[]), typeof(double), typeof(int), typeof(float), typeof(float[][]), typeof(double), typeof(double) });
-                codes[indexLdelemaRef - 19].opcode = OpCodes.Nop;
-                codes[indexLdelemaRef - 18].opcode = OpCodes.Nop;
-                codes[indexLdelemaRef - 17].opcode = OpCodes.Nop;
-                codes[indexLdelemaRef - 16].opcode = OpCodes.Nop;
-                codes[indexLdelemaRef - 15].opcode = OpCodes.Nop;
-                codes[indexLdelemaRef - 14].opcode = OpCodes.Nop;
-                codes[indexLdelemaRef - 13].opcode = OpCodes.Nop;
-                codes[indexLdelemaRef - 12].opcode = OpCodes.Nop;
-                codes[indexLdelemaRef - 11].opcode = OpCodes.Nop;
-                codes[indexLdelemaRef - 10].opcode = OpCodes.Nop;
-
-                codes[indexLdelemaRef - 8].opcode = OpCodes.Ldloc_S;
-                codes[indexLdelemaRef - 8].operand = 7;
-                codes[indexLdelemaRef - 7].opcode = OpCodes.Ldloc_S;
-                codes[indexLdelemaRef - 7].operand = 22;
-                codes[indexLdelemaRef - 6].opcode = OpCodes.Nop;
-
-                codes[indexLdelemaRef - 1].opcode = OpCodes.Ldloc_S;
-                codes[indexLdelemaRef - 1].operand = 15;
-                codes[indexLdelemaRef].opcode = OpCodes.Ldloc_S;
-                codes[indexLdelemaRef].operand = 16;
-                codes[indexLdelemaRef + 1].opcode = OpCodes.Nop;
-                codes[indexLdelemaRef + 2].opcode = OpCodes.Call;
-                codes[indexLdelemaRef + 2].operand = examineMethod;
-
-                codes[indexLdelemaRef + 6].opcode = OpCodes.Nop;
-                codes[indexLdelemaRef + 7].opcode = OpCodes.Nop;
-                codes[indexLdelemaRef + 8].opcode = OpCodes.Nop;
-                codes[indexLdelemaRef + 9].opcode = OpCodes.Nop;
-                codes[indexLdelemaRef + 10].opcode = OpCodes.Nop;
-                codes[indexLdelemaRef + 11].opcode = OpCodes.Nop;
-                codes[indexLdelemaRef + 12].opcode = OpCodes.Nop;
-                codes[indexLdelemaRef + 13].opcode = OpCodes.Nop;
-                codes[indexLdelemaRef + 14].opcode = OpCodes.Nop;
-
-                //codes.InsertRange(indexMapsizeField, sub64FromWorldHeight); //Sub 64 from GeoUpheaval Mapsize
+            if (indexOfOceanicityComp > -1 && indexMapsizeM2Field > -1) {
                 codes.InsertRange(indexMapsizeM2Field, sub64FromWorldHeight); //Sub 64 from the StartSampleDisplacedThreshold MapsizeM2
-                codes.RemoveAt(indexOfOceanicityCompVal);
-                codes.InsertRange(indexOfOceanicityCompVal, factorHeightmapAgainstOceanicity);
-
-                codes.RemoveAt(indexOfOceanicityCompVal - 9); //This block removes the call to ComputeOceanGenAndUpheavalDistY and most of the arguments
-                codes.RemoveAt(indexOfOceanicityCompVal - 10);
-                codes.RemoveAt(indexOfOceanicityCompVal - 11);
-                codes.RemoveAt(indexOfOceanicityCompVal - 12);
-                codes.RemoveAt(indexOfOceanicityCompVal - 13);
-                codes.RemoveAt(indexOfOceanicityCompVal - 14);
-                codes.RemoveAt(indexOfOceanicityCompVal - 16); //Skips the UpheavalStrength argument to keep that, but these two clean up the two this. calls before it.
-                codes.RemoveAt(indexOfOceanicityCompVal - 17);
+                codes[indexOfOceanicityComp + 2].opcode = OpCodes.Bge_S;
+                codes.RemoveAt(indexOfOceanicityComp);
+                codes.InsertRange(indexOfOceanicityComp, factorHeightmapAgainstOceanicity);
             } else {
-                SmoothCoastlinesModSystem.Logger.Error("Transpiler on GenTerra's Generate Lambda Method has failed. Shoving the Sea Water placement closer to the coast will not function.");
+                SmoothCoastlinesModSystem.Logger.Error("Transpiler on GenTerra's Generate Lambda Method has failed. Coastmap will be unable to determine the salinity of water.");
                 if (ldelemaCount < 1) {
                     SmoothCoastlinesModSystem.Logger.Error("Could not locate first ldelema instruction.");
                 } else if (ldelemaCount < 2) {
                     SmoothCoastlinesModSystem.Logger.Error("Could not find the second ldelema call. Only found " + ldelemaCount);
                 } else if (indexMapsizeM2Field == -1) {
                     SmoothCoastlinesModSystem.Logger.Error("Could not locate the loading of the MapsizeM2 Field.");
-                } else if (indexMapsizeField == -1) {
-                    SmoothCoastlinesModSystem.Logger.Error("Could not locate the loading of the Mapsize Field.");
                 }
             }
 
             return codes.AsEnumerable();
         }
 
-        public static float GetHeightmapCompValue(int worldx, int worldz, float oceanicity) {
+        public static float getSalinityFor(int lX, int lZ, float chunkBlockDelta) {
+            float coastMapFactor = GameMath.BiLerp(CoastMap.coastMapUpLeft, CoastMap.coastMapUpRight, CoastMap.coastMapBotLeft, CoastMap.coastMapBotRight, lX * chunkBlockDelta, lZ * chunkBlockDelta);
+            return (float)Math.Round(coastMapFactor);
+        }
+
+        /*public static float GetHeightmapCompValue(int worldx, int worldz, float oceanicity) {
             return MapLayerLandformsSmooth.noiseLandforms.GetCompValueForOceanicity(worldx, worldz, oceanicity);
         }
         
@@ -447,8 +418,8 @@ namespace SmoothCoastlines.ContinentalUpheaval {
             }
 
             return total;
-        }
-    }*/
+        }*/
+    }
 
     //[HarmonyPatch]
     public class AttemptSmoothingPatch {

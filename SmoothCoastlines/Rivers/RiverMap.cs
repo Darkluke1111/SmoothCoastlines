@@ -383,7 +383,9 @@ namespace SmoothCoastlines.Rivers {
                         //Run the Segment's point averaging and post-processing passes here. Then also account for curPoint, and all possible forked points.
                         //First just equalize the flow value through the whole Segment, and then copy the downstream flow to the next curPoint and all possible forkedPoints
                         curSegment.AverageOutFlows(flowLoss);
-                        curPoint.UpdateFlow(curPoint.GetDownstream().flowStrength);
+                        if (curPoint.HasDownstream()) {
+                            curPoint.UpdateFlow(curPoint.GetDownstream().flowStrength);
+                        }
                         for (int f = 0; f < generatedForkedPoints.Count; f++) {
                             generatedForkedPoints[f].UpdateFlow(generatedForkedPoints[f].GetDownstream().flowStrength);
                         }
@@ -868,7 +870,7 @@ namespace SmoothCoastlines.Rivers {
         private List<XZ> GetContinentsWithRiversEnteringRegion(List<XZ> contCoords, XZ regionCoords) {
             var contList = new List<XZ>();
 
-            foreach (var cont in contCoords) {
+            /*foreach (var cont in contCoords) {
                 var list = riversByContinent.TryGetValue(cont);
                 if (list != null && !contList.Contains(cont)) {
                     foreach (var river in list) {
@@ -878,7 +880,7 @@ namespace SmoothCoastlines.Rivers {
                         }
                     }
                 }
-            }
+            }*/
 
             return contList;
         }

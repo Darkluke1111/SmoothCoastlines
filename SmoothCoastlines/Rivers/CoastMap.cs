@@ -9,6 +9,7 @@ using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.ServerMods;
+using Vintagestory.ServerMods.NoObf;
 
 namespace SmoothCoastlines.Rivers {
 
@@ -43,6 +44,11 @@ namespace SmoothCoastlines.Rivers {
         SimplexNoise distort2dx;
         SimplexNoise distort2dz;
         float noiseScale;
+
+        public static int coastMapUpLeft;
+        public static int coastMapUpRight;
+        public static int coastMapBotLeft;
+        public static int coastMapBotRight;
 
         public CoastMap(long seed, int scale, ICoreServerAPI sapi) : base(seed) { //The seed might not be needed here, since this just serves as a launching point for building the "coastal map"
             this.scale = scale;
@@ -113,7 +119,7 @@ namespace SmoothCoastlines.Rivers {
             const int chunksize = GlobalConstants.ChunkSize; //Number of Blocks in a Chunk.
             const float chunkBlockDelta = 1.0f / chunksize;
 
-            var genTerraPrety = sapi.ModLoader.GetModSystem<GenTerraPrety>();
+            //var genTerraPrety = sapi.ModLoader.GetModSystem<GenTerraPrety>();
             int regionChunkSize = sapi.WorldManager.RegionSize / chunksize; //Number of Chunks in the Region.
             float chunkPixelSize = (landformInnerSize / regionChunkSize); //InnerSize is the map's width/length of 1 region
 
@@ -149,10 +155,10 @@ namespace SmoothCoastlines.Rivers {
                     VectorXZ distTerrain = ApplyIsotropicDistortionThreshold(dist * terrainDistortionMultiplier, terrainDistortionThreshold,
                         terrainDistortionMultiplier * maxDistortionAmount);
 
-                    genTerraPrety.GetInterpolatedOctaves(LandformLerpMap.WeightsAt(baseX, baseZ, landformWeights), out var lerpedAmps1, out var lerpedTh1);
-                    genTerraPrety.GetInterpolatedOctaves(LandformLerpMap.WeightsAt(baseX + halfPixelSize, baseZ, landformWeights), out var lerpedAmps2, out var lerpedTh2);
-                    genTerraPrety.GetInterpolatedOctaves(LandformLerpMap.WeightsAt(baseX, baseZ + halfPixelSize, landformWeights), out var lerpedAmps3, out var lerpedTh3);
-                    genTerraPrety.GetInterpolatedOctaves(LandformLerpMap.WeightsAt(baseX + halfPixelSize, baseZ + halfPixelSize, landformWeights), out var lerpedAmps4, out var lerpedTh4);
+                    GetInterpolatedOctaves(LandformLerpMap.WeightsAt(baseX, baseZ, landformWeights), out var lerpedAmps1, out var lerpedTh1);
+                    GetInterpolatedOctaves(LandformLerpMap.WeightsAt(baseX + halfPixelSize, baseZ, landformWeights), out var lerpedAmps2, out var lerpedTh2);
+                    GetInterpolatedOctaves(LandformLerpMap.WeightsAt(baseX, baseZ + halfPixelSize, landformWeights), out var lerpedAmps3, out var lerpedTh3);
+                    GetInterpolatedOctaves(LandformLerpMap.WeightsAt(baseX + halfPixelSize, baseZ + halfPixelSize, landformWeights), out var lerpedAmps4, out var lerpedTh4);
 
                     LandformLerpMap.WeightsAt(baseX + 0.5f, baseZ + 0.5f, landformWeights); //Need to feed this the chunk data
                     for (int i = 0; i < lerpedAmps.Length; i++) {
@@ -273,7 +279,7 @@ namespace SmoothCoastlines.Rivers {
             const float chunkBlockDelta = 1.0f / chunksize;
             var worldHeightM2 = sapi.WorldManager.MapSizeY - 2;
 
-            var genTerraPrety = sapi.ModLoader.GetModSystem<GenTerraPrety>();
+            //var genTerraPrety = sapi.ModLoader.GetModSystem<GenTerraPrety>();
             int regionChunkSize = sapi.WorldManager.RegionSize / chunksize; //Number of Chunks in the Region.
             float chunkPixelSize = (landformInnerSize / regionChunkSize); //InnerSize is the map's width/length of 1 region
 
@@ -309,10 +315,10 @@ namespace SmoothCoastlines.Rivers {
                     VectorXZ distTerrain = ApplyIsotropicDistortionThreshold(dist * terrainDistortionMultiplier, terrainDistortionThreshold,
                         terrainDistortionMultiplier * maxDistortionAmount);
 
-                    genTerraPrety.GetInterpolatedOctaves(LandformLerpMap.WeightsAt(baseX, baseZ, landformWeights), out var lerpedAmps1, out var lerpedTh1);
-                    genTerraPrety.GetInterpolatedOctaves(LandformLerpMap.WeightsAt(baseX + halfPixelSize, baseZ, landformWeights), out var lerpedAmps2, out var lerpedTh2);
-                    genTerraPrety.GetInterpolatedOctaves(LandformLerpMap.WeightsAt(baseX, baseZ + halfPixelSize, landformWeights), out var lerpedAmps3, out var lerpedTh3);
-                    genTerraPrety.GetInterpolatedOctaves(LandformLerpMap.WeightsAt(baseX + halfPixelSize, baseZ + halfPixelSize, landformWeights), out var lerpedAmps4, out var lerpedTh4);
+                    GetInterpolatedOctaves(LandformLerpMap.WeightsAt(baseX, baseZ, landformWeights), out var lerpedAmps1, out var lerpedTh1);
+                    GetInterpolatedOctaves(LandformLerpMap.WeightsAt(baseX + halfPixelSize, baseZ, landformWeights), out var lerpedAmps2, out var lerpedTh2);
+                    GetInterpolatedOctaves(LandformLerpMap.WeightsAt(baseX, baseZ + halfPixelSize, landformWeights), out var lerpedAmps3, out var lerpedTh3);
+                    GetInterpolatedOctaves(LandformLerpMap.WeightsAt(baseX + halfPixelSize, baseZ + halfPixelSize, landformWeights), out var lerpedAmps4, out var lerpedTh4);
 
                     LandformLerpMap.WeightsAt(baseX + 0.5f, baseZ + 0.5f, landformWeights); //Need to feed this the chunk data
                     for (int i = 0; i < lerpedAmps.Length; i++) {
@@ -560,6 +566,27 @@ namespace SmoothCoastlines.Rivers {
                 dist *= forceDown;
             }
             return dist;
+        }
+
+        private void GetInterpolatedOctaves(float[] indices, out double[] amps, out double[] thresholds) {
+            var terraPrety = sapi.ModLoader.GetModSystem<SmoothCoastlinesModSystem>();
+            amps = new double[terrainGenOctaves];
+            thresholds = new double[terrainGenOctaves];
+
+            for (int octave = 0; octave < terrainGenOctaves; octave++) {
+                double amplitude = 0;
+                double threshold = 0;
+                for (int i = 0; i < indices.Length; i++) {
+                    float weight = indices[i];
+                    if (weight == 0) continue;
+                    LandformVariant l = terraPrety.landforms.LandFormsByIndex[i];
+                    amplitude += l.TerrainOctaves[octave] * weight;
+                    threshold += l.TerrainOctaveThresholds[octave] * weight;
+                }
+
+                amps[octave] = amplitude;
+                thresholds[octave] = threshold;
+            }
         }
     }
 }

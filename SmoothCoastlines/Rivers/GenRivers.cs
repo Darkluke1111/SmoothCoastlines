@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SmoothCoastlines.LandformHeights;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.ServerMods;
+using Vintagestory.ServerMods.NoObf;
 
 namespace SmoothCoastlines.Rivers {
 
@@ -23,6 +25,11 @@ namespace SmoothCoastlines.Rivers {
         public MapLayerBase CoastMap;
         public MapLayerBase RiverMap;
 
+        int coastMapUpLeft = -1;
+        int coastMapUpRight = -1;
+        int coastMapBotLeft = -1;
+        int coastMapBotRight = -1;
+
         protected override int chunkRange { get { return 2; } } //5 by 5 chunks
 
         public override double ExecuteOrder() {
@@ -30,7 +37,8 @@ namespace SmoothCoastlines.Rivers {
         }
 
         public override bool ShouldLoad(EnumAppSide side) {
-            return side == EnumAppSide.Server;
+            return false;
+            //return side == EnumAppSide.Server; //Temp for Removal of GenTerraPrety Testing. Unless I give up on Rivers I guess?
         }
 
         public override void StartServerSide(ICoreServerAPI api) {
@@ -77,8 +85,17 @@ namespace SmoothCoastlines.Rivers {
             CoastMap = new CoastMap(sapi.WorldManager.Seed + 1873, NoiseSizeCoast, sapi); //Seed probably doesn't matter for this.
             RiverMap = new RiverMap(sapi.WorldManager.Seed + 1873, NoiseSizeRivers, sapi, genMaps.requireLandAt);
 
-            var genTerraPrety = api.ModLoader.GetModSystem<GenTerraPrety>();
-            genTerraPrety.InitGenTerraPretyLandforms();
+            var genTerra = api.ModLoader.GetModSystem<GenTerra>();
+            LandformsWorldProperty landforms = LandformHeightNoise.landforms;
+            float[][] terrainYThresholds = new float[landforms.LandFormsByIndex.Length][];
+            for (int i = 0; i < landforms.LandFormsByIndex.Length; i++) terrainYThresholds[i] = landforms.LandFormsByIndex[i].TerrainYThresholds;
+
+            var genRivers = api.ModLoader.GetModSystem<GenRivers>();
+            float noiseScale = Math.Max(1, api.WorldManager.MapSizeY / 256f);
+            var riversTerrainNoise = NewNormalizedSimplexFractalNoise.FromDefaultOctaves(
+                9, 0.0005 * NewSimplexNoiseLayer.OldToNewFrequency / noiseScale, 0.9, api.WorldManager.Seed
+            );
+            genRivers.PassCoastMapTheLandforms(terrainYThresholds, riversTerrainNoise);
         }
 
         public void OnMapRegionGenPostGenMaps(IMapRegion mapRegion, int regionX, int regionZ) {
@@ -87,8 +104,8 @@ namespace SmoothCoastlines.Rivers {
             var oceanMap = mapRegion.OceanMap;
             var oceanPad = oceanMap.BottomRightPadding;
             var landformMap = mapRegion.LandformMap;
-            var genTerraPrety = Sapi.ModLoader.GetModSystem<GenTerraPrety>();
-            var landLerpMap = genTerraPrety.GetOrLoadLerpedLandformMapFromRegion(mapRegion, regionX, regionZ);
+            //var genTerraPrety = Sapi.ModLoader.GetModSystem<GenTerraPrety>(); //This is currently a problem for Rivers and how they were being done for now. With the removal of GenTerraPrety, will have to get the LandLerpMap some other way. Or similar way?
+            //var landLerpMap = genTerraPrety.GetOrLoadLerpedLandformMapFromRegion(mapRegion, regionX, regionZ);
             var heightMap = mapRegion.ModMaps["LandformHeightMap"];
 
             var CoastalRegion = new IntDataMap2D { //It seems any map with a pad of 1 just doesn't set the TopLeft padding in GenMaps. Sticking with that?
@@ -97,7 +114,7 @@ namespace SmoothCoastlines.Rivers {
                 //TopLeftPadding = coastPad,
                 BottomRightPadding = coastPad
             };
-            ((CoastMap)CoastMap).SetCoastAndLandformMaps(oceanMap, landLerpMap, landformMap.InnerSize, CoastalRegion.InnerSize);
+            //((CoastMap)CoastMap).SetCoastAndLandformMaps(oceanMap, landLerpMap, landformMap.InnerSize, CoastalRegion.InnerSize);
             var coastData = CoastMap.GenLayer(regionX * NoiseSizeCoast, regionZ * NoiseSizeCoast, NoiseSizeCoast + coastPad, NoiseSizeCoast + coastPad);
             CoastalRegion.Data = coastData;
 
@@ -112,6 +129,22 @@ namespace SmoothCoastlines.Rivers {
             RiverRegion.Data = riverData;
 
             mapRegion.ModMaps["TerraPretyRiverMap"] = RiverRegion;
+        }
+
+        public void initCoastmapCorners(IServerChunk[] chunks, int regionChunkSize, int rlX, int rlZ) {
+            IntDataMap2D coastMap = chunks[0].MapChunk.MapRegion.ModMaps["TerraPretyCoastMap"];
+            if (coastMap != null)
+            {
+                float hfac = (float)coastMap.InnerSize / regionChunkSize;
+                coastMapUpLeft = coastMap.GetUnpaddedInt((int)(rlX * hfac), (int)(rlZ * hfac));
+                coastMapUpRight = coastMap.GetUnpaddedInt((int)(rlX * hfac + hfac), (int)(rlZ * hfac));
+                coastMapBotLeft = coastMap.GetUnpaddedInt((int)(rlX * hfac), (int)(rlZ * hfac + hfac));
+                coastMapBotRight = coastMap.GetUnpaddedInt((int)(rlX * hfac + hfac), (int)(rlZ * hfac + hfac));
+            }
+        }
+
+        public double getCoastFactor(int lX, int lZ, float chunkBlockDelta) {
+            return Math.Round(GameMath.BiLerp(coastMapUpLeft, coastMapUpRight, coastMapBotLeft, coastMapBotRight, lX * chunkBlockDelta, lZ * chunkBlockDelta));
         }
 
         /*
