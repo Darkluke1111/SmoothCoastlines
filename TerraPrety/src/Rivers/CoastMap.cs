@@ -1,4 +1,4 @@
-﻿using SmoothCoastlines.LandformHeights;
+﻿using TerraPrety.LandformHeights;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using Vintagestory.API.Server;
 using Vintagestory.ServerMods;
 using Vintagestory.ServerMods.NoObf;
 
-namespace SmoothCoastlines.Rivers {
+namespace TerraPrety.Rivers {
 
     public class CoastMap : MapLayerBase {
 
@@ -54,9 +54,9 @@ namespace SmoothCoastlines.Rivers {
             this.scale = scale;
             this.sapi = sapi;
 
-            this.hardMinimumOceanicity = SmoothCoastlinesModSystem.config.hardMinimumCoastalOceanicity;
-            this.softMinimumOceanicity = SmoothCoastlinesModSystem.config.softMinimumCoastalOceanicity;
-            this.maximumOceanicity = SmoothCoastlinesModSystem.config.maximumCoastalOceanicity;
+            this.hardMinimumOceanicity = TerraPretyModSystem.config.hardMinimumCoastalOceanicity;
+            this.softMinimumOceanicity = TerraPretyModSystem.config.softMinimumCoastalOceanicity;
+            this.maximumOceanicity = TerraPretyModSystem.config.maximumCoastalOceanicity;
             noiseScale = Math.Max(1, (sapi.WorldManager.MapSizeY - 64) / 256f);
             distort2dx = new SimplexNoise(
                 new double[] { 55, 40, 30, 10 },
@@ -90,7 +90,7 @@ namespace SmoothCoastlines.Rivers {
         public override int[] GenLayer(int xCoord, int zCoord, int sizeX, int sizeZ) { //xCoord and zCoord are the coordinates of the RegionX/Z * Width of the Map in world Coordinates, so the very first coordinate in the upper left of the map, at the CoastMap Scale (equal to Landform Map)
             XZ regionCoord = new XZ(xCoord, zCoord);
             if (coastCache.TryGetValue(regionCoord, out int[] cachedCoast)) {
-                SmoothCoastlinesModSystem.Logger.Warning("Found region X: " + xCoord + " Z: " + zCoord + " in the cache already! Returning it instead.");
+                TerraPretyModSystem.Logger.Warning("Found region X: " + xCoord + " Z: " + zCoord + " in the cache already! Returning it instead.");
                 return cachedCoast;
             }
             
@@ -569,7 +569,7 @@ namespace SmoothCoastlines.Rivers {
         }
 
         private void GetInterpolatedOctaves(float[] indices, out double[] amps, out double[] thresholds) {
-            var terraPrety = sapi.ModLoader.GetModSystem<SmoothCoastlinesModSystem>();
+            var terraPrety = sapi.ModLoader.GetModSystem<TerraPretyModSystem>();
             amps = new double[terrainGenOctaves];
             thresholds = new double[terrainGenOctaves];
 

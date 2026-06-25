@@ -8,7 +8,7 @@ using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 using Vintagestory.ServerMods;
 
-namespace SmoothCoastlines.Rivers {
+namespace TerraPrety.Rivers {
 
     public class RiverRegion { //This now is more of a handler for this region's segments, providing ways to organize and compare the segments, which in turn handle the points themselves.
 

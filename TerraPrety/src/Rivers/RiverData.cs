@@ -8,7 +8,7 @@ using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 using Vintagestory.ServerMods;
 
-namespace SmoothCoastlines.Rivers {
+namespace TerraPrety.Rivers {
 
     //This represents a singular River. The WHOLE of the river, of which each part can be in various states of completeness.
     //To ease up on the RAM usage, any part that is connected on both ends to completely generated parts can be cleared and replaced with a placeholder chunk - to keep the List in order.
@@ -109,7 +109,7 @@ namespace SmoothCoastlines.Rivers {
         private float primaryHeightMapFlex;
 
         public PrimaryRiverLogic(int baseWeight) : base(baseWeight) {
-            primaryHeightMapFlex = SmoothCoastlinesModSystem.config.primaryRiverHeightStepFlex;
+            primaryHeightMapFlex = TerraPretyModSystem.config.primaryRiverHeightStepFlex;
         }
 
         public override RiverPlottingLogic ChainLogic(int baseWeight) {
@@ -238,7 +238,7 @@ namespace SmoothCoastlines.Rivers {
         private float tributaryMaxStep;
 
         public TributaryRiverLogic(int baseWeight) : base(baseWeight) {
-            tributaryMaxStep = SmoothCoastlinesModSystem.config.tributaryDesiredHeightStepUp;
+            tributaryMaxStep = TerraPretyModSystem.config.tributaryDesiredHeightStepUp;
         }
 
         public override RiverPlottingLogic ChainLogic(int baseWeight) {
@@ -388,9 +388,9 @@ namespace SmoothCoastlines.Rivers {
 
         public RiverPlottingLogic(int baseWeight) {
             chances = new RiverPlottingChances(baseWeight);
-            oceanicityFlexFactor = SmoothCoastlinesModSystem.config.riverOceanicityStepFlexibility;
-            riverMaxOceanicity = SmoothCoastlinesModSystem.config.maximumRiverOceanicity;
-            heightFlexFactor = SmoothCoastlinesModSystem.config.tributaryRiverHeightStepFlex;
+            oceanicityFlexFactor = TerraPretyModSystem.config.riverOceanicityStepFlexibility;
+            riverMaxOceanicity = TerraPretyModSystem.config.maximumRiverOceanicity;
+            heightFlexFactor = TerraPretyModSystem.config.tributaryRiverHeightStepFlex;
         }
 
         public abstract RiverPlottingLogic ChainLogic(int baseWeight);
@@ -480,7 +480,7 @@ namespace SmoothCoastlines.Rivers {
                 }
             }
 
-            SmoothCoastlinesModSystem.Logger.Error("Somehow we managed to fail to choose a proper point despite protections against this. Returning the currentPoint instead.");
+            TerraPretyModSystem.Logger.Error("Somehow we managed to fail to choose a proper point despite protections against this. Returning the currentPoint instead.");
             return currentPoint;
         }
 

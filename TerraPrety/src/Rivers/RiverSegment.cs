@@ -9,7 +9,7 @@ using Vintagestory.API.Server;
 using Vintagestory.GameContent;
 using Vintagestory.ServerMods;
 
-namespace SmoothCoastlines.Rivers {
+namespace TerraPrety.Rivers {
 
     public class RiverSegment { //An actual segment of the river. Contains a portion of the points that will produce the river. 
                                 //Forks will be their own separate Segment that connects back to their confluence point in the segment that spawned them.
@@ -56,7 +56,7 @@ namespace SmoothCoastlines.Rivers {
             maximumWorldX = -1;
             maximumWorldZ = -1;
             
-            maxPointsPerSegment = SmoothCoastlinesModSystem.config.maxPointsPerRiverSegment;
+            maxPointsPerSegment = TerraPretyModSystem.config.maxPointsPerRiverSegment;
         }
 
         public void AttachUpstream(RiverSegment upSegment) {
@@ -82,11 +82,11 @@ namespace SmoothCoastlines.Rivers {
                     forkSegment.downstream = this;
                     return true;
                 } else {
-                    SmoothCoastlinesModSystem.Logger.Warning("Tried to add two forks on the same confluence point. This is not supported, canceling fork.");
+                    TerraPretyModSystem.Logger.Warning("Tried to add two forks on the same confluence point. This is not supported, canceling fork.");
                     return false;
                 }
             } else {
-                SmoothCoastlinesModSystem.Logger.Error("Attempted to add a Fork Segment to a point that does not exist in this segment.");
+                TerraPretyModSystem.Logger.Error("Attempted to add a Fork Segment to a point that does not exist in this segment.");
                 return false;
             }
         }

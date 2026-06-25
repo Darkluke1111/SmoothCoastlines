@@ -1,5 +1,5 @@
-﻿using SmoothCoastlines.ContinentalUpheaval;
-using SmoothCoastlines.LandformHeights;
+﻿using TerraPrety.ContinentalUpheaval;
+using TerraPrety.LandformHeights;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ using Vintagestory.Server;
 using Vintagestory.ServerMods;
 using Vintagestory.ServerMods.NoObf;
 
-namespace SmoothCoastlines.Rivers {
+namespace TerraPrety.Rivers { //This is Ancient Code now! Probably going to be cleaned up proper soon.
 
     public class GenTerraPrety : ModStdWorldGen { //This is a copied over version of GenTerra from Vanilla on 8/27/2025. Will need to keep this up to date and keep parity with vanilla to account for changes.
 
