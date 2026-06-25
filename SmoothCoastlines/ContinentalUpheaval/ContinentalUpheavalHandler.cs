@@ -41,7 +41,7 @@ namespace SmoothCoastlines.ContinentalUpheaval {
             float[][] terrainYThresholds = new float[terraPrety.landforms.LandFormsByIndex.Length][];
             for (int i = 0; i < terraPrety.landforms.LandFormsByIndex.Length; i++) terrainYThresholds[i] = terraPrety.landforms.LandFormsByIndex[i].TerrainYThresholds;
 
-            float noiseScale = Math.Max(1, sapi.WorldManager.MapSizeY / 256f);
+            float noiseScale = Math.Max(1, (sapi.WorldManager.MapSizeY - 64) / 256f);
             var riversTerrainNoise = NewNormalizedSimplexFractalNoise.FromDefaultOctaves(
                 9, 0.0005 * NewSimplexNoiseLayer.OldToNewFrequency / noiseScale, 0.9, sapi.WorldManager.Seed
             );
