@@ -1,9 +1,10 @@
-﻿using TerraPrety.LandformHeights;
+﻿using MapLayer;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using TerraPrety.LandformHeights;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
@@ -17,6 +18,7 @@ namespace TerraPrety.Rivers {
 
         internal ICoreServerAPI sapi;
         internal IntDataMap2D OceanMap;
+        internal MapLayerOceansSmooth OceanGenMap;
         internal LerpedWeightedIndex2DMap LandformLerpMap;
         internal Dictionary<XZ, int[]> coastCache = new Dictionary<XZ, int[]>();
 
@@ -30,6 +32,11 @@ namespace TerraPrety.Rivers {
         int maximumOceanicity;
         float[][] terrainYThresholds;
         NewNormalizedSimplexFractalNoise terrainNoise;
+        int numBlocksInOceanMapTile;
+        int numBlocksInLandformMapTile;
+        int noiseSizeLandform;
+        int landformPad;
+        int regionSize;
 
         const double terrainDistortionMultiplier = 4.0; //Copied from GenTerra
         const double terrainDistortionThreshold = 40.0;
@@ -70,6 +77,14 @@ namespace TerraPrety.Rivers {
             );
             oceanicityFac = (sapi.WorldManager.MapSizeY - 64) / 256 * 0.33333f;
 
+            var genMaps = sapi.ModLoader.GetModSystem<GenMaps>();
+            OceanGenMap = (MapLayerOceansSmooth)genMaps.oceanGen;
+            numBlocksInOceanMapTile = TerraGenConfig.oceanMapScale;
+            numBlocksInLandformMapTile = TerraGenConfig.landformMapScale;
+            landformPad = TerraGenConfig.landformMapPadding;
+            noiseSizeLandform = sapi.WorldManager.RegionSize / TerraGenConfig.landformMapScale;
+            regionSize = sapi.WorldManager.RegionSize;
+
             coastCache.Clear();
         }
 
@@ -90,7 +105,7 @@ namespace TerraPrety.Rivers {
         public override int[] GenLayer(int xCoord, int zCoord, int sizeX, int sizeZ) { //xCoord and zCoord are the coordinates of the RegionX/Z * Width of the Map in world Coordinates, so the very first coordinate in the upper left of the map, at the CoastMap Scale (equal to Landform Map)
             XZ regionCoord = new XZ(xCoord, zCoord);
             if (coastCache.TryGetValue(regionCoord, out int[] cachedCoast)) {
-                TerraPretyModSystem.Logger.Warning("Found region X: " + xCoord + " Z: " + zCoord + " in the cache already! Returning it instead.");
+                //TerraPretyModSystem.Logger.Warning("Found region X: " + xCoord + " Z: " + zCoord + " in the cache already! Returning it instead.");
                 return cachedCoast;
             }
             
@@ -205,11 +220,11 @@ namespace TerraPrety.Rivers {
                     if (threshRegFound && oceanicity >= softMinimumOceanicity) {
                         pointsToStartFlood.Add(new VectorXZInt { X = x, Z = z }); //If the base Threshold is found, then this is a point that will always be under Sealevel, thus it is Ocean.
                         result[z * sizeX + x] = seaEnumVal;
-                    } else if (threshOceanicityFound && oceanicity >= hardMinimumOceanicity) {
+                    } else if (threshOceanicityFound && oceanicity >= hardMinimumOceanicity && (x == 0 || z == 0 || x == sizeX - 1 || z == sizeZ - 1)) {
                         pointsToExamine.Add(new VectorXZInt { X = x, Z = z }); //If the base Threshold has not been found, but the Oceanicity Threshold has been found, then this is a node of importance to check.
-                    } else if (threshRegFound && oceanicity >= ((hardMinimumOceanicity - softMinimumOceanicity) / 2)) {
-                        pointsToExamine.Add(new VectorXZInt { X = x, Z = z });
-                    }
+                    } //else if (threshRegFound && oceanicity >= ((hardMinimumOceanicity - softMinimumOceanicity) / 2)) {
+                        //pointsToExamine.Add(new VectorXZInt { X = x, Z = z });
+                    //}
                 }
             }
 
@@ -228,11 +243,47 @@ namespace TerraPrety.Rivers {
                 } else if (pointsToExamine.Count > 0 && !doneSecondPass) {
                     for (int i = 0; i < pointsToExamine.Count; i++) {
                         var point = pointsToExamine[i];
-                        if (point.X == 0 || point.X == sizeX - 1 || point.Z == 0 || point.Z == sizeX - 1) {
-                            if (oceanicityResults[point.Z * sizeX + point.X] >= ((hardMinimumOceanicity - softMinimumOceanicity) / 2)) {
+                        var worldX = ConvertLandformMapToWorldCoords(regionCoord.X, point.X);
+                        var worldZ = ConvertLandformMapToWorldCoords(regionCoord.Z, point.Z);
+
+                        if (point.X == 0) { //Poll to the West
+                            var oceanX = ConvertWorldCoordsToOceanMap(worldX - regionSize);
+                            var oceanZ = ConvertWorldCoordsToOceanMap(worldZ);
+                            if(OceanGenMap.GetOceanicityAt(oceanX, oceanZ) >= softMinimumOceanicity) {
                                 result[point.Z * sizeX + point.X] = seaEnumVal;
                                 pointsToStartFlood.Add(point);
                                 visitedPoints[point.Z * sizeX + point.X] = true;
+                                continue;
+                            }
+                        }
+                        if (point.X == sizeX - 1) { //Poll to the East
+                            var oceanX = ConvertWorldCoordsToOceanMap(worldX + regionSize);
+                            var oceanZ = ConvertWorldCoordsToOceanMap(worldZ);
+                            if (OceanGenMap.GetOceanicityAt(oceanX, oceanZ) >= softMinimumOceanicity) {
+                                result[point.Z * sizeX + point.X] = seaEnumVal;
+                                pointsToStartFlood.Add(point);
+                                visitedPoints[point.Z * sizeX + point.X] = true;
+                                continue;
+                            }
+                        }
+                        if (point.Z == 0) { //Poll to the North
+                            var oceanX = ConvertWorldCoordsToOceanMap(worldX);
+                            var oceanZ = ConvertWorldCoordsToOceanMap(worldZ - regionSize);
+                            if (OceanGenMap.GetOceanicityAt(oceanX, oceanZ) >= softMinimumOceanicity) {
+                                result[point.Z * sizeX + point.X] = seaEnumVal;
+                                pointsToStartFlood.Add(point);
+                                visitedPoints[point.Z * sizeX + point.X] = true;
+                                continue;
+                            }
+                        }
+                        if (point.Z == sizeX - 1) { //Poll to the South
+                            var oceanX = ConvertWorldCoordsToOceanMap(worldX);
+                            var oceanZ = ConvertWorldCoordsToOceanMap(worldZ + regionSize);
+                            if (OceanGenMap.GetOceanicityAt(oceanX, oceanZ) >= softMinimumOceanicity) {
+                                result[point.Z * sizeX + point.X] = seaEnumVal;
+                                pointsToStartFlood.Add(point);
+                                visitedPoints[point.Z * sizeX + point.X] = true;
+                                continue;
                             }
                         }
                     }
@@ -587,6 +638,26 @@ namespace TerraPrety.Rivers {
                 amps[octave] = amplitude;
                 thresholds[octave] = threshold;
             }
+        }
+
+        private int ConvertOceanMapToWorldCoords(int coord, int offset = 0) {
+            return (coord * numBlocksInOceanMapTile) + offset;
+        }
+
+        private int ConvertWorldCoordsToOceanMap(int worldCoord) {
+            return (worldCoord / numBlocksInOceanMapTile);
+        }
+
+        private int ConvertRegionToLandformMapCoords(int coord, int offset = 0) {
+            return (coord * noiseSizeLandform - landformPad) + offset;
+        }
+
+        private int ConvertLandformMapToWorldCoords(int coord, int offset = 0) {
+            return (coord * numBlocksInLandformMapTile) + offset;
+        }
+
+        private int ConvertWorldCoordsToLandformMap(int worldCoord) {
+            return (worldCoord / numBlocksInLandformMapTile);
         }
     }
 }
