@@ -220,8 +220,10 @@ namespace TerraPrety.Rivers {
                     if (threshRegFound && oceanicity >= softMinimumOceanicity) {
                         pointsToStartFlood.Add(new VectorXZInt { X = x, Z = z }); //If the base Threshold is found, then this is a point that will always be under Sealevel, thus it is Ocean.
                         result[z * sizeX + x] = seaEnumVal;
-                    } else if (threshOceanicityFound && oceanicity >= hardMinimumOceanicity && (x == 0 || z == 0 || x == sizeX - 1 || z == sizeZ - 1)) {
-                        pointsToExamine.Add(new VectorXZInt { X = x, Z = z }); //If the base Threshold has not been found, but the Oceanicity Threshold has been found, then this is a node of importance to check.
+                    } else if (threshOceanicityFound && oceanicity >= hardMinimumOceanicity) {
+                        if (hardMinimumOceanicity > 0 || (hardMinimumOceanicity <= 0 && (x == 0 || z == 0 || x == sizeX - 1 || z == sizeZ - 1))) {
+                            pointsToExamine.Add(new VectorXZInt { X = x, Z = z }); //If the base Threshold has not been found, but the Oceanicity Threshold has been found, then this is a node of importance to check.
+                        }
                     } //else if (threshRegFound && oceanicity >= ((hardMinimumOceanicity - softMinimumOceanicity) / 2)) {
                         //pointsToExamine.Add(new VectorXZInt { X = x, Z = z });
                     //}
@@ -243,8 +245,15 @@ namespace TerraPrety.Rivers {
                 } else if (pointsToExamine.Count > 0 && !doneSecondPass) {
                     for (int i = 0; i < pointsToExamine.Count; i++) {
                         var point = pointsToExamine[i];
-                        var worldX = ConvertLandformMapToWorldCoords(regionCoord.X, point.X);
-                        var worldZ = ConvertLandformMapToWorldCoords(regionCoord.Z, point.Z);
+                        var worldX = ConvertLandformMapToWorldCoords(regionCoord.X + point.X);
+                        var worldZ = ConvertLandformMapToWorldCoords(regionCoord.Z + point.Z);
+
+                        if(hardMinimumOceanicity > 0) {
+                            result[point.Z * sizeX + point.X] = seaEnumVal;
+                            pointsToStartFlood.Add(point);
+                            visitedPoints[point.Z * sizeX + point.X] = true;
+                            continue;
+                        }
 
                         if (point.X == 0) { //Poll to the West
                             var oceanX = ConvertWorldCoordsToOceanMap(worldX - regionSize);

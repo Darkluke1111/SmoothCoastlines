@@ -24,7 +24,7 @@
 
         public float radiusMultOutwardsForSmoothing = 6.0f;
 
-        public int hardMinimumCoastalOceanicity = 0;
+        public int hardMinimumCoastalOceanicity = 1;
         public int softMinimumCoastalOceanicity = 30;
         public int maximumCoastalOceanicity = 256;
 
