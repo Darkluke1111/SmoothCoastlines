@@ -47,7 +47,7 @@ namespace TerraPrety.LandformHeights {
             int[] result = new int[sizeX * sizeZ];
             for (int x = 0; x < sizeX; x++) {
                 for (int z = 0; z < sizeZ; z++) {
-                    int offsetX = (int)(wobbleIntensity * noisegenX.Noise(xCoord + x, zCoord + z) * 1.2f);
+                    int offsetX = (int)(wobbleIntensity * noisegenX.Noise(xCoord + x, zCoord + z) * 1.2f); //Respective Coord + the offset value from the loops is the 
                     int offsetY = (int)(wobbleIntensity * noisegenY.Noise(xCoord + x, zCoord + z) * 1.2f);
 
                     int finalX = xCoord + x + offsetX;
@@ -69,6 +69,23 @@ namespace TerraPrety.LandformHeights {
             return result;
         }
 
+        //Send this the coords of a single tile of the LandformMap to recieve the heightmap value at that tile. Intended for use with far-reaching generation steps where this part of the map has not been generated yet, but the value is still needed. Use sparingly as this fully calculates it, if possible always just try accessing the saved region maps directly. (Used in River Gen currently)
+        public float GetHeightMapAt(int xCoord, int zCoord) {
+            if (!forcedPointsInit) {
+                forcedPointsInit = true;
+                noiseLandforms.SetForcedHeightPoints();
+                noiseLandforms.FindForcedLandformID();
+            }
+
+            int offsetX = (int)(wobbleIntensity * noisegenX.Noise(xCoord, zCoord) * 1.2f); //Respective Coord + the offset value from the loops is the 
+            int offsetY = (int)(wobbleIntensity * noisegenY.Noise(xCoord, zCoord) * 1.2f);
+
+            int finalX = xCoord + offsetX;
+            int finalZ = zCoord + offsetY;
+
+            return noiseLandforms.GetHeightMapAt(finalX, finalZ);
+        }
+
         public void AddForcedLandform(ForceLandform forced) {
             noiseLandforms.AddForcedLandform(forced);
         }
@@ -76,6 +93,12 @@ namespace TerraPrety.LandformHeights {
         public void AddHeightmapToRegion(IMapRegion region) {
             var heightMap = noiseLandforms.GetHeightData();
             region.ModMaps["LandformHeightMap"] = heightMap;
+        }
+
+        public void BorrowHeightMapReference(ref WeightedNormalizedSimplexNoise heightNoise, ref NormalizedSimplexNoise landformNoiseGenX, ref NormalizedSimplexNoise landformNoiseGenY) {
+            noiseLandforms.BorrowHeightMapReference(ref heightNoise);
+            landformNoiseGenX = noisegenX;
+            landformNoiseGenY = noisegenY;
         }
     }
 }

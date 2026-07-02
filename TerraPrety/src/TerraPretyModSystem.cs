@@ -1,8 +1,13 @@
-﻿using System;
-using HarmonyLib;
+﻿using HarmonyLib;
+using MapLayer;
+using System;
+using System.Collections.Generic;
 using Vintagestory.API.Common;
+using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
+using Vintagestory.GameContent;
 using Vintagestory.ServerMods;
+using Vintagestory.ServerMods.NoObf;
 
 namespace TerraPrety;
 
@@ -14,6 +19,13 @@ public class TerraPretyModSystem : ModSystem
     public Harmony harmony;
     public static ILogger Logger;
     public static ICoreServerAPI Sapi;
+
+    public int NoiseSizeRivers;
+    public int NoiseSizeCoast;
+    public int regionMapSize;
+    public MapLayerBase CoastMap;
+    public MapLayerBase RiverMap;
+    public LandformsWorldProperty landforms;
 
     public override bool ShouldLoad(EnumAppSide forSide)
     {
@@ -37,8 +49,8 @@ public class TerraPretyModSystem : ModSystem
 
         TryToLoadConfig(api);
 
-        TerraGenConfig.landFormSmoothingRadius = config.landformSmoothingRadius;
-        TerraGenConfig.landformMapPadding = config.landformMapPadding;
+        //TerraGenConfig.landFormSmoothingRadius = config.landformSmoothingRadius;
+        //TerraGenConfig.landformMapPadding = config.landformMapPadding;
 
         api.ChatCommands
             .Create("adjustLandformSmoothing")
