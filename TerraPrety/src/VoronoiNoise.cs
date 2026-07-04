@@ -18,7 +18,6 @@ namespace TerraPrety.Noise {
         double scale;
         const double maxDistanceConstant = 1.41421356237309505; //Square Root of 2
         List<XZ> forcedPoints;
-        public Dictionary<XZ, VoronoiDataPoint> pointCache => ObjectCacheUtil.GetOrCreate(TerraPretyModSystem.Sapi as ICoreAPI, "continentalVoronoiPoints", () => new Dictionary<XZ, VoronoiDataPoint>());
 
         private readonly long mapGenSeed;
 
@@ -66,6 +65,7 @@ namespace TerraPrety.Noise {
             //Fractional part is the location relative to the voronoi square
             double xFrac = xpos_full - xCell;
             double zFrac = zpos_full - zCell;
+            XZ cellXZ = new XZ(xCell, zCell);
 
             F1_1stClosestPointDistance = double.MaxValue;
             F2_2ndClosestPointDistance = double.MaxValue;
@@ -138,75 +138,81 @@ namespace TerraPrety.Noise {
 
             return r;
         }
-    }
 
-    public class VoronoiRidgeNoise(VoronoiNoise voronoi) : Noise2D {
-        public double getValueAt(int unscaledXpos, int unscaledZpos) => voronoi.GetMountainRidgeValueAt(unscaledXpos, unscaledZpos);
-    }
+        public XZ GetContinentalCenter(int x, int z) {
+            XZ centerRegion = new XZ();
 
-    public struct XZd {
+            double xpos_full = x / scale;
+            double zpos_full = z / scale;
 
-        public double X;
-        public double Z;
+            //Integer part of the position is the voronoi square coordinate
+            int xCell = (int)xpos_full;
+            int zCell = (int)zpos_full;
 
-        public XZd(double x, double z) {
-            X = x;
-            Z = z;
-        }
-    }
+            //Fractional part is the location relative to the voronoi square
+            double xFrac = xpos_full - xCell;
+            double zFrac = zpos_full - zCell;
+            //XZ cellXZ = new XZ(xCell, zCell);
 
-    public class VoronoiDataPoint {
+            double min_distance = Double.MaxValue;
+            int centerCellX = 0;
+            int centerCellZ = 0;
+            double centerFracX = 0;
+            double centerFracZ = 0;
 
-        public XZd pos;
-        public XZd[] neighbors;
-        public bool distCalced = false;
-        public double[] distancesToNeighbors;
-
-        public VoronoiDataPoint(XZd point) {
-            pos = point;
-            neighbors = new XZd[9];
-        }
-
-        public void CalcDistToNeighbors() {
-            if (!distCalced) {
-                for (int i = 0; i < neighbors.Length; i++) {
-                    var neighbor = neighbors[i];
-                    distancesToNeighbors[i] = GameMath.Sqrt((pos.X - neighbor.X) * (pos.X - neighbor.X) + (pos.Z - neighbor.Z) * (pos.Z - neighbor.Z));
-                }
-                distCalced = true;
-            }
-        }
-
-        public double GetMinDist(double x, double z) {
-            var min_distance = Double.MaxValue;
+            // Iterate over the voronoi square and its 8 nighbours
             for (int dx = 0; dx < 3; dx++) {
                 for (int dz = 0; dz < 3; dz++) {
-                    var neighbor = GetNeighborByXZOffset(dx, dz);
-                    var distance = GameMath.Sqrt((x - neighbor.X) * (x - neighbor.X) + (z - neighbor.Z) * (z - neighbor.Z));
-                    if (min_distance > distance) {
-                        min_distance = distance;
+                    double pointPosX;
+                    double pointPosZ;
+
+                    //First check whether we have forced voronoi points in this cell
+                    bool forced = false;
+                    for (int i = 0; i < forcedPoints.Count; i++) {
+                        double forcedX = forcedPoints[i].X / scale;
+                        double forcedY = forcedPoints[i].Z / scale;
+                        if (xCell - 1 + dx < forcedX && xCell - 1 + dx + 1 >= forcedX
+                            && zCell - 1 + dz < forcedY && zCell - 1 + dz + 1 >= forcedY) {
+                            pointPosX = forcedX - xCell;
+                            pointPosZ = forcedY - zCell;
+                            forced = true;
+
+                            var distance = GameMath.Sqrt((xFrac - pointPosX) * (xFrac - pointPosX) + (zFrac - pointPosZ) * (zFrac - pointPosZ));
+                            if (min_distance > distance) {
+                                min_distance = distance;
+                                centerCellX = (int)forcedX;
+                                centerCellZ = (int)forcedY;
+                                centerFracX = pointPosX;
+                                centerFracZ = pointPosZ;
+                                break;
+                            }
+                        }
+                    }
+                    // Generate a random voronoi point for the cell if none is forced
+                    if (!forced) {
+                        InitPositionSeed(xCell - 1 + dx, zCell - 1 + dz);
+                        pointPosX = (NextInt(10000) / 10000.0) - 1 + dx;
+                        pointPosZ = (NextInt(10000) / 10000.0) - 1 + dz;
+
+                        var distance = GameMath.Sqrt((xFrac - pointPosX) * (xFrac - pointPosX) + (zFrac - pointPosZ) * (zFrac - pointPosZ));
+                        if (min_distance > distance) {
+                            min_distance = distance;
+                            centerCellX = xCell - 1 + dx;
+                            centerCellZ = zCell - 1 + dz;
+                            centerFracX = pointPosX;
+                            centerFracZ = pointPosZ;
+                        }
                     }
                 }
             }
-            return min_distance;
+
+            centerRegion.X = (int)((centerCellX + centerFracX) * scale);
+            centerRegion.Z = (int)((centerCellZ + centerFracZ) * scale);
+            return centerRegion;
         }
-
-        public XZd GetNeighborByXZOffset(int dx, int dz) { //dx should be from 0 to 2, same for dz! Just like above.
-            if (dx == 1 && dz == 1) {
-                return pos;
-            }
-
-            var index = (dx * 3) + dz;
-            return neighbors[index];
-        }
-
-        public void SetNeighborByXZOffset(int dx, int dz, XZd neighbor) {
-            if (dx == 1 && dz == 1) {
-                pos = neighbor;
-            }
-
-            var index = (dx * 3) + dz;
-            neighbors[index] = neighbor;
-        }
+    }
+    public class VoronoiRidgeNoise(VoronoiNoise voronoi) : Noise2D
+    {
+        public double getValueAt(int unscaledXpos, int unscaledZpos) => voronoi.GetMountainRidgeValueAt(unscaledXpos, unscaledZpos);
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MapLayer;
+using TerraPrety.Rivers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using MapLayer;
@@ -59,10 +61,6 @@ namespace TerraPrety.LandformHeights {
 
         private readonly long mapGenSeed;
 
-        private float[] threshForOceanicityComp;
-        private float[] oceanicityCompMults;
-        private float[] oceanicityCompFlats;
-
         private NormalizedSimplexNoise mountainRangeWobbleX;
         private NormalizedSimplexNoise mountainRangeWobbleZ;
         private float mountainRangeWobbleIntensity;
@@ -90,10 +88,6 @@ namespace TerraPrety.LandformHeights {
             float hScale = this.config.heightMapNoiseScale;
             float hPersistance = this.config.heightMapPersistance;
             heightNoise = new WeightedNormalizedSimplexNoise(hOctaves, 1 / hScale, hPersistance, seed + 53247, this.config.radiusMultOutwardsForSmoothing, scale, config.chanceForMidZone, config.midHeightKeys, config.midHeightValues, config.targetMidLevel, config.lowThreshForMidZone, config.inlandMountainRangeScale, config.inlandMountainRangeKeys, config.inlandMountainRangeValues, config.mountainRangesPullsHeightMapTowards);
-
-            threshForOceanicityComp = config.heightThresholdsForOceanicityComp;
-            oceanicityCompMults = config.heightMultsAtThresholdsForOceanicityComp;
-            oceanicityCompFlats = config.heightFlatsAtThresholdsForOceanicityComp;
 
             float inlandMountainRangeWobbleScale = config.inlandMountainRangeWobbleScale * TerraGenConfig.landformMapScale;
             mountainRangeWobbleIntensity = config.inlandMountainRangeWobbleIntensity * TerraGenConfig.landformMapScale;
@@ -208,13 +202,17 @@ namespace TerraPrety.LandformHeights {
             fallbackParentLandformID = 0; //This will at least ensure it is set to _something_ and it will just take the first entry. In the case of a typo or the like.
         }
 
-        public int GetLandformIndexAt(int unscaledXpos, int unscaledZpos, double mountainRangeOpacity, int temp, int rain) {
-            int noiseSizeLandform = sapi.ModLoader.GetModSystem<GenMaps>().noiseSizeLandform;
+        public void BorrowHeightMapReference(ref WeightedNormalizedSimplexNoise sharedHeightNoise) {
+            sharedHeightNoise = heightNoise;
+        }
 
-            int regionX = unscaledXpos / (noiseSizeLandform - TerraGenConfig.landformMapPadding);
+        public int GetLandformIndexAt(int unscaledXpos, int unscaledZpos, double mountainRangeOpacity, int temp, int rain) {
+            /*int noiseSizeLandform = sapi.ModLoader.GetModSystem<GenMaps>().noiseSizeLandform;
+
+            int regionX = unscaledXpos / (noiseSizeLandform - TerraGenConfig.landformMapPadding); //Why did I have this again...? Huh.
             int regionZ = unscaledZpos / (noiseSizeLandform - TerraGenConfig.landformMapPadding);
 
-            var region = sapi.WorldManager.GetMapRegion(regionX, regionZ);
+            var region = sapi.WorldManager.GetMapRegion(regionX, regionZ);*/
 
             float xpos = unscaledXpos / scale;
             float zpos = unscaledZpos / scale;
@@ -428,33 +426,8 @@ namespace TerraPrety.LandformHeights {
             return num;
         }
 
-        public float GetCompValueForOceanicity(int worldX, int worldZ, float oceanicity) { //This is a mess I'll clean up later. Oof.
-            if (oceanicity <= 16.6663f) {
-                return 16.6664f;
-            }
-
-            var heightAtX = worldX / TerraGenConfig.landformMapScale;
-            var heightAtZ = worldZ / TerraGenConfig.landformMapScale;
-            var height = heightNoise.Height((int)heightAtX, (int)heightAtZ);
-
-            var thresholdIndex = GetHeightThresholdIndex(height);
-            var compValue = (float)(height * oceanicityCompMults[thresholdIndex]) * oceanicityFactor;
-            return (compValue + oceanicityCompFlats[thresholdIndex]);
-        }
-
-        public int GetHeightThresholdIndex(double height) { //This will find a valid threshold or simply return the last one.
-            var thresholds = threshForOceanicityComp;
-            var prevThreshold = 0.0f;
-            int i;
-
-            for (i = 0; i < thresholds.Length; i++) {
-                if (height > prevThreshold && height <= thresholds[i]) {
-                    return i;
-                }
-                prevThreshold = thresholds[i];
-            }
-
-            return 0;
+        public float GetHeightMapAt(int xCoord, int zCoord) {
+            return (float)heightNoise.Height(xCoord, zCoord);
         }
 
         public void PrepareForNewHeightmap(int xCoord, int zCoord, int sizeX, int sizeZ) {

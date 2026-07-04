@@ -56,20 +56,33 @@
 
         public float radiusMultOutwardsForSmoothing = 6.0f;
 
-        public float[] heightThresholdsForOceanicityComp = { 0.0f, 1.0f };
-        public float[] heightMultsAtThresholdsForOceanicityComp = { 0.0f, 0.0f };
-        public float[] heightFlatsAtThresholdsForOceanicityComp = { 0.0f, 0.0f };
-        //public float heightAboveWhichToWatchOceanicity = 0.8f;
-        //public float highHeightLowOceanicityMin = 6.15f;
-        //public float highHeightLowOceanicityMax = 24.6f;
-        //public float heightMidAboveWhichToWatchOceanicity = 0.5f;
-        //public float midHeightMidOceanicityMin = 4.1f;
-        //public float midHeightMidOceanicityMax = 16.4f; //These values are the oceanicity at the spot multiplied by the OceanicityFactor, this is what it recieves so it makes it easier to calculate them
+        public int hardMinimumCoastalOceanicity = 1;
+        public int softMinimumCoastalOceanicity = 30;
+        public int maximumCoastalOceanicity = 256;
 
-        public double terrainNoiseFrequencyMult = 1.0;
+        // -- Rivers related settings follow! --
+
+        public float chanceForRiver = 0.2f; //The chance for each valid region found, should it contain the start of a river?
+        public int minimumRiverOceanicity = 5;
+        public int maximumRiverOceanicity = 100;
+        public float maxHeightForRiverSink = 0.25f; //Based on the LandformHeightMap heights, not actual y-heights.
+        public float chanceToFork = 0.02f;
+
+        public float minimumRiverFlowStrength = 0.25f;
+        public float maximumRiverFlowStrength = 1.5f;
+
+        public int maxPointsPerRiverSegment = 10; //Aim to generate a full segment's worth of points before adding them all to the segment and then to the region.
+        public float primaryRiverHeightStepFlex = 0.025f; //A primary river step must have a LandformHeightMap value that is only this distance from the current to be considered valid.
+        public float tributaryRiverHeightStepFlex = 0.02f; //Mainly just the downward flexibility, since upwards is not really capped for Tributaries, just a desired target for a step.
+        public float tributaryDesiredHeightStepUp = 0.04f; //Try to aim for a step that would be at least this amount higher then the current HeightMap value.
+        public int riverOceanicityStepFlexibility = 5; //SLIGHT amount of leeway to allow the river to still somewhat travel to the sides, but trend inland.
+
+        public float flowLossPerRiverSegment = 0.03f; //This serves as a hard-stop for a River to cease expanding if the flow gets below 0. Lower Value means longer rivers, generally, unless something else stops it first.
+
+        /*public double terrainNoiseFrequencyMult = 1.0;
         public double terrainNoisePersistance = 0.9;
         public bool enableEdgeLandformSmoothing = false;
         public int landformSmoothingRadius = 3;
-        public int landformMapPadding = 4;
+        public int landformMapPadding = 4;*/
     }
 }
