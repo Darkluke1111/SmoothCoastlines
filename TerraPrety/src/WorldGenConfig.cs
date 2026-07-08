@@ -10,6 +10,8 @@
 
         public float oceanWobbleScale = 2.0f;
         public float oceanWobbleIntensity = 1.0f;
+        public int oceanWobbleOctaves = 4;
+        public float oceanWobblePersistence = 0.9f;
         public double[] remappingKeys = { 0.115, 0.285 };
         public double[] remappingValues = {0.0, 1.0 };
 

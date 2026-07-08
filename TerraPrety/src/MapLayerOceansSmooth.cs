@@ -29,9 +29,9 @@ namespace MapLayer
             oceanAndCoastNoise = new NoiseRemapper(voronoiNoise, config.coastRemappingKeys, config.coastRemappingValues);
             Instance = this;
 
-            int woctaves = 4;
+            int woctaves = config.oceanWobbleOctaves;
             float wscale = config.oceanWobbleScale * config.noiseScale;
-            float wpersistence = 0.9f;
+            float wpersistence = config.oceanWobblePersistence;
             wobbleIntensity = config.oceanWobbleIntensity * config.noiseScale;
             noisegenX = NormalizedSimplexNoise.FromDefaultOctaves(woctaves, 1 / wscale, wpersistence, seed + 2);
             noisegenY = NormalizedSimplexNoise.FromDefaultOctaves(woctaves, 1 / wscale, wpersistence, seed + 1231296);
