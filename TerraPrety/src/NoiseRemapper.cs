@@ -18,10 +18,11 @@ namespace TerraPrety
             this.thresholds = thresholds;
         }
 
-        public double getValueAt(int unscaledXpos, int unscaledZpos) {
-            var baseValue = baseNoise.getValueAt(unscaledXpos, unscaledZpos);
+        public double getValueAt(int unscaledXpos, int unscaledZpos) => GetValueAt(this.baseNoise.getValueAt(unscaledXpos, unscaledZpos), keys, thresholds);
 
-            if(keys == null || thresholds == null || keys.Length != thresholds.Length)
+        public static double GetValueAt(double baseValue, double[] keys, double[] thresholds)
+        {
+            if (keys == null || thresholds == null || keys.Length != thresholds.Length)
             {
                 return baseValue;
             }
@@ -45,7 +46,7 @@ namespace TerraPrety
                 currentKey = nextKey;
                 currentThreshold = nextThreshold;
             }
-            return thresholds[keyAmount];
+            return currentThreshold;
         }
     }
 }

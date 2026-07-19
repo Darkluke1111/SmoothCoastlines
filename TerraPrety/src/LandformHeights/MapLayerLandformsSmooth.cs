@@ -56,10 +56,13 @@ namespace TerraPrety.LandformHeights {
                     int climate = climateNoise.GetLerpedClimateAt(finalX / TerraGenConfig.climateMapScale, finalZ / TerraGenConfig.climateMapScale);
                     int rain = climate >> 8 & 0xff;
                     int temp = Climate.GetScaledAdjustedTemperature(climate >> 16 & 0xff, 0);
-                    
+
+                    double mountainRangeOpacity = noiseLandforms.FinalMountainRangeMask(xCoord + x, zCoord + z);
+
                     result[z * sizeX + x] = noiseLandforms.GetLandformIndexAt(
                         finalX,
                         finalZ,
+                        mountainRangeOpacity,
                         temp,
                         rain
                     );
@@ -93,6 +96,9 @@ namespace TerraPrety.LandformHeights {
         public void AddHeightmapToRegion(IMapRegion region) {
             var heightMap = noiseLandforms.GetHeightData();
             region.ModMaps["LandformHeightMap"] = heightMap;
+
+            var mountainRangeMap = noiseLandforms.GetMountainRangeData();
+            region.ModMaps["MountainRangeMap"] = mountainRangeMap;
         }
 
         public void BorrowHeightMapReference(ref WeightedNormalizedSimplexNoise heightNoise, ref NormalizedSimplexNoise landformNoiseGenX, ref NormalizedSimplexNoise landformNoiseGenY) {

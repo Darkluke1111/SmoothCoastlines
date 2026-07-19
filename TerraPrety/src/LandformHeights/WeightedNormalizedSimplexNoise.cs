@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using TerraPrety.Noise;
 using Vintagestory.API.MathTools;
+using Vintagestory.ServerMods;
 
 namespace TerraPrety.LandformHeights {
     public class WeightedNormalizedSimplexNoise { 
@@ -8,13 +10,15 @@ namespace TerraPrety.LandformHeights {
         private NormalizedSimplexNoise SimplexNoise;
         private MidpointDistFromPointNoise MidZonePointGen; //This is used to generate blobs of 'mid height' terrain randomly around the world.
         private NoiseRemapper RemappedMidZone;
+        private NoiseRemapper InlandMountainRangeMask;
+        private float MountainTargetHeight;
         private List<RequiredHeightPoints> RequiredPoints; //Any point here has a specific height for the Landform it is expecting, and this holds that min-max height.
         private float PointsOutwardsNeedingAverage; //This many steps outwards from a required point will be adjusted towards the required height.
         private float MidTargetHeight;
         private float LowThreshForNoMids;
         private float LowThreshSmoothFactor = 0.1f;
 
-        public WeightedNormalizedSimplexNoise(int quantityOctaves, double baseFrequency, double persistance, long seed, float pointsOutForAverage, double landformScale, float chanceForMidZone, double[] midKeys, double[] midValues, float midTargetHeight, float midLowThresh) {
+        public WeightedNormalizedSimplexNoise(int quantityOctaves, double baseFrequency, double persistance, long seed, float pointsOutForAverage, double landformScale, float chanceForMidZone, double[] midKeys, double[] midValues, float midTargetHeight, float midLowThresh, float inlandMountainRangeScaleMult, double[] inlandMountainRangeKeys, double[] inlandMountainRangeValues, float mountainRangesPullsHeightMapTowards) {
             SimplexNoise = NormalizedSimplexNoise.FromDefaultOctaves(quantityOctaves, baseFrequency, persistance, seed);
             PointsOutwardsNeedingAverage = pointsOutForAverage;
 
@@ -22,10 +26,48 @@ namespace TerraPrety.LandformHeights {
             RemappedMidZone = new NoiseRemapper(MidZonePointGen, midKeys, midValues);
             MidTargetHeight = midTargetHeight;
             LowThreshForNoMids = midLowThresh;
+
+            var inlandMountainRangeVoronoi = new VoronoiNoise(seed + 7919, landformScale * inlandMountainRangeScaleMult, []);
+            InlandMountainRangeMask = new NoiseRemapper(new VoronoiRidgeNoise(inlandMountainRangeVoronoi), inlandMountainRangeKeys, inlandMountainRangeValues);
+            MountainTargetHeight = mountainRangesPullsHeightMapTowards;
         }
 
         public void SetRequiredPoints(List<RequiredHeightPoints> reqPoints) {
             RequiredPoints = reqPoints;
+        }
+
+        public double InlandMountainRangeMaskValue(int x, int z) => InlandMountainRangeMask.getValueAt(x, z);
+
+        // Lift the landform height towards the mountain target height within mountain ranges
+        public double LiftTowardMountainRangeTargetHeight(double unliftedHeight, double mountainRangeOpacity)
+        {
+            if (mountainRangeOpacity <= 0.0)
+                return unliftedHeight;
+
+            double liftedHeight = GameMath.Lerp(unliftedHeight, MountainTargetHeight, mountainRangeOpacity);
+            if (liftedHeight > unliftedHeight)
+                return (double)liftedHeight;
+            else // No down
+                return (double)unliftedHeight;
+        }
+
+        public bool IsInForcedLandform(int x, int z)
+        {
+            if (RequiredPoints == null || RequiredPoints.Count == 0)
+                return false;
+
+            foreach (RequiredHeightPoints point in RequiredPoints)
+            {
+                if (point.x == x && point.z == z)
+                    return true;
+
+                int scaledRadius = (int)(PointsOutwardsNeedingAverage * point.radius);
+                scaledRadius += scaledRadius / 2;
+                if (point.IsWithinRange(x, z, scaledRadius))
+                    return true;
+            }
+
+            return false;
         }
 
         public double Height(int x, int z) {

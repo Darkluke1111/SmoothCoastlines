@@ -1,8 +1,11 @@
 ﻿using HarmonyLib;
 using MapLayer;
+using TerraPrety.LandformHeights;
+using MapLayer;
 using System;
 using System.Collections.Generic;
 using Vintagestory.API.Common;
+using Vintagestory.API.Common.Entities;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.GameContent;
@@ -59,6 +62,34 @@ public class TerraPretyModSystem : ModSystem
             .RequiresPrivilege("controlserver")
             .WithArgs(api.ChatCommands.Parsers.Int("radius"))
             .HandleWith(args => AdjustLandformSmoothingRadius(api, args));
+
+        api.ChatCommands.Create("terrapretycoastmap")
+            .WithDescription("Check the coastmap info where you're at")
+            .RequiresPrivilege("controlserver")
+            .HandleWith(TerraPretyCoastMapDebug);
+    }
+
+    private static TextCommandResult TerraPretyCoastMapDebug(TextCommandCallingArgs args)
+    {
+        MapLayerOceansSmooth oceanMap = MapLayerOceansSmooth.Instance;
+        LandformHeightNoise landformNoise = MapLayerLandformsSmooth.noiseLandforms;
+        Entity player = args.Caller.Entity;
+        if (oceanMap == null || landformNoise == null || player == null)
+            return TextCommandResult.Error("Ocean map or landform noise not ready or no player");
+
+        int playerX = (int)player.Pos.X;
+        int playerZ = (int)player.Pos.Z;
+        int oceanX = playerX / TerraGenConfig.oceanMapScale;
+        int oceanZ = playerZ / TerraGenConfig.oceanMapScale;
+        int landformX = playerX / TerraGenConfig.landformMapScale;
+        int landformZ = playerZ / TerraGenConfig.landformMapScale;
+
+        return TextCommandResult.Success(
+            $"@ X: ={playerX}, Z: ={playerZ}\n" +
+            $"Ocean opacity: {oceanMap.OceanOpacity(oceanX, oceanZ):F3} / 1\n" +
+            $"Coastmap opacity: {oceanMap.CoastOpacity(oceanX, oceanZ):F3} / 1\n" +
+            $"Landform height: {landformNoise.HeightNoiseHeight(landformX, landformZ):F3} / 1\n" +
+            $"Landform height after coastmap lowers it: {landformNoise.CoastalMapLoweredHeight(landformX, landformZ):F3} / 1");
     }
 
     public static WorldGenConfig TryToLoadConfig(ICoreAPI api)

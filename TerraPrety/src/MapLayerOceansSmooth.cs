@@ -14,6 +14,9 @@ namespace MapLayer
         private WorldGenConfig config;
         VoronoiNoise voronoiNoise;
         Noise2D oceanNoise;
+        Noise2D oceanAndCoastNoise;
+
+        public static MapLayerOceansSmooth Instance;
 
         public float landFormHorizontalScale = 1f;
 
@@ -23,10 +26,12 @@ namespace MapLayer
 
             voronoiNoise = new VoronoiNoise(seed + 2, config.noiseScale, requireLandAt);
             oceanNoise = new NoiseRemapper(voronoiNoise, config.remappingKeys, config.remappingValues);
+            oceanAndCoastNoise = new NoiseRemapper(voronoiNoise, config.coastRemappingKeys, config.coastRemappingValues);
+            Instance = this;
 
-            int woctaves = 4;
+            int woctaves = config.oceanWobbleOctaves;
             float wscale = config.oceanWobbleScale * config.noiseScale;
-            float wpersistence = 0.9f;
+            float wpersistence = config.oceanWobblePersistence;
             wobbleIntensity = config.oceanWobbleIntensity * config.noiseScale;
             noisegenX = NormalizedSimplexNoise.FromDefaultOctaves(woctaves, 1 / wscale, wpersistence, seed + 2);
             noisegenY = NormalizedSimplexNoise.FromDefaultOctaves(woctaves, 1 / wscale, wpersistence, seed + 1231296);
@@ -41,11 +46,7 @@ namespace MapLayer
                 {
                     var nx = xCoord + x;
                     var nz = zCoord + z;
-                    var undestortedNoise = voronoiNoise.getValueAt(nx, nz); ;
-                    var offsetX = (int)(wobbleIntensity * noisegenX.Noise(nx, nz) * undestortedNoise);
-                    var offsetZ = (int)(wobbleIntensity * noisegenY.Noise(nx, nz) * undestortedNoise);
-                    var unscaledXpos = nx + offsetX;
-                    var unscaledZpos = nz + offsetZ;
+                    this.Wobble(nx, nz, out int unscaledXpos, out int unscaledZpos);
                     var oceanicity = oceanNoise.getValueAt(unscaledXpos, unscaledZpos);
 
                     result[z * sizeX + x] = (int)(oceanicity * 255);
@@ -53,6 +54,31 @@ namespace MapLayer
             }
 
             return result;
+        }
+
+        private void Wobble(int nx, int nz, out int offsetX, out int offsetZ)
+        {
+            double undistortedNoise = voronoiNoise.getValueAt(nx, nz);
+            offsetX = nx + (int)(wobbleIntensity * noisegenX.Noise(nx, nz) * undistortedNoise);
+            offsetZ = nz + (int)(wobbleIntensity * noisegenY.Noise(nx, nz) * undistortedNoise);
+        }
+
+        public double OceanOpacity(int ox, int oz)
+        {
+            this.Wobble(ox, oz, out int wx, out int wz);
+            return oceanNoise.getValueAt(wx, wz);
+        }
+
+        public double CoastOpacity(int ox, int oz)
+        {
+            this.Wobble(ox, oz, out int wx, out int wz);
+            return oceanAndCoastNoise.getValueAt(wx, wz);
+        }
+
+        public double ContinentalPosition(int ox, int oz)
+        {
+            this.Wobble(ox, oz, out int wx, out int wz);
+            return voronoiNoise.getValueAt(wx, wz);
         }
 
         //Send this the coords of a single tile of the OceanMap to recieve the Oceanicity for that tile. Intended for use with far-reaching generation steps where this part of the map has not been generated yet, but the value is still needed. Use sparingly as this fully calculates it, if possible always just try accessing the saved region maps directly. (Used in River Gen currently)
