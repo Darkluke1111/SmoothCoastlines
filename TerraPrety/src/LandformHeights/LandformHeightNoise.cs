@@ -3,7 +3,6 @@ using TerraPrety.Rivers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using MapLayer;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
@@ -32,6 +31,12 @@ namespace TerraPrety.LandformHeights {
 
         public bool IsWithinRange(int X, int Z, int range) {
             return X > (x - range) && X < (x + range) && Z > (z - range) && Z < (z + range);
+        }
+
+        public int DistanceTo(int X, int Z) {
+            var xdiff = (x - X);
+            var zdiff = (z - Z);
+            return (int)Math.Sqrt((xdiff * xdiff) + (zdiff * zdiff));
         }
     }
 
@@ -254,14 +259,16 @@ namespace TerraPrety.LandformHeights {
             long currentSeed = ThreadLocalPositionSeed(mapGenSeed, xpos, zpos);
 
             double weightSum = 0;
-            double coastHeight = this.CoastalMapLoweredHeight(unscaledXpos, unscaledZpos);
+            var coastTuple = this.CoastalMapLoweredHeight(unscaledXpos, unscaledZpos);
+            double coastHeight = coastTuple.Item1;
+            double forcedPointWeight = coastTuple.Item2;
             
             // Don't lift within forced landforms
-            double heightAtPoint;
+            /*double heightAtPoint;
             if (heightNoise.IsInForcedLandform(unscaledXpos, unscaledZpos))
                 heightAtPoint = (double)coastHeight;
-            else
-                heightAtPoint = (double)heightNoise.LiftTowardMountainRangeTargetHeight(coastHeight, mountainRangeOpacity);
+            else*/
+            double heightAtPoint = (double)heightNoise.LiftTowardMountainRangeTargetHeight(coastHeight, mountainRangeOpacity - forcedPointWeight);
 
             this.SaveValueToHeightmap(heightAtPoint, mountainRangeOpacity);
 
@@ -307,7 +314,7 @@ namespace TerraPrety.LandformHeights {
         }
 
         public double HeightNoiseHeight(int unscaledXpos, int unscaledZpos)
-            => this.heightNoise.Height(unscaledXpos, unscaledZpos);
+            => (this.heightNoise.Height(unscaledXpos, unscaledZpos).Item1);
 
         public double FinalMountainRangeMask(int unscaledXpos, int unscaledZpos)
         {
@@ -377,17 +384,19 @@ namespace TerraPrety.LandformHeights {
             return step * step * (3.0 - (2.0 * step));
         }
 
-        public double CoastalMapLoweredHeight(int unscaledXpos, int unscaledZpos)
+        public (double, double) CoastalMapLoweredHeight(int unscaledXpos, int unscaledZpos)
         {
-            double heightNoiseHeight = heightNoise.Height(unscaledXpos, unscaledZpos);
+            var heightTuple = heightNoise.Height(unscaledXpos, unscaledZpos);
+            double heightNoiseHeight = heightTuple.Item1;
+            double forcedPointWeight = heightTuple.Item2;
 
             // Only lower, don't raise
             if (heightNoiseHeight <= config.coastTargetLandformHeight)
-                return heightNoiseHeight;
+                return heightTuple;
 
             MapLayerOceansSmooth ocean = MapLayerOceansSmooth.Instance;
             if (ocean == null) // World startup race guard
-                return heightNoiseHeight;
+                return heightTuple;
 
             int oceanX = unscaledXpos * TerraGenConfig.landformMapScale / TerraGenConfig.oceanMapScale;
             int oceanZ = unscaledZpos * TerraGenConfig.landformMapScale / TerraGenConfig.oceanMapScale;
@@ -400,7 +409,7 @@ namespace TerraPrety.LandformHeights {
                 1.0);
 
             // Lower the landform height down towards the coast target
-            return GameMath.Lerp(heightNoiseHeight, config.coastTargetLandformHeight, normalizedCoastOpacity);
+            return (GameMath.Lerp(heightNoiseHeight, config.coastTargetLandformHeight, normalizedCoastOpacity), forcedPointWeight);
         }
 
         // Move NoiseBase.InitPositionSeed's currentSeed modifications here so different threads can get the seed rng without risking modifying the seed at the same time
@@ -427,7 +436,7 @@ namespace TerraPrety.LandformHeights {
         }
 
         public float GetHeightMapAt(int xCoord, int zCoord) {
-            return (float)heightNoise.Height(xCoord, zCoord);
+            return (float)(heightNoise.Height(xCoord, zCoord).Item1);
         }
 
         public void PrepareForNewHeightmap(int xCoord, int zCoord, int sizeX, int sizeZ) {

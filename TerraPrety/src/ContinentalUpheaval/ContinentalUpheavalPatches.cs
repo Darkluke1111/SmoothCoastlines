@@ -340,6 +340,7 @@ namespace TerraPrety.ContinentalUpheaval {
             var codes = new List<CodeInstruction>(instructions);
 
             int ldelemaCount = 0;
+            int indexOfSetDistY = -1;
             int indexOfOceanicityComp = -1;
             //var mapsizeField = AccessTools.Field(AccessTools.FirstInner(typeof(GenTerra), t => t.Name.Contains("<>c__DisplayClass34_0")), "mapsizeY");
             var mapsizem2Field = AccessTools.Field(AccessTools.FirstInner(typeof(GenTerra), t => t.Name.Contains("<>c__DisplayClass34_0")), "mapsizeYm2");
@@ -355,6 +356,7 @@ namespace TerraPrety.ContinentalUpheaval {
                 if (ldelemaCount == 1 && codes[i].opcode == OpCodes.Ldelema) {
                     if (codes[i + 2].opcode == OpCodes.Ldc_R4) {
                         ldelemaCount++;
+                        indexOfSetDistY = i - 5;
                         indexOfOceanicityComp = i + 1;
                         continue;
                     }
@@ -380,14 +382,24 @@ namespace TerraPrety.ContinentalUpheaval {
                 new CodeInstruction(OpCodes.Sub)
             };
 
-            if (indexOfOceanicityComp > -1 && indexMapsizeM2Field > -1) {
+            if (indexOfSetDistY > -1 && indexOfOceanicityComp > -1 && indexMapsizeM2Field > -1) {
                 codes.InsertRange(indexMapsizeM2Field, sub64FromWorldHeight); //Sub 64 from the StartSampleDisplacedThreshold MapsizeM2
                 codes[indexOfOceanicityComp + 2].opcode = OpCodes.Bge_S;
                 codes.RemoveAt(indexOfOceanicityComp);
                 codes.InsertRange(indexOfOceanicityComp, factorHeightmapAgainstOceanicity);
+                codes[indexOfSetDistY - 2].opcode = OpCodes.Nop;
+                codes[indexOfSetDistY - 3].opcode = OpCodes.Nop;
+                codes[indexOfSetDistY - 4].opcode = OpCodes.Nop;
+                codes[indexOfSetDistY - 5].opcode = OpCodes.Nop;
+                codes[indexOfSetDistY - 6].opcode = OpCodes.Nop;
+                codes[indexOfSetDistY - 7].opcode = OpCodes.Nop;
+                codes[indexOfSetDistY - 9].opcode = OpCodes.Nop;
+                codes[indexOfSetDistY - 10].opcode = OpCodes.Nop;
             } else {
                 TerraPretyModSystem.Logger.Error("Transpiler on GenTerra's Generate Lambda Method has failed. Coastmap will be unable to determine the salinity of water.");
-                if (ldelemaCount < 1) {
+                if (indexOfSetDistY == -1) {
+                    TerraPretyModSystem.Logger.Error("Could not locate where DistY is set.");
+                } else if (ldelemaCount < 1) {
                     TerraPretyModSystem.Logger.Error("Could not locate first ldelema instruction.");
                 } else if (ldelemaCount < 2) {
                     TerraPretyModSystem.Logger.Error("Could not find the second ldelema call. Only found " + ldelemaCount);

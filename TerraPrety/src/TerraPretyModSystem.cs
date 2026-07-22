@@ -1,7 +1,6 @@
 ﻿using HarmonyLib;
 using MapLayer;
 using TerraPrety.LandformHeights;
-using MapLayer;
 using System;
 using System.Collections.Generic;
 using Vintagestory.API.Common;

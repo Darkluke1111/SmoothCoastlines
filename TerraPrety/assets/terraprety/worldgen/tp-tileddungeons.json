@@ -1,0 +1,1605 @@
+{
+    "minDistance": 1500,
+    "storyStructMinDistance": 1000,
+	"dungeons": [
+        {
+            worldgen: true,
+            code: "tprefinerynew",
+            start: "refinerynew/simple/shaft/bottom1",
+            surface: "refinerynew/simple/shaft/top1",
+            surfaceConnectorName: "shaft",
+            rockTypeRemapGroup: "underground",
+            minSpawnDistance: 1000,
+            surfaceYOffset: -3,
+            MaxDepth: 40,
+            MinDepth: 20,
+//            ends: ["refinerynew/simple/endcap/ashlarcobble/digsite/ts6"],
+            chance: 1,
+            GroupMax: {
+                "kitchen": 1,
+                "bedroom": 5,
+                "bedroomspecial": 1,
+                "washroom": 1,
+                "storage": 5,
+                "locustworkshop": 1,
+                "blastfurnace": 1,
+            },
+            minTiles: 7,
+            maxTiles: 12,
+            replacewithblocklayers: [ "game:soil-low-normal", "game:soil-low-none"],
+            staircase: {
+                // those schematics may only have 2 connector blocks facing up/down
+                code: "stairecase-gen",
+                tiles: [
+                    {
+                        code: "shaft-large",
+                        schematics: ["refinerynew/simple/shaft/middle51"],
+                        chance: 1
+                    },
+                    {
+                        code: "shaft-small",
+                        schematics: ["refinerynew/simple/shaft/middle11"],
+                        chance: 0.2
+                    }
+                ]
+            },
+            RequiredLandform: [
+                {
+                    Code: "game:abridgedsmoothconcaveflatlandsdry",
+                    value: 0.01,
+                    type: "greater"
+                },
+               {
+                    Code: "game:abridgedsmoothconcaveflatlandslake",
+                    value: 0.01,
+                    type: "greater"
+                },
+               {
+                    Code: "game:abridgedsmoothconcavegentleslopesdry",
+                    value: 0.01,
+                    type: "greater"
+                },
+               {
+                    Code: "game:abridgedsmoothconcavegentleslopeslake",
+                    value: 0.01,
+                    type: "greater"
+                },
+               {
+                    Code: "game:abridgedsmoothconcavelowlandsdry",
+                    value: 0.01,
+                    type: "greater"
+                },
+               {
+                    Code: "game:abridgedsmoothconcavelowlandslake",
+                    value: 0.01,
+                    type: "greater"
+                },
+               {
+                    Code: "game:abridgedsmoothconcavegentleslopesdry",
+                    value: 0.01,
+                    type: "greater"
+                },
+               {
+                    Code: "game:abridgedsmoothconcavegentleslopeslake",
+                    value: 0.01,
+                    type: "greater"
+                },
+            ],
+            tiles: [
+                {
+                    code: "big66-blastfurnace-main",
+                    chance: 2,
+                    GroupMaxName: "blastfurnace",
+                    TileGenerator: {
+                        requireOpened: ["l", "r","pve"],
+						requireClosed: null,
+                        requireUnblocked: ["r","l"],
+                        minTiles: 30,
+                        maxTiles: 41,
+                        tiles: [
+                            {
+                                code: "tiles-big66-blastfurnace-main",
+                                schematics: ["refinerynew/simple/blastfurnace/big66/trampledcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "guides-big66-blastfurnace-main",
+                                schematics: ["refinerynew/simple/blastfurnace/big66/trampledcobble/guides/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "pathsleftright-big66-blastfurnace-main",
+                                schematics: ["refinerynew/simple/blastfurnace/big66/trampledcobble/paths/left/*","refinerynew/simple/blastfurnace/big66/trampledcobble/paths/right/*"],
+                                chance: 0.5,
+                            },
+                            {
+                                code: "pathentrance-big66-blastfurnace-main",
+                                schematics: ["refinerynew/simple/blastfurnace/big66/trampledcobble/paths/entrance/*"],
+                                chance: 0.5,
+                                max: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "33-kitchen-left",
+                    chance: 2,
+                    GroupMaxName: "kitchen",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: [],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 9,
+                        maxTiles: 9,
+                        tiles: [
+                            {
+                                code: "tiles-33-kitchen-left",
+                                schematics: ["refinerynew/simple/kitchen/33/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "left-33-kitchen-left",
+                                schematics: ["refinerynew/simple/kitchen/33/ashlarcobble/paths/left/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "33-kitchen-right",
+                    chance: 2,
+                    GroupMaxName: "kitchen",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: [],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 9,
+                        maxTiles: 9,
+                        tiles: [
+                            {
+                                code: "tiles-33-kitchen-right",
+                                schematics: ["refinerynew/simple/kitchen/33/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "right-33-kitchen-right",
+                                schematics: ["refinerynew/simple/kitchen/33/ashlarcobble/paths/right/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "33-kitchen-left-offset",
+                    chance: 2,
+                    GroupMaxName: "kitchen",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: ["c","m","s"],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 6,
+                        maxTiles: 6,
+                        tiles: [
+                            {
+                                code: "tiles-33-kitchen-left-offset",
+                                schematics: ["refinerynew/simple/kitchen/33/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "left-33-kitchen-left-offset",
+                                schematics: ["refinerynew/simple/kitchen/33/ashlarcobble/paths/left/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "left-33-kitchen-left-offset2",
+                                schematics: ["refinerynew/simple/kitchen/33/ashlarcobble/offset/paths/left/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "tiles-33-kitchen-offset",
+                                schematics: ["refinerynew/simple/kitchen/33/ashlarcobble/offset/tiles/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "33-kitchen-right-offset",
+                    chance: 2,
+                    GroupMaxName: "kitchen",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: ["c","m","s"],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 6,
+                        maxTiles: 6,
+                        tiles: [
+                            {
+                                code: "tiles-33-kitchen-right-offset",
+                                schematics: ["refinerynew/simple/kitchen/33/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "right-33-kitchen-right-offset",
+                                schematics: ["refinerynew/simple/kitchen/33/ashlarcobble/paths/right/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "right-33-kitchen-right-offset2",
+                                schematics: ["refinerynew/simple/kitchen/33/ashlarcobble/offset/paths/right/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "tiles-33-kitchen-offset2",
+                                schematics: ["refinerynew/simple/kitchen/33/ashlarcobble/offset/tiles/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "33-bedroom-left",
+                    chance: 1,
+                    GroupMaxName: "bedroom",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: [],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 9,
+                        maxTiles: 9,
+                        tiles: [
+                            {
+                                code: "tiles-33-bedroom-left",
+                                schematics: ["refinerynew/simple/bedroom/33/woodcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "left-33-bedroom-left",
+                                schematics: ["refinerynew/simple/bedroom/33/woodcobble/paths/left/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "33-bedroom-right",
+                    chance: 1,
+                    GroupMaxName: "bedroom",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: [],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 9,
+                        maxTiles: 9,
+                        tiles: [
+                            {
+                                code: "tiles-33-bedroom-right",
+                                schematics: ["refinerynew/simple/bedroom/33/woodcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "right-33-bedroom-right",
+                                schematics: ["refinerynew/simple/bedroom/33/woodcobble/paths/right/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "33-bedroom-left-offset",
+                    chance: 1,
+                    GroupMaxName: "bedroom",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: ["c","m","s"],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 6,
+                        maxTiles: 6,
+                        tiles: [
+                            {
+                                code: "tiles-33-bedroom-left-offset",
+                                schematics: ["refinerynew/simple/bedroom/33/woodcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "left-33-bedroom-left-offset",
+                                schematics: ["refinerynew/simple/bedroom/33/woodcobble/paths/left/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "left-33-bedroom-left-offset2",
+                                schematics: ["refinerynew/simple/bedroom/33/woodcobble/offset/paths/left/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "tiles-33-bedroom-offset",
+                                schematics: ["refinerynew/simple/bedroom/33/woodcobble/offset/tiles/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "33-bedroom-right-offset",
+                    chance: 1,
+                    GroupMaxName: "bedroom",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: ["c","m","s"],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 6,
+                        maxTiles: 6,
+                        tiles: [
+                            {
+                                code: "tiles-33-bedroom-right-offset",
+                                schematics: ["refinerynew/simple/bedroom/33/woodcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "right-33-bedroom-right-offset",
+                                schematics: ["refinerynew/simple/bedroom/33/woodcobble/paths/right/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "right-33-bedroom-right-offset2",
+                                schematics: ["refinerynew/simple/bedroom/33/woodcobble/offset/paths/right/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "tiles-33-bedroom-offset2",
+                                schematics: ["refinerynew/simple/bedroom/33/woodcobble/offset/tiles/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "33-washroom-left",
+                    chance: 2,
+                    GroupMaxName: "washroom",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: [],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 9,
+                        maxTiles: 9,
+                        tiles: [
+                            {
+                                code: "tiles-33-washroom-left",
+                                schematics: ["refinerynew/simple/washroom/33/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "right-33-washroom-left",
+                                schematics: ["refinerynew/simple/washroom/33/ashlarcobble/paths/left/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "33-washroom-right",
+                    chance: 2,
+                    GroupMaxName: "washroom",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: [],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 9,
+                        maxTiles: 9,
+                        tiles: [
+                            {
+                                code: "tiles-33-washroom-right",
+                                schematics: ["refinerynew/simple/washroom/33/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "right-33-washroom-right",
+                                schematics: ["refinerynew/simple/washroom/33/ashlarcobble/paths/right/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "33-washroom-left-offset",
+                    chance: 2,
+                    GroupMaxName: "washroom",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: ["c","m","s"],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 6,
+                        maxTiles: 6,
+                        tiles: [
+                            {
+                                code: "tiles-33-washroom-left-offset",
+                                schematics: ["refinerynew/simple/washroom/33/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "left-33-washroom-left-offset",
+                                schematics: ["refinerynew/simple/washroom/33/ashlarcobble/paths/left/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "left-33-washroom-left-offset2",
+                                schematics: ["refinerynew/simple/washroom/33/ashlarcobble/offset/paths/left/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "tiles-33-washroom-offset",
+                                schematics: ["refinerynew/simple/washroom/33/ashlarcobble/offset/tiles/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "33-washroom-right-offset",
+                    chance: 2,
+                    GroupMaxName: "washroom",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: ["c","m","s"],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 6,
+                        maxTiles: 6,
+                        tiles: [
+                            {
+                                code: "tiles-33-washroom-right-offset",
+                                schematics: ["refinerynew/simple/washroom/33/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "right-33-washroom-right-offset",
+                                schematics: ["refinerynew/simple/washroom/33/ashlarcobble/paths/right/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "right-33-washroom-right-offset2",
+                                schematics: ["refinerynew/simple/washroom/33/ashlarcobble/offset/paths/right/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "tiles-33-washroom-offset2",
+                                schematics: ["refinerynew/simple/washroom/33/ashlarcobble/offset/tiles/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "22-bedroom-left-mid",
+                    chance: 1,
+                    GroupMaxName: "bedroomspecial",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: ["c","w"],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 5,
+                        maxTiles: 8,
+                        tiles: [
+                            {
+                                code: "tiles-22-bedroom-left-mid",
+                                schematics: ["refinerynew/simple/bedroom/22/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "left-22-bedroom-left-mid",
+                                schematics: ["refinerynew/simple/bedroom/22/ashlarcobble/paths/mid/left/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "walls-22-bedroom-left-mid",
+                                schematics: ["refinerynew/simple/bedroom/22/ashlarcobble/paths/mid/walls/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "22-bedroom-right-mid",
+                    chance: 1,
+                    GroupMaxName: "bedroomspecial",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: ["c","w"],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 5,
+                        maxTiles: 8,
+                        tiles: [
+                            {
+                                code: "tiles-22-bedroom-right-mid",
+                                schematics: ["refinerynew/simple/bedroom/22/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "left-22-bedroom-right-mid",
+                                schematics: ["refinerynew/simple/bedroom/22/ashlarcobble/paths/mid/right/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "walls-22-bedroom-right-mid",
+                                schematics: ["refinerynew/simple/bedroom/22/ashlarcobble/paths/mid/walls/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "22-bedroom-left-offset",
+                    chance: 1,
+                    GroupMaxName: "bedroomspecial",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: [],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 4,
+                        maxTiles: 4,
+                        tiles: [
+                            {
+                                code: "tiles-22-bedroom-left-offset",
+                                schematics: ["refinerynew/simple/bedroom/22/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "left-22-bedroom-left-offset",
+                                schematics: ["refinerynew/simple/bedroom/22/ashlarcobble/paths/offset/left/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "22-bedroom-right-offset",
+                    chance: 1,
+                    GroupMaxName: "bedroomspecial",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: [],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 4,
+                        maxTiles: 4,
+                        tiles: [
+                            {
+                                code: "tiles-22-bedroom-right-offset",
+                                schematics: ["refinerynew/simple/bedroom/22/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "left-22-bedroom-right-offset",
+                                schematics: ["refinerynew/simple/bedroom/22/ashlarcobble/paths/offset/right/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "22-storage-left-mid",
+                    chance: 1,
+                    GroupMaxName: "storage",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: ["c","w"],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 5,
+                        maxTiles: 8,
+                        tiles: [
+                            {
+                                code: "tiles-22-storage-left-mid",
+                                schematics: ["refinerynew/simple/storage/22/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "left-22-storage-left-mid",
+                                schematics: ["refinerynew/simple/storage/22/ashlarcobble/paths/mid/left/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "walls-22-storage-left-mid",
+                                schematics: ["refinerynew/simple/storage/22/ashlarcobble/paths/mid/walls/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "22-storage-right-mid",
+                    chance: 1,
+                    GroupMaxName: "storage",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: ["c","w"],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 5,
+                        maxTiles: 8,
+                        tiles: [
+                            {
+                                code: "tiles-22-storage-right-mid",
+                                schematics: ["refinerynew/simple/storage/22/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "right-22-storage-right-mid",
+                                schematics: ["refinerynew/simple/storage/22/ashlarcobble/paths/mid/right/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "walls-22-storage-right-mid",
+                                schematics: ["refinerynew/simple/storage/22/ashlarcobble/paths/mid/walls/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "22-storage-left-offset",
+                    chance: 1,
+                    GroupMaxName: "storage",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: [],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 4,
+                        maxTiles: 4,
+                        tiles: [
+                            {
+                                code: "tiles-22-storage-left-offset",
+                                schematics: ["refinerynew/simple/storage/22/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "left-22-storage-left-offset",
+                                schematics: ["refinerynew/simple/storage/22/ashlarcobble/paths/offset/left/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "22-storage-right-offset",
+                    chance: 1,
+                    GroupMaxName: "storage",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: [],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 4,
+                        maxTiles: 4,
+                        tiles: [
+                            {
+                                code: "tiles-22-storage-right-offset",
+                                schematics: ["refinerynew/simple/storage/22/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "right-22-storage-right-offset",
+                                schematics: ["refinerynew/simple/storage/22/ashlarcobble/paths/offset/right/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "b22-locustworkshop-left",
+                    chance: 1.5,
+                    GroupMaxName: "locustworkshop",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: ["c","w"],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 5,
+                        maxTiles: 8,
+                        tiles: [
+                            {
+                                code: "tiles-b22-locustworkshop-left",
+                                schematics: ["refinerynew/simple/locustworkshop/b22/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "left-b22-locustworkshop-left",
+                                schematics: ["refinerynew/simple/locustworkshop/b22/ashlarcobble/paths/left/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "walls-b22-locustworkshop-left",
+                                schematics: ["refinerynew/simple/locustworkshop/b22/ashlarcobble/paths/walls/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "b22-locustworkshop-right",
+                    chance: 1.5,
+                    GroupMaxName: "locustworkshop",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: ["c","w"],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 5,
+                        maxTiles: 8,
+                        tiles: [
+                            {
+                                code: "tiles-b22-locustworkshop-right",
+                                schematics: ["refinerynew/simple/locustworkshop/b22/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "right-b22-locustworkshop-right",
+                                schematics: ["refinerynew/simple/locustworkshop/b22/ashlarcobble/paths/right/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "walls-b22-locustworkshop-right",
+                                schematics: ["refinerynew/simple/locustworkshop/b22/ashlarcobble/paths/walls/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "entrance",
+                    chance: 1,
+                    TileGenerator: {
+                        requireOpened: ["r","pve"],
+						requireClosed: [],
+                        requireUnblocked: ["pve"],
+                        minTiles: 12,
+                        maxTiles: 12,
+                        tiles: [
+                            {
+                                code: "tiles-entrance",
+                                schematics: ["refinerynew/simple/entrance/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+            ]
+        },
+        {
+            worldgen: false,
+            code: "tprefinery",
+            start: "refinery/simple/shaft/bottom1",
+            surface: "refinery/simple/shaft/top1",
+            surfaceConnectorName: "shaft",
+            rockTypeRemapGroup: "underground",
+            minSpawnDistance: 1000,
+            surfaceYOffset: -3,
+            MaxDepth: 40,
+            MinDepth: 20,
+//            ends: ["stuff",],
+            chance: 1,
+            GroupMax: {
+                "kitchen": 1,
+                "bedroom": 5,
+                "bedroomspecial": 1,
+                "washroom": 1,
+                "storage": 5,
+                "locustworkshop": 1,
+                "blastfurnace": 1,
+            },
+            minTiles: 5,
+            maxTiles: 10,
+            replacewithblocklayers: [ "game:soil-low-normal", "game:soil-low-none"],
+            staircase: {
+                // those schematics may only have 2 connector blocks facing up/down
+                code: "stairecase-gen",
+                tiles: [
+                    {
+                        code: "shaft-large",
+                        schematics: ["refinery/simple/shaft/middle51"],
+                        chance: 1
+                    },
+                    {
+                        code: "shaft-small",
+                        schematics: ["refinery/simple/shaft/middle11"],
+                        chance: 0.2
+                    }
+                ]
+            },
+            RequiredLandform: [
+                {
+                    Code: "game:abridgedsmoothconcaveflatlandsdry",
+                    value: 0.01,
+                    type: "greater"
+                },
+               {
+                    Code: "game:abridgedsmoothconcaveflatlandslake",
+                    value: 0.01,
+                    type: "greater"
+                },
+               {
+                    Code: "game:abridgedsmoothconcavegentleslopesdry",
+                    value: 0.01,
+                    type: "greater"
+                },
+               {
+                    Code: "game:abridgedsmoothconcavegentleslopeslake",
+                    value: 0.01,
+                    type: "greater"
+                },
+               {
+                    Code: "game:abridgedsmoothconcavelowlandsdry",
+                    value: 0.01,
+                    type: "greater"
+                },
+               {
+                    Code: "game:abridgedsmoothconcavelowlandslake",
+                    value: 0.01,
+                    type: "greater"
+                },
+               {
+                    Code: "game:abridgedsmoothconcavegentleslopesdry",
+                    value: 0.01,
+                    type: "greater"
+                },
+               {
+                    Code: "game:abridgedsmoothconcavegentleslopeslake",
+                    value: 0.01,
+                    type: "greater"
+                },
+            ],
+            tiles: [
+                {
+                    code: "big66-blastfurnace-main",
+                    chance: 2,
+                    GroupMaxName: "blastfurnace",
+                    TileGenerator: {
+                        requireOpened: ["l", "r","pve"],
+						requireClosed: null,
+                        requireUnblocked: ["r","l"],
+                        minTiles: 33,
+                        maxTiles: 41,
+                        tiles: [
+                            {
+                                code: "tiles-big66-blastfurnace-main",
+                                schematics: ["refinery/simple/blastfurnace/big66/trampledcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "guides-big66-blastfurnace-main",
+                                schematics: ["refinery/simple/blastfurnace/big66/trampledcobble/guides/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "pathsleftright-big66-blastfurnace-main",
+                                schematics: ["refinery/simple/blastfurnace/big66/trampledcobble/paths/left/*","refinery/simple/blastfurnace/big66/trampledcobble/paths/right/*"],
+                                chance: 0.5,
+                            },
+                            {
+                                code: "pathentrance-big66-blastfurnace-main",
+                                schematics: ["refinery/simple/blastfurnace/big66/trampledcobble/paths/entrance/*"],
+                                chance: 0.5,
+                                max: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "33-kitchen-left",
+                    chance: 2,
+                    GroupMaxName: "kitchen",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: [],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 9,
+                        maxTiles: 9,
+                        tiles: [
+                            {
+                                code: "tiles-33-kitchen-left",
+                                schematics: ["refinery/simple/kitchen/33/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "left-33-kitchen-left",
+                                schematics: ["refinery/simple/kitchen/33/ashlarcobble/paths/left/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "33-kitchen-right",
+                    chance: 2,
+                    GroupMaxName: "kitchen",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: [],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 9,
+                        maxTiles: 9,
+                        tiles: [
+                            {
+                                code: "tiles-33-kitchen-right",
+                                schematics: ["refinery/simple/kitchen/33/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "right-33-kitchen-right",
+                                schematics: ["refinery/simple/kitchen/33/ashlarcobble/paths/right/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "33-kitchen-left-offset",
+                    chance: 2,
+                    GroupMaxName: "kitchen",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: ["c","m","s"],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 6,
+                        maxTiles: 6,
+                        tiles: [
+                            {
+                                code: "tiles-33-kitchen-left-offset",
+                                schematics: ["refinery/simple/kitchen/33/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "left-33-kitchen-left-offset",
+                                schematics: ["refinery/simple/kitchen/33/ashlarcobble/paths/left/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "left-33-kitchen-left-offset2",
+                                schematics: ["refinery/simple/kitchen/33/ashlarcobble/offset/paths/left/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "tiles-33-kitchen-offset",
+                                schematics: ["refinery/simple/kitchen/33/ashlarcobble/offset/tiles/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "33-kitchen-right-offset",
+                    chance: 2,
+                    GroupMaxName: "kitchen",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: ["c","m","s"],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 6,
+                        maxTiles: 6,
+                        tiles: [
+                            {
+                                code: "tiles-33-kitchen-right-offset",
+                                schematics: ["refinery/simple/kitchen/33/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "right-33-kitchen-right-offset",
+                                schematics: ["refinery/simple/kitchen/33/ashlarcobble/paths/right/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "right-33-kitchen-right-offset2",
+                                schematics: ["refinery/simple/kitchen/33/ashlarcobble/offset/paths/right/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "tiles-33-kitchen-offset2",
+                                schematics: ["refinery/simple/kitchen/33/ashlarcobble/offset/tiles/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "33-bedroom-left",
+                    chance: 1,
+                    GroupMaxName: "bedroom",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: [],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 9,
+                        maxTiles: 9,
+                        tiles: [
+                            {
+                                code: "tiles-33-bedroom-left",
+                                schematics: ["refinery/simple/bedroom/33/woodcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "left-33-bedroom-left",
+                                schematics: ["refinery/simple/bedroom/33/woodcobble/paths/left/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "33-bedroom-right",
+                    chance: 1,
+                    GroupMaxName: "bedroom",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: [],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 9,
+                        maxTiles: 9,
+                        tiles: [
+                            {
+                                code: "tiles-33-bedroom-right",
+                                schematics: ["refinery/simple/bedroom/33/woodcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "right-33-bedroom-right",
+                                schematics: ["refinery/simple/bedroom/33/woodcobble/paths/right/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "33-bedroom-left-offset",
+                    chance: 1,
+                    GroupMaxName: "bedroom",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: ["c","m","s"],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 6,
+                        maxTiles: 6,
+                        tiles: [
+                            {
+                                code: "tiles-33-bedroom-left-offset",
+                                schematics: ["refinery/simple/bedroom/33/woodcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "left-33-bedroom-left-offset",
+                                schematics: ["refinery/simple/bedroom/33/woodcobble/paths/left/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "left-33-bedroom-left-offset2",
+                                schematics: ["refinery/simple/bedroom/33/woodcobble/offset/paths/left/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "tiles-33-bedroom-offset",
+                                schematics: ["refinery/simple/bedroom/33/woodcobble/offset/tiles/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "33-bedroom-right-offset",
+                    chance: 1,
+                    GroupMaxName: "bedroom",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: ["c","m","s"],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 6,
+                        maxTiles: 6,
+                        tiles: [
+                            {
+                                code: "tiles-33-bedroom-right-offset",
+                                schematics: ["refinery/simple/bedroom/33/woodcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "right-33-bedroom-right-offset",
+                                schematics: ["refinery/simple/bedroom/33/woodcobble/paths/right/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "right-33-bedroom-right-offset2",
+                                schematics: ["refinery/simple/bedroom/33/woodcobble/offset/paths/right/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "tiles-33-bedroom-offset2",
+                                schematics: ["refinery/simple/bedroom/33/woodcobble/offset/tiles/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "33-washroom-left",
+                    chance: 2,
+                    GroupMaxName: "washroom",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: [],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 9,
+                        maxTiles: 9,
+                        tiles: [
+                            {
+                                code: "tiles-33-washroom-left",
+                                schematics: ["refinery/simple/washroom/33/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "right-33-washroom-left",
+                                schematics: ["refinery/simple/washroom/33/ashlarcobble/paths/left/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "33-washroom-right",
+                    chance: 2,
+                    GroupMaxName: "washroom",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: [],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 9,
+                        maxTiles: 9,
+                        tiles: [
+                            {
+                                code: "tiles-33-washroom-right",
+                                schematics: ["refinery/simple/washroom/33/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "right-33-washroom-right",
+                                schematics: ["refinery/simple/washroom/33/ashlarcobble/paths/right/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "33-washroom-left-offset",
+                    chance: 2,
+                    GroupMaxName: "washroom",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: ["c","m","s"],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 6,
+                        maxTiles: 6,
+                        tiles: [
+                            {
+                                code: "tiles-33-washroom-left-offset",
+                                schematics: ["refinery/simple/washroom/33/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "left-33-washroom-left-offset",
+                                schematics: ["refinery/simple/washroom/33/ashlarcobble/paths/left/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "left-33-washroom-left-offset2",
+                                schematics: ["refinery/simple/washroom/33/ashlarcobble/offset/paths/left/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "tiles-33-washroom-offset",
+                                schematics: ["refinery/simple/washroom/33/ashlarcobble/offset/tiles/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "33-washroom-right-offset",
+                    chance: 2,
+                    GroupMaxName: "washroom",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: ["c","m","s"],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 6,
+                        maxTiles: 6,
+                        tiles: [
+                            {
+                                code: "tiles-33-washroom-right-offset",
+                                schematics: ["refinery/simple/washroom/33/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "right-33-washroom-right-offset",
+                                schematics: ["refinery/simple/washroom/33/ashlarcobble/paths/right/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "right-33-washroom-right-offset2",
+                                schematics: ["refinery/simple/washroom/33/ashlarcobble/offset/paths/right/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "tiles-33-washroom-offset2",
+                                schematics: ["refinery/simple/washroom/33/ashlarcobble/offset/tiles/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "22-bedroom-left-mid",
+                    chance: 1,
+                    GroupMaxName: "bedroomspecial",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: ["c","w"],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 5,
+                        maxTiles: 8,
+                        tiles: [
+                            {
+                                code: "tiles-22-bedroom-left-mid",
+                                schematics: ["refinery/simple/bedroom/22/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "left-22-bedroom-left-mid",
+                                schematics: ["refinery/simple/bedroom/22/ashlarcobble/paths/mid/left/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "walls-22-bedroom-left-mid",
+                                schematics: ["refinery/simple/bedroom/22/ashlarcobble/paths/mid/walls/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "22-bedroom-right-mid",
+                    chance: 1,
+                    GroupMaxName: "bedroomspecial",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: ["c","w"],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 5,
+                        maxTiles: 8,
+                        tiles: [
+                            {
+                                code: "tiles-22-bedroom-right-mid",
+                                schematics: ["refinery/simple/bedroom/22/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "left-22-bedroom-right-mid",
+                                schematics: ["refinery/simple/bedroom/22/ashlarcobble/paths/mid/right/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "walls-22-bedroom-right-mid",
+                                schematics: ["refinery/simple/bedroom/22/ashlarcobble/paths/mid/walls/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "22-bedroom-left-offset",
+                    chance: 1,
+                    GroupMaxName: "bedroomspecial",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: [],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 4,
+                        maxTiles: 4,
+                        tiles: [
+                            {
+                                code: "tiles-22-bedroom-left-offset",
+                                schematics: ["refinery/simple/bedroom/22/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "left-22-bedroom-left-offset",
+                                schematics: ["refinery/simple/bedroom/22/ashlarcobble/paths/offset/left/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "22-bedroom-right-offset",
+                    chance: 1,
+                    GroupMaxName: "bedroomspecial",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: [],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 4,
+                        maxTiles: 4,
+                        tiles: [
+                            {
+                                code: "tiles-22-bedroom-right-offset",
+                                schematics: ["refinery/simple/bedroom/22/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "left-22-bedroom-right-offset",
+                                schematics: ["refinery/simple/bedroom/22/ashlarcobble/paths/offset/right/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "22-storage-left-mid",
+                    chance: 1,
+                    GroupMaxName: "storage",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: ["c","w"],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 5,
+                        maxTiles: 8,
+                        tiles: [
+                            {
+                                code: "tiles-22-storage-left-mid",
+                                schematics: ["refinery/simple/storage/22/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "left-22-storage-left-mid",
+                                schematics: ["refinery/simple/storage/22/ashlarcobble/paths/mid/left/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "walls-22-storage-left-mid",
+                                schematics: ["refinery/simple/storage/22/ashlarcobble/paths/mid/walls/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "22-storage-right-mid",
+                    chance: 1,
+                    GroupMaxName: "storage",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: ["c","w"],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 5,
+                        maxTiles: 8,
+                        tiles: [
+                            {
+                                code: "tiles-22-storage-right-mid",
+                                schematics: ["refinery/simple/storage/22/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "right-22-storage-right-mid",
+                                schematics: ["refinery/simple/storage/22/ashlarcobble/paths/mid/right/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "walls-22-storage-right-mid",
+                                schematics: ["refinery/simple/storage/22/ashlarcobble/paths/mid/walls/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "22-storage-left-offset",
+                    chance: 1,
+                    GroupMaxName: "storage",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: [],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 4,
+                        maxTiles: 4,
+                        tiles: [
+                            {
+                                code: "tiles-22-storage-left-offset",
+                                schematics: ["refinery/simple/storage/22/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "left-22-storage-left-offset",
+                                schematics: ["refinery/simple/storage/22/ashlarcobble/paths/offset/left/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "22-storage-right-offset",
+                    chance: 1,
+                    GroupMaxName: "storage",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: [],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 4,
+                        maxTiles: 4,
+                        tiles: [
+                            {
+                                code: "tiles-22-storage-right-offset",
+                                schematics: ["refinery/simple/storage/22/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "right-22-storage-right-offset",
+                                schematics: ["refinery/simple/storage/22/ashlarcobble/paths/offset/right/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "b22-locustworkshop-left",
+                    chance: 1.5,
+                    GroupMaxName: "locustworkshop",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: ["c","w"],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 5,
+                        maxTiles: 8,
+                        tiles: [
+                            {
+                                code: "tiles-b22-locustworkshop-left",
+                                schematics: ["refinery/simple/locustworkshop/b22/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "left-b22-locustworkshop-left",
+                                schematics: ["refinery/simple/locustworkshop/b22/ashlarcobble/paths/left/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "walls-b22-locustworkshop-left",
+                                schematics: ["refinery/simple/locustworkshop/b22/ashlarcobble/paths/walls/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "b22-locustworkshop-right",
+                    chance: 1.5,
+                    GroupMaxName: "locustworkshop",
+                    TileGenerator: {
+                        requireOpened: ["l", "r"],
+						requireClosed: ["c","w"],
+                        requireUnblocked: ["r","l"],
+                        minTiles: 5,
+                        maxTiles: 8,
+                        tiles: [
+                            {
+                                code: "tiles-b22-locustworkshop-right",
+                                schematics: ["refinery/simple/locustworkshop/b22/ashlarcobble/tiles/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "right-b22-locustworkshop-right",
+                                schematics: ["refinery/simple/locustworkshop/b22/ashlarcobble/paths/right/*"],
+                                chance: 1,
+                            },
+                            {
+                                code: "walls-b22-locustworkshop-right",
+                                schematics: ["refinery/simple/locustworkshop/b22/ashlarcobble/paths/walls/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+                {
+                    code: "entrance",
+                    chance: 1,
+                    TileGenerator: {
+                        requireOpened: ["r","pve"],
+						requireClosed: [],
+                        requireUnblocked: ["pve"],
+                        minTiles: 12,
+                        maxTiles: 12,
+                        tiles: [
+                            {
+                                code: "tiles-entrance",
+                                schematics: ["refinery/simple/entrance/*"],
+                                chance: 1,
+                            },
+                        ],
+                    }
+                },
+            ]
+        },
+	],
+    rocktypeRemapGroups: {
+        "underground": {
+            "ore-*-andesite":"ore-*-{rock}",
+            "ore-*-chalk":"ore-*-{rock}",
+            "ore-*-chert":"ore-*-{rock}",
+            "ore-*-conglomerate":"ore-*-{rock}",
+            "ore-*-limestone":"ore-*-{rock}",
+            "ore-*-claystone":"ore-*-{rock}",
+            "ore-*-granite":"ore-*-{rock}",
+            "ore-*-sandstone":"ore-*-{rock}",
+            "ore-*-shale":"ore-*-{rock}",
+            "ore-*-basalt":"ore-*-{rock}",
+            "ore-*-peridotite":"ore-*-{rock}",
+            "ore-*-phyllite":"ore-*-{rock}",
+            "ore-*-slate":"ore-*-{rock}",
+            "ore-*-obsidian":"ore-*-{rock}",
+            "ore-*-kimberlite":"ore-*-{rock}",
+            "ore-*-scoria":"ore-*-{rock}",
+            "ore-*-tuff":"ore-*-{rock}",
+            "ore-*-bauxite":"ore-*-{rock}",
+            "ore-*-halite":"ore-*-{rock}",
+            "ore-*-suevite":"ore-*-{rock}",
+            "ore-*-whitemarble":"ore-*-{rock}",
+            "ore-*-redmarble":"ore-*-{rock}",
+            "ore-*-greenmarble":"ore-*-{rock}",
+            "drystonefence-granite-ns-free": "drystonefence-{rock}-ns-free",
+            "drystonefence-granite-ew-free": "drystonefence-{rock}-ew-free",
+            "ore-flint-granite": "ore-flint-{rock}",
+            "crackedrock-granite": "rock-{rock}",
+            "rock-granite": "rock-{rock}",
+            "gravel-granite": "gravel-{rock}",
+            "sand-granite": "sand-{rock}",
+            "ore-quartz-granite": "ore-quartz-{rock}",
+            "stalagsection-granite-04": "stalagsection-{rock}-04",
+            "stalagsection-granite-06": "stalagsection-{rock}-06",
+            "stalagsection-granite-08": "stalagsection-{rock}-08",
+            "stalagsection-granite-10": "stalagsection-{rock}-10",
+            "stalagsection-granite-12": "stalagsection-{rock}-12",
+            "stalagsection-granite-14": "stalagsection-{rock}-14",
+
+            "cobblestone-granite": "cobblestone-{rock}",
+            "cobblestone-conglomerate": "cobblestone-{rock}",
+            "cobblestoneslab-granite-down-free": "cobblestoneslab-{rock}-down-free",
+            "cobblestonestairs-granite-up-south-free": "cobblestonestairs-{rock}-up-south-free",
+            "cobblestonestairs-granite-up-north-free": "cobblestonestairs-{rock}-up-north-free",
+            "cobblestonestairs-granite-up-west-free": "cobblestonestairs-{rock}-up-west-free",
+            "cobblestonestairs-granite-up-east-free": "cobblestonestairs-{rock}-up-east-free",
+            "stonebricks-granite": "stonebricks-{rock}",
+            "stonebricks-conglomerate": "stonebricks-{rock}",
+            "agedstonebricks-granite": "agedstonebricks-{rock}",
+            "crackedstonebricks-granite": "crackedstonebricks-{rock}",
+            "cobblestonestairs-granite-down-south-free": "cobblestonestairs-{rock}-down-south-free",
+            "cobblestonestairs-granite-down-north-free": "cobblestonestairs-{rock}-down-north-free",
+            "cobblestonestairs-granite-down-west-free": "cobblestonestairs-{rock}-down-west-free",
+            "cobblestonestairs-granite-down-east-free": "cobblestonestairs-{rock}-down-east-free",
+            "cobbleskull-granite": "cobbleskull-{rock}",
+            "cobblestoneslab-granite-up-free": "cobblestoneslab-{rock}-up-free",
+            "loosestones-granite-free": "loosestones-{rock}-free",
+            "cobblestoneslab-granite-east-free": "cobblestoneslab-{rock}-east-free",
+            "cobblestoneslab-granite-south-free": "cobblestoneslab-{rock}-south-free",
+            "looseflints-granite-free": "looseflints-{rock}-free",
+            "cobblestoneslab-granite-west-free": "cobblestoneslab-{rock}-west-free",
+            "cobblestoneslab-granite-north-free": "cobblestoneslab-{rock}-north-free",
+            "polishedrockslab-granite-west-free": "polishedrockslab-{rock}-west-free",
+            "polishedrockslab-granite-east-free": "polishedrockslab-{rock}-east-free",
+            "polishedrockslab-granite-down-free": "polishedrockslab-{rock}-down-free",
+            "polishedrockslab-granite-south-free": "polishedrockslab-{rock}-south-free",
+            "polishedrockslab-granite-north-free": "polishedrockslab-{rock}-north-free",
+            "stonebrickstairs-granite-down-north-free": "stonebrickstairs-{rock}-down-north-free",
+            "stonebrickstairs-granite-down-south-free": "stonebrickstairs-{rock}-down-south-free",
+            "stonebrickslab-granite-north-free": "stonebrickslab-{rock}-north-free",
+            "stonebrickstairs-granite-down-west-free": "stonebrickstairs-{rock}-down-west-free",
+            "rockpolished-granite": "rockpolished-{rock}",
+            "rockpolished-conglomerate": "rockpolished-{rock}",
+            "stonebrickslab-granite-up-free": "stonebrickslab-{rock}-up-free",
+            "stonebrickstairs-granite-down-east-free": "stonebrickstairs-{rock}-down-east-free",
+            "stonebrickstairs-granite-up-south-free": "stonebrickstairs-{rock}-up-south-free",
+            "stonebrickslab-granite-east-free": "stonebrickslab-{rock}-east-free",
+            "drystone-granite": "drystone-{rock}",
+            "drystone-conglomerate": "drystone-{rock}",
+            "polishedrockold-full-granite": "polishedrockold-full-{rock}",
+            "polishedrockold-cobbled-granite": "polishedrockold-cobbled-{rock}",
+            "looseboulders-granite-free": "looseboulders-{rock}-free"
+        }
+    },
+}
