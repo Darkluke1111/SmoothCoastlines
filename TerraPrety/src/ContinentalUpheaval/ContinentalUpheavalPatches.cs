@@ -383,7 +383,7 @@ namespace TerraPrety.ContinentalUpheaval {
             };
 
             if (indexOfSetDistY > -1 && indexOfOceanicityComp > -1 && indexMapsizeM2Field > -1) {
-                codes.InsertRange(indexMapsizeM2Field, sub64FromWorldHeight); //Sub 64 from the StartSampleDisplacedThreshold MapsizeM2
+                //codes.InsertRange(indexMapsizeM2Field, sub64FromWorldHeight); //Sub 64 from the StartSampleDisplacedThreshold MapsizeM2
                 codes[indexOfOceanicityComp + 2].opcode = OpCodes.Bge_S;
                 codes.RemoveAt(indexOfOceanicityComp);
                 codes.InsertRange(indexOfOceanicityComp, factorHeightmapAgainstOceanicity);

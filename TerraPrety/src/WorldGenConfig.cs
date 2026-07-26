@@ -2,7 +2,7 @@
 {
     public class WorldGenConfig
     {
-        public float noiseScale = 240.0f;
+        public float noiseScale = 220.0f;
         public float heightMapNoiseScale = 24.0f;
         public string fallbackParentLandformCode = "ultraflats"; //This is just in case it somehow rolls a height value with no valid Landforms that would fit it, it will use this one instead.
 
@@ -10,13 +10,13 @@
 
         public float oceanWobbleScale = 2.25f;
         public float oceanWobbleIntensity = 2.25f;
-        public int oceanWobbleOctaves = 4;
-        public float oceanWobblePersistence = 0.9f;
+        public int oceanWobbleOctaves = 6;
+        public float oceanWobblePersistence = 0.925f;
         public double[] remappingKeys = { 0.27, 0.29, 0.3, 0.31, 0.4, 0.75, 0.77, 0.79, 1.0 };
         public double[] remappingValues = { 0.0, 0.075, 0.0, 0.1, 1.0, 0.0, 0.075, 0.0, 0.0 };
 
-        public double[] coastRemappingKeys = { 0.0, 0.075, 0.1125, 0.15, 0.285, 0.3, 0.4, 0.75, 0.8, 0.95, 1.0 }; // Starts at 0 opacity, ends at max ocean opacity. Keep the 2nd element the same as remappingKeys's 2nd element so it matches the ocean.
-        public double[] coastRemappingValues = { 0.8, 0.4, 0.5, 0.0, 0.9, 0.9, 0.8, 0.9, 0.6, 0.0, 0.0 }; // Don't touch. Basically the coastmap opacities at no coast and full coast.
+        public double[] coastRemappingKeys = { 0.0, 0.075, 0.1125, 0.1375, 0.285, 0.3, 0.4, 0.75, 0.8, 0.95, 1.0 }; // Starts at 0 opacity, ends at max ocean opacity. Keep the 2nd element the same as remappingKeys's 2nd element so it matches the ocean.
+        public double[] coastRemappingValues = { 0.8, 0.6, 0.5, 0.0, 0.9, 0.9, 0.8, 0.9, 0.6, 0.0, 0.0 }; // Don't touch. Basically the coastmap opacities at no coast and full coast.
         public double coastTargetLandformHeight = 0.0; // In coastal areas, move the landform height down towards this value.
         public double coastMinOpacity = 0.0; // Areas below this coastal opacity dont have the coast lowering the landform height.
         public double coastFullOpacity = 1.0; // Areas above this coastal opacity dont get their landform height above coastTargetLandformHeight.
@@ -34,21 +34,21 @@
         public float mountainRangeOceanFadeStrength = 1.0f;
 
         // Inland mountain ranges gets its own wobble noise, coastal mountain ranges follow the continents, so they use the continental wobble
-        public float inlandMountainRangeWobbleScale = 2.0f;
-        public float inlandMountainRangeWobbleIntensity = 2.0f;
-        public int inlandMountainRangeWobbleOctaves = 2;
-        public float inlandMountainRangeWobblePersistence = 0.9f;
+        public float inlandMountainRangeWobbleScale = 10.0f;
+        public float inlandMountainRangeWobbleIntensity = 5.0f;
+        public int inlandMountainRangeWobbleOctaves = 3;
+        public float inlandMountainRangeWobblePersistence = 0.6f;
 
         public float inlandMountainRangeScale = 10.0f; // Size of the whole inland mountain range pattern on the map
-        public double[] inlandMountainRangeKeys = { 0.8, 0.9 }; // Shape of the inland mountain range
+        public double[] inlandMountainRangeKeys = { 0.925, 0.99 }; // Shape of the inland mountain range
         public double[] inlandMountainRangeValues = { 0.0, 1.0 }; // Don't touch. Basically the inland mountain range opacities at no mountain range and the center of the mountain range
 
         public float inlandMountainRangeApertureMaskScale = 20.0f; // Larger for larger mountain ranges
-        public float inlandMountainRangeApertureMaskThreshold = 0.6f;  // Near 1 gives less mountain ranges, lower gives more
+        public float inlandMountainRangeApertureMaskThreshold = 0.3f;  // Near 1 gives less mountain ranges, lower gives more
         public float inlandMountainRangeApertureMaskSharpness = 0.1f; // Near 0 gives a smooth mountainrange fadein, higher is sharper
 
         public double coastalMountainRangeBandPositionInContinent = 0.15; // Near 1 is the center of the continent, near 0 is the ocean
-        public double coastalMountainRangeBandBaseWidth = 0.2; // Base width of the coastal mountain range
+        public double coastalMountainRangeBandBaseWidth = 0.15; // Base width of the coastal mountain range
         public double[] coastalMountainRangeKeys = { 0.0, 1.0 }; // Shape of the coastal mountain range within the band's base width
         public double[] coastalMountainRangeValues = { 0.0, 1.0 }; // Don't touch. Basically the coastal mountain range opacities at the beginning of the band and in the center of the band
 
