@@ -117,7 +117,7 @@ namespace TerraPrety.LandformHeights {
                 //Handle the smoothing here. foundPoint is set.
                 scaledRadius = (int)(PointsOutwardsNeedingAverage * foundPoint.radius);
                 var centerHeightWeight = GetAdjustmentFromGaussian(scaledRadius, foundPoint, x, z); //This SHOULD return a double from 0 - 1, which is how strong of a 'pull' should the center point have over the current height
-                adjustedHeight = GameMath.Lerp(height, foundPoint.centerHeight, centerHeightWeight);
+                adjustedHeight = GameMath.Lerp(adjustedHeight, foundPoint.centerHeight, centerHeightWeight);
 
                 return (adjustedHeight, centerHeightWeight);
             }

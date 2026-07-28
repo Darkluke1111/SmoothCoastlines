@@ -397,16 +397,16 @@ namespace TerraPrety.LandformHeights {
             double heightNoiseHeight = heightTuple.Item1;
             double forcedPointWeight = heightTuple.Item2;
 
+            // Only lower, don't raise
+            if (heightNoiseHeight <= config.coastTargetLandformHeight)
+                return heightTuple;
+
             MapLayerOceansSmooth ocean = MapLayerOceansSmooth.Instance;
             if (ocean == null) // World startup race guard
                 return heightTuple;
 
             int oceanX = unscaledXpos * TerraGenConfig.landformMapScale / TerraGenConfig.oceanMapScale;
             int oceanZ = unscaledZpos * TerraGenConfig.landformMapScale / TerraGenConfig.oceanMapScale;
-
-            // Only lower, don't raise
-            if (heightNoiseHeight <= config.coastTargetLandformHeight)
-                return heightTuple;
 
             double rawCoastOpacity = ocean.CoastOpacity(oceanX, oceanZ);
 
@@ -416,8 +416,14 @@ namespace TerraPrety.LandformHeights {
                 0.0,
                 1.0);
 
-            // Lower the landform height down towards the coast target
-            return (GameMath.Lerp(heightNoiseHeight, config.coastTargetLandformHeight, normalizedCoastOpacity), forcedPointWeight);
+            double coastAndForcedFactor = normalizedCoastOpacity - forcedPointWeight;
+
+            if (coastAndForcedFactor <= 0.0) {
+                return heightTuple;
+            } else {
+                // Lower the landform height down towards the coast target
+                return (GameMath.Lerp(heightNoiseHeight, config.coastTargetLandformHeight, coastAndForcedFactor), forcedPointWeight);
+            }
         }
 
         // Move NoiseBase.InitPositionSeed's currentSeed modifications here so different threads can get the seed rng without risking modifying the seed at the same time
