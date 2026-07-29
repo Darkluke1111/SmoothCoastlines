@@ -343,9 +343,14 @@ namespace TerraPrety.LandformHeights {
 
             int oceanX = unscaledXpos * TerraGenConfig.landformMapScale / TerraGenConfig.oceanMapScale;
             int oceanZ = unscaledZpos * TerraGenConfig.landformMapScale / TerraGenConfig.oceanMapScale;
-            double oceanOpacity = ocean.OceanOpacity(oceanX, oceanZ);
 
-            return 1.0 - GameMath.Clamp(oceanOpacity * config.mountainRangeOceanFadeStrength, 0.0, 1.0);
+            double continentalPosition = ocean.ContinentalPosition(oceanX, oceanZ);
+            double fadeStart = config.mountainRangeFadeStartPositionInContinent;
+            double fadeEnd = config.mountainRangeFadeEndPositionInContinent;
+
+            double fade = GameMath.Clamp((continentalPosition - fadeStart) / (fadeEnd - fadeStart), 0.0, 1.0);
+
+            return 1.0 - GameMath.Clamp(fade, 0.0, 1.0);
         }
 
         private double InlandMountainRangeRaw(int x, int z) => this.heightNoise.InlandMountainRangeMaskValue(x, z);
