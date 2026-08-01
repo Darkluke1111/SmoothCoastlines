@@ -50,7 +50,7 @@
 			Generator: "terraprety:paperbirch",
 			MinSize: 0.75,
 			MaxSize: 1.5,
-			Weight: 32,
+			Weight: 128,
 			MinTemp: 3,
 			MaxTemp: 16,
 			MinRain: 95,

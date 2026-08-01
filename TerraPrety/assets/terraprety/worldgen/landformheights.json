@@ -552,26 +552,6 @@
 			"maxHeight": 0.35
 		},
 		{
-			"code": "abridgedcliffminor",
-			"minHeight": 0.2,
-			"maxHeight": 0.35
-		},
-		{
-			"code": "abridgedcliffmajor",
-			"minHeight": 0.2,
-			"maxHeight": 0.35
-		},
-		{
-			"code": "abridgedcliffmagnificent",
-			"minHeight": 0.2,
-			"maxHeight": 0.35
-		},
-		{
-			"code": "abridgedcliffmonumental",
-			"minHeight": 0.2,
-			"maxHeight": 0.35
-		},
-		{
 			"code": "abridgedsunkenmesaminor",
 			"minHeight": 0.2,
 			"maxHeight": 0.35
@@ -588,26 +568,6 @@
 		},
 		{
 			"code": "abridgedsunkenmesamonumental",
-			"minHeight": 0.2,
-			"maxHeight": 0.35
-		},
-		{
-			"code": "abridgedsunkencliffminor",
-			"minHeight": 0.2,
-			"maxHeight": 0.35
-		},
-		{
-			"code": "abridgedsunkencliffmajor",
-			"minHeight": 0.2,
-			"maxHeight": 0.35
-		},
-		{
-			"code": "abridgedsunkencliffmagnificent",
-			"minHeight": 0.2,
-			"maxHeight": 0.35
-		},
-		{
-			"code": "abridgedsunkencliffmonumental",
 			"minHeight": 0.2,
 			"maxHeight": 0.35
 		},
