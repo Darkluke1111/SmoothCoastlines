@@ -7,7 +7,7 @@
 	},
 	{
 		"op": "replace",
-		"path": "/shrubgens/6/Weight",
+		"path": "/shrubgens/4/Weight",
 		"file": "game:worldgen/treengenproperties.json",
 		"value": 0,
 	},
