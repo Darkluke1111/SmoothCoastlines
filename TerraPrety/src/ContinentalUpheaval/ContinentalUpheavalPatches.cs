@@ -133,7 +133,7 @@ namespace TerraPrety.ContinentalUpheaval {
             }
 
             var sub64FromWorldHeight = new List<CodeInstruction> {
-                new CodeInstruction(OpCodes.Ldc_I4, 64),
+                new CodeInstruction(OpCodes.Ldc_I4, TerraPretyModSystem.NumBlocksLowerWorldBy),
                 new CodeInstruction(OpCodes.Sub)
             };
 
@@ -160,8 +160,8 @@ namespace TerraPrety.ContinentalUpheaval {
                 new CodeInstruction(OpCodes.Stfld, AccessTools.Field(typeof(int), "rlZ")),
             };*/
 
-            //codes.InsertRange(indexOfTimesPointNine - 1, sub64FromWorldHeight); //Tweaks the Taper Threshold to account for the - 64 to World Height
-            codes.InsertRange(indexOfSealevelWorldHeight, sub64FromWorldHeight); //Sets the Oceanicity Factor WorldHeight - 64
+            //codes.InsertRange(indexOfTimesPointNine - 1, sub64FromWorldHeight); //Tweaks the Taper Threshold to account for the - TerraPretyModSystem.NumBlocksLowerWorldBy to World Height
+            codes.InsertRange(indexOfSealevelWorldHeight, sub64FromWorldHeight); //Sets the Oceanicity Factor WorldHeight - TerraPretyModSystem.NumBlocksLowerWorldBy
             codes.InsertRange(indexOfSealevelWorldHeight - 5, initCoastmap); //Attempt to init the static vars in the Coastmap for this chunk.
             //codes.InsertRange(indexOfSetRLZ, setXAndZField);
             //codes.InsertRange(indexOfSetMapChunk, setMapChunkField);
@@ -199,7 +199,7 @@ namespace TerraPrety.ContinentalUpheaval {
             }
 
             var sub64FromWorldHeight = new List<CodeInstruction> {
-                new CodeInstruction(OpCodes.Ldc_I4, 64),
+                new CodeInstruction(OpCodes.Ldc_I4, TerraPretyModSystem.NumBlocksLowerWorldBy),
                 new CodeInstruction(OpCodes.Sub)
             };
 
@@ -207,8 +207,8 @@ namespace TerraPrety.ContinentalUpheaval {
             //codes[indexOfLoad256F + 14].operand = AccessTools.Method(typeof(ContinentalUpheavalPatches), "GetConfigurableFrequency");
             //codes[indexOfLoad256F + 19].opcode = OpCodes.Call;
             //codes[indexOfLoad256F + 19].operand = AccessTools.Method(typeof(ContinentalUpheavalPatches), "GetConfigurablePersistance");
-            codes.InsertRange(indexOfLoad256F + 9, sub64FromWorldHeight); //Sets the WorldHeight sent to TerrainOctaves to WorldHeight - 64
-            codes.InsertRange(indexOfLoad256F - 1, sub64FromWorldHeight); //Sets the NoiseScale to WorldHeight - 64
+            codes.InsertRange(indexOfLoad256F + 9, sub64FromWorldHeight); //Sets the WorldHeight sent to TerrainOctaves to WorldHeight - TerraPretyModSystem.NumBlocksLowerWorldBy
+            codes.InsertRange(indexOfLoad256F - 1, sub64FromWorldHeight); //Sets the NoiseScale to WorldHeight - TerraPretyModSystem.NumBlocksLowerWorldBy
 
             return codes.AsEnumerable();
         }
@@ -222,7 +222,7 @@ namespace TerraPrety.ContinentalUpheaval {
         }*/
 
         [HarmonyTranspiler]
-        [HarmonyPatch(typeof(GenTerra), nameof(GenTerra.AssetsFinalize))] //This patch drops the SeaLevel down by 64 blocks, which is 1 step on the World Size scale.
+        [HarmonyPatch(typeof(GenTerra), nameof(GenTerra.AssetsFinalize))] //This patch drops the SeaLevel down by TerraPretyModSystem.NumBlocksLowerWorldBy blocks, which is 1 step on the World Size scale.
         public static IEnumerable<CodeInstruction> GenTerraAssetsFinalizeTranspiler(IEnumerable<CodeInstruction> instructions, ILGenerator ilGenerator) {
             var codes = new List<CodeInstruction>(instructions);
 
@@ -236,11 +236,11 @@ namespace TerraPrety.ContinentalUpheaval {
             }
 
             var sub64FromWorldHeight = new List<CodeInstruction> {
-                new CodeInstruction(OpCodes.Ldc_I4, 64),
+                new CodeInstruction(OpCodes.Ldc_I4, TerraPretyModSystem.NumBlocksLowerWorldBy),
                 new CodeInstruction(OpCodes.Sub)
             };
 
-            codes.InsertRange(indexOfLDCR8 + 5, sub64FromWorldHeight); //This sets the Sea Level to WorldHeight - 64
+            codes.InsertRange(indexOfLDCR8 + 5, sub64FromWorldHeight); //This sets the Sea Level to WorldHeight - TerraPretyModSystem.NumBlocksLowerWorldBy
 
             return codes.AsEnumerable();
         }
@@ -260,11 +260,11 @@ namespace TerraPrety.ContinentalUpheaval {
             }
 
             var sub64FromWorldHeight = new List<CodeInstruction> {
-                new CodeInstruction(OpCodes.Ldc_I4_S, 64),
+                new CodeInstruction(OpCodes.Ldc_I4_S, TerraPretyModSystem.NumBlocksLowerWorldBy),
                 new CodeInstruction(OpCodes.Sub)
             };
 
-            codes.InsertRange(indexOfCallVirt + 1, sub64FromWorldHeight); //Sub 64 from the Worldheight being sent to LerpThresholds
+            codes.InsertRange(indexOfCallVirt + 1, sub64FromWorldHeight); //Sub TerraPretyModSystem.NumBlocksLowerWorldBy from the Worldheight being sent to LerpThresholds
 
             return codes.AsEnumerable();
         }
@@ -291,12 +291,12 @@ namespace TerraPrety.ContinentalUpheaval {
             }
 
             var add64ToWorldHeight = new List<CodeInstruction> {
-                new CodeInstruction(OpCodes.Ldc_I4_S, 64),
+                new CodeInstruction(OpCodes.Ldc_I4_S, TerraPretyModSystem.NumBlocksLowerWorldBy),
                 new CodeInstruction(OpCodes.Add)
             };
 
             codes.InsertRange(indexOfLastMapY + 1, add64ToWorldHeight); //Attempting to ensure this lerped thresholds array is able to fit the whole map. Is this going to still function right with uplift? Will have to test with mountains.
-            codes.InsertRange(indexOfFirstMapY + 1, add64ToWorldHeight); //Re-adds the 64 to initializing the array and looping through it all so it fits the full world height.
+            codes.InsertRange(indexOfFirstMapY + 1, add64ToWorldHeight); //Re-adds the TerraPretyModSystem.NumBlocksLowerWorldBy to initializing the array and looping through it all so it fits the full world height.
 
             return codes.AsEnumerable();
         }
@@ -316,11 +316,11 @@ namespace TerraPrety.ContinentalUpheaval {
             }
 
             var sub64FromWorldHeight = new List<CodeInstruction> {
-                new CodeInstruction(OpCodes.Ldc_I4_S, 64),
+                new CodeInstruction(OpCodes.Ldc_I4_S, TerraPretyModSystem.NumBlocksLowerWorldBy),
                 new CodeInstruction(OpCodes.Sub)
             };
 
-            codes.InsertRange(indexOfCallVirt + 1, sub64FromWorldHeight); //Remove 64 from the number of octaves generated by the world height. Helps keep the same shape despite being 64 blocks taller for the world.
+            codes.InsertRange(indexOfCallVirt + 1, sub64FromWorldHeight); //Remove TerraPretyModSystem.NumBlocksLowerWorldBy from the number of octaves generated by the world height. Helps keep the same shape despite being TerraPretyModSystem.NumBlocksLowerWorldBy blocks taller for the world.
 
             return codes.AsEnumerable();
         }
@@ -380,12 +380,12 @@ namespace TerraPrety.ContinentalUpheaval {
             };
 
             /*var sub64FromWorldHeight = new List<CodeInstruction> {
-                new CodeInstruction(OpCodes.Ldc_I4_S, 64),
+                new CodeInstruction(OpCodes.Ldc_I4_S, TerraPretyModSystem.NumBlocksLowerWorldBy),
                 new CodeInstruction(OpCodes.Sub)
             };*/
 
             if (indexOfSetOceanicity > -1 && indexOfSetDistY > -1 && indexOfOceanicityComp > -1 && indexMapsizeM2Field > -1) {
-                //codes.InsertRange(indexMapsizeM2Field, sub64FromWorldHeight); //Sub 64 from the StartSampleDisplacedThreshold MapsizeM2
+                //codes.InsertRange(indexMapsizeM2Field, sub64FromWorldHeight); //Sub TerraPretyModSystem.NumBlocksLowerWorldBy from the StartSampleDisplacedThreshold MapsizeM2
                 codes[indexOfOceanicityComp + 2].opcode = OpCodes.Bge_S;
                 codes.RemoveAt(indexOfOceanicityComp);
                 codes.InsertRange(indexOfOceanicityComp, factorHeightmapAgainstOceanicity);
