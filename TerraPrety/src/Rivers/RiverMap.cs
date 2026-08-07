@@ -103,19 +103,19 @@ namespace TerraPrety.Rivers {
             numBlocksInLandformMapTile = TerraGenConfig.landformMapScale;
             sealevelY = sapi.World.SeaLevel;
 
-            minRiverOceanicity = config.minimumRiverOceanicity;
-            maxRiverOceanicity = config.maximumRiverOceanicity;
-            riverChance = (int)(config.chanceForRiver * 1000);
+            minRiverOceanicity = 5;//config.minimumRiverOceanicity;
+            maxRiverOceanicity = 100;//config.maximumRiverOceanicity;
+            riverChance = (int)(/*config.chanceForRiver*/ 0.2f * 1000);
 
-            minRiverFlow = config.minimumRiverFlowStrength;
-            maxRiverFlow = config.maximumRiverFlowStrength;
-            flowLoss = config.flowLossPerRiverSegment;
-            maxHeightForSink = config.maxHeightForRiverSink;
+            minRiverFlow = 0.25f;//config.minimumRiverFlowStrength;
+            maxRiverFlow = 1.5f;//config.maximumRiverFlowStrength;
+            flowLoss = 0.03f;//config.flowLossPerRiverSegment;
+            maxHeightForSink = 0.25f;//config.maxHeightForRiverSink;
             //riverRegionEdgeDeviation = config.riverRegionDirectionRepetitionAllowance;
             //riverRegionCloseToCardinal = config.riverRegionCloseToCardinalWidth;
             //riverWeirdnessMult = config.riverWeirdnessChanceMult;
             //riverCanEnterFlexibility = config.riverRegionCanEnterFlexibility;
-            chanceToFork = config.chanceToFork;
+            chanceToFork = 0.02f;//config.chanceToFork;
 
             riversByContinent = new Dictionary<XZ, List<RiverData>>();
             heightEstimatesByRegion = new Dictionary<XZ, int[]>(10);

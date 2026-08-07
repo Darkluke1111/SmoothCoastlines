@@ -1,0 +1,21 @@
+[
+  {
+    "op": "remove",
+    "path": "/dungeons/0/RequiredLandform",
+    "file": "game:worldgen/tileddungeons.json",
+    "side": "Server"
+  },
+  {
+    "op": "remove",
+    "path": "/dungeons/1/RequiredLandform",
+    "file": "game:worldgen/tileddungeons.json",
+    "side": "Server"
+  },
+  {
+    "op": "replace",
+    "path": "/minDistance",
+    "value": 1000,
+    "file": "game:worldgen/tileddungeons.json",
+    "side": "Server"
+  }
+]

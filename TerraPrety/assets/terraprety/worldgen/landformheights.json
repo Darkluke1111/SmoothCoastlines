@@ -102,6 +102,31 @@
 			"maxHeight": 0.35
 		},
 		{
+			"code": "endlessrockyconcavefoothillsdry",
+			"minHeight": 0.3,
+			"maxHeight": 0.55
+		},
+		{
+			"code": "endlessrockyconcavegrandhillsdry",
+			"minHeight": 0.65,
+			"maxHeight": 0.75
+		},
+		{
+			"code": "endlessrockyconcaveglorioushillsdry",
+			"minHeight": 0.75,
+			"maxHeight": 0.8
+		},
+		{
+			"code": "endlessrockyconcavegigantichillsdry",
+			"minHeight": 0.8,
+			"maxHeight": 0.9
+		},
+		{
+			"code": "endlessrockyconcaveimmortalhillsdry",
+			"minHeight": 0.8,
+			"maxHeight": 0.99
+		},
+		{
 			"code": "abridgedsmoothrotundgentleslopeslake",
 			"minHeight": 0.25,
 			"maxHeight": 0.35
@@ -369,7 +394,7 @@
 		{
 			"code": "endlessrockyconcaveimmortalhillslake",
 			"minHeight": 0.8,
-			"maxHeight": 1.0
+			"maxHeight": 0.99
 		},
 		{
 			"code": "eternalmajorplateaulake",

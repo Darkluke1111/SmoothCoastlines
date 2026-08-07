@@ -15,13 +15,13 @@
 		"op": "replace",
 		"path": "/treesPerChunk/avg",
 		"file": "game:worldgen/treengenproperties.json",
-		"value": 42,
+		"value": 64,
 	},
 	{
 		"op": "replace",
 		"path": "/treesPerChunk/var",
 		"file": "game:worldgen/treengenproperties.json",
-		"value": 32,
+		"value": 42,
 	},
 	{
 		"op": "replace",

@@ -8,10 +8,10 @@
 
         public bool Delicate_configs_below__alter_at_your_own_peril = false;
 
-        public float oceanWobbleScale = 2.25f;
-        public float oceanWobbleIntensity = 2.25f;
+        public float oceanWobbleScale = 2.125f;
+        public float oceanWobbleIntensity = 2.125f;
         public int oceanWobbleOctaves = 6;
-        public float oceanWobblePersistence = 0.925f;
+        public float oceanWobblePersistence = 0.99f;
         public double[] remappingKeys = { 0.27, 0.29, 0.3, 0.31, 0.4, 0.75, 0.77, 0.79, 1.0 };
         public double[] remappingValues = { 0.0, 0.075, 0.0, 0.1, 1.0, 0.0, 0.075, 0.0, 0.0 };
 
@@ -27,8 +27,8 @@
         public double[] midHeightKeys = { 0.0, 0.05, 0.33333, 1.0 };
         public double[] midHeightValues = { 1.0, 0.9, 0.0, 0.0 };
         public float chanceForMidZone = 1.0f;
-        public float targetMidLevel = 0.2f;
-        public float lowThreshForMidZone = 0.2f;
+        public float targetMidLevel = 0.3f;
+        public float lowThreshForMidZone = 0.3f;
 
         public float mountainRangesPullsHeightMapTowards = 1.0f; // The mountain ranges drags the landform heightmap towards this value
 
@@ -42,11 +42,11 @@
         public float inlandMountainRangeWobblePersistence = 0.6f;
 
         public float inlandMountainRangeScale = 6.0f; // Size of the whole inland mountain range pattern on the map
-        public double[] inlandMountainRangeKeys = { 0.8, 0.9, 0.99 }; // Shape of the inland mountain range
+        public double[] inlandMountainRangeKeys = { 0.85, 0.9125, 0.975 }; // Shape of the inland mountain range
         public double[] inlandMountainRangeValues = { 0.0, 0.3, 1.0 }; // Don't touch. Basically the inland mountain range opacities at no mountain range and the center of the mountain range
 
         public float inlandMountainRangeApertureMaskScale = 20.0f; // Larger for larger mountain ranges
-        public float inlandMountainRangeApertureMaskThreshold = 0.33f;  // Near 1 gives less mountain ranges, lower gives more
+        public float inlandMountainRangeApertureMaskThreshold = 0.25f;  // Near 1 gives less mountain ranges, lower gives more
         public float inlandMountainRangeApertureMaskSharpness = 0.1f; // Near 0 gives a smooth mountainrange fadein, higher is sharper
 
         public double coastalMountainRangeBandPositionInContinent = 0.125; // Near 1 is the center of the continent, near 0 is the ocean
@@ -66,7 +66,7 @@
 
         // -- Rivers related settings follow! --
         
-        public float chanceForRiver = 0.2f; //The chance for each valid region found, should it contain the start of a river?
+        /*public float chanceForRiver = 0.2f; //The chance for each valid region found, should it contain the start of a river?
         public int minimumRiverOceanicity = 5;
         public int maximumRiverOceanicity = 100;
         public float maxHeightForRiverSink = 0.25f; //Based on the LandformHeightMap heights, not actual y-heights.
@@ -82,7 +82,7 @@
         public int riverOceanicityStepFlexibility = 5; //SLIGHT amount of leeway to allow the river to still somewhat travel to the sides, but trend inland.
 
         public float flowLossPerRiverSegment = 0.03f; //This serves as a hard-stop for a River to cease expanding if the flow gets below 0. Lower Value means longer rivers, generally, unless something else stops it first.
-        
+        */
         /*public double terrainNoiseFrequencyMult = 1.0;
         public double terrainNoisePersistance = 0.9;
         public bool enableEdgeLandformSmoothing = false;
