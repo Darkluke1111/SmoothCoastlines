@@ -101,6 +101,7 @@ namespace TerraPrety.ContinentalUpheaval {
         public static IEnumerable<CodeInstruction> GenTerraGenerateTranspiler(IEnumerable<CodeInstruction> instructions, ILGenerator ilGenerator) {
             var codes = new List<CodeInstruction>(instructions);
 
+            int indexOfRegionChunkSize = -1;
             int indexOfSealevelWorldHeight = -1;
             //int indexOfTimesPointNine = -1;
             //int indexOfSetMapChunk = -1;
@@ -121,7 +122,15 @@ namespace TerraPrety.ContinentalUpheaval {
                     continue;
                 }*/
 
-                if (indexOfSealevelWorldHeight == -1 && codes[i].opcode == OpCodes.Ldc_I4 && (int)codes[i].operand == 256) {
+                if (indexOfRegionChunkSize == -1 && codes[i].opcode == OpCodes.Ldc_I4_S && codes[i].operand.GetType() == typeof(SByte) && (SByte)codes[i].operand == (SByte)32) {
+                    if (codes[i + 2].opcode == OpCodes.Stloc_S) {
+                        indexOfRegionChunkSize = 4;
+                    } else {
+                        indexOfRegionChunkSize = 3;
+                    }
+                }
+
+                if (indexOfSealevelWorldHeight == -1 && codes[i].opcode == OpCodes.Ldc_I4 && codes[i].operand.GetType() == typeof(int) && (int)codes[i].operand == 256) {
                     indexOfSealevelWorldHeight = i;
                     break; //continue;
                 }
@@ -139,9 +148,9 @@ namespace TerraPrety.ContinentalUpheaval {
 
             var initCoastmap = new List<CodeInstruction> {
                 new CodeInstruction(OpCodes.Ldarg_1),
-                new CodeInstruction(OpCodes.Ldloc_S, 5),
-                new CodeInstruction(OpCodes.Ldloc_S, 6),
-                new CodeInstruction(OpCodes.Ldloc_S, 3),
+                new CodeInstruction(OpCodes.Ldloc_S, indexOfRegionChunkSize + 2),
+                new CodeInstruction(OpCodes.Ldloc_S, indexOfRegionChunkSize + 3),
+                new CodeInstruction(OpCodes.Ldloc_S, indexOfRegionChunkSize),
                 new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(ContinentalUpheavalPatches), "initCoastmapForChunk", [typeof(IServerChunk[]), typeof(int), typeof(int), typeof(int)]))
             };
 
@@ -330,8 +339,14 @@ namespace TerraPrety.ContinentalUpheaval {
     public class MoreContinentalUpheavalPatches {
 
         public static MethodBase TargetMethod() {
-            var type = AccessTools.FirstInner(typeof(GenTerra), t => t.Name.Contains("<>c__DisplayClass34_0"));
-            var method = AccessTools.FirstMethod(type, m => m.Name.Contains("<generate>b__0"));
+            var type = AccessTools.FirstInner(typeof(GenTerra), t => t.Name.Contains("<>c__DisplayClass34_0") || t.Name.Contains("<>c__DisplayClass44_0"));
+            MethodInfo method;
+            if (type.Name.Contains("<>c__DisplayClass34_0")) {
+                method = AccessTools.FirstMethod(type, m => m.Name.Contains("<generate>b__0"));
+            } else {
+                method = AccessTools.FirstMethod(type, m => m.Name.Contains("<generate>b__1")); //Support for Stratum!
+            }
+            
             return method;
         }
 
@@ -339,35 +354,49 @@ namespace TerraPrety.ContinentalUpheaval {
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator ilGenerator) {
             var codes = new List<CodeInstruction>(instructions);
 
-            int indexOfSetOceanicity = -1;
+            int indexOfSetOceanicity = -1; //Not actually used for the transpiler here, but it serves as our starting point! And ensures that it is set and everything.
+            var oceanicityFacField = AccessTools.Field(AccessTools.FirstInner(typeof(GenTerra), t => t.Name.Contains("<>c__DisplayClass34_0") || t.Name.Contains("<>c__DisplayClass44_0")), "oceanicityFac");
             int indexOfSetDistY = -1;
+            var columnResultsField = AccessTools.Field(typeof(GenTerra), "columnResults");
+            var columnResultsStratumField = AccessTools.Field(AccessTools.FirstInner(typeof(GenTerra), t => t.Name.Contains("<>c__DisplayClass44_0")), "columnResults");
             int indexOfOceanicityComp = -1;
-            int indexMapsizeM2Field = -1;
+            //int indexMapsizeM2Field = -1;
             //var mapsizeField = AccessTools.Field(AccessTools.FirstInner(typeof(GenTerra), t => t.Name.Contains("<>c__DisplayClass34_0")), "mapsizeY");
-            var mapsizem2Field = AccessTools.Field(AccessTools.FirstInner(typeof(GenTerra), t => t.Name.Contains("<>c__DisplayClass34_0")), "mapsizeYm2");
-            var oceanicityFacField = AccessTools.Field(AccessTools.FirstInner(typeof(GenTerra), t => t.Name.Contains("<>c__DisplayClass34_0")), "oceanicityFac");
+            //var mapsizem2Field = AccessTools.Field(AccessTools.FirstInner(typeof(GenTerra), t => t.Name.Contains("<>c__DisplayClass34_0")), "mapsizeYm2");
             //int indexMapsizeField = -1;
 
             for (int i = 0; i < codes.Count; i++) {
-                if (indexOfSetOceanicity == -1 && i > 2 && codes[i].opcode == OpCodes.Stloc_S && codes[i - 1].opcode == OpCodes.Mul && codes[i - 2].opcode == OpCodes.Ldfld && (FieldInfo)codes[i - 2].operand == oceanicityFacField) {
-                    indexOfSetOceanicity = i;
-                    continue;
+                if (indexOfSetOceanicity == -1 && i + 2 < codes.Count && codes[i].opcode == OpCodes.Ldfld && (FieldInfo)codes[i].operand == oceanicityFacField) {
+                    if (codes[i + 2].opcode == OpCodes.Stloc_S) {
+                        indexOfSetOceanicity = i + 2;
+                        continue;
+                    }
                 }
 
-                if (indexOfSetOceanicity > -1 && codes[i].opcode == OpCodes.Stloc_S && codes[i - 1].opcode == OpCodes.Add) {
-                    indexOfSetDistY = i;
-                    continue;
+                if (indexOfSetOceanicity > -1 && i > 3 && i + 5 < codes.Count && codes[i].opcode == OpCodes.Ldfld && ((FieldInfo)codes[i].operand == columnResultsField || (FieldInfo)codes[i].operand == columnResultsStratumField)) {
+                    if (codes[i - 3].opcode == OpCodes.Stloc_S) {
+                        indexOfSetDistY = i - 3;
+                    }
+                    if (indexOfSetDistY == -1 && codes[i - 2].opcode == OpCodes.Stloc_S) { //Stratum Compat Handling hopefully!
+                        indexOfSetDistY = i - 2;
+                    }
+                    if (codes[i + 5].opcode == OpCodes.Bgt_S) {
+                        indexOfOceanicityComp = i + 3;
+                    }
+                    if (indexOfSetDistY > -1 && indexOfOceanicityComp > -1) {
+                        break;
+                    }
                 }
 
-                if (indexOfSetDistY > -1 && codes[i].opcode == OpCodes.Ldloc_S && codes[i - 1].opcode == OpCodes.Ldelema) {
+                /*if (indexOfSetDistY > -1 && codes[i].opcode == OpCodes.Ldloc_S && codes[i - 1].opcode == OpCodes.Ldelema) {
                     indexOfOceanicityComp = i;
-                    continue;
-                }
+                    break;
+                }*/
 
-                if (indexOfOceanicityComp > -1 && codes[i].opcode == OpCodes.Ldfld && (FieldInfo)codes[i].operand == mapsizem2Field) {
+                /*if (indexOfOceanicityComp > -1 && codes[i].opcode == OpCodes.Ldfld && (FieldInfo)codes[i].operand == mapsizem2Field) {
                     indexMapsizeM2Field = i + 1;
                     break;
-                }
+                }*/
             }
 
             var getSalinityMethod = AccessTools.Method(typeof(MoreContinentalUpheavalPatches), "getSalinityFor", [typeof(int), typeof(int), typeof(float)]);
@@ -384,7 +413,7 @@ namespace TerraPrety.ContinentalUpheaval {
                 new CodeInstruction(OpCodes.Sub)
             };*/
 
-            if (indexOfSetOceanicity > -1 && indexOfSetDistY > -1 && indexOfOceanicityComp > -1 && indexMapsizeM2Field > -1) {
+            if (indexOfSetOceanicity > -1 && indexOfSetDistY > -1 && indexOfOceanicityComp > -1 /*&& indexMapsizeM2Field > -1*/) {
                 //codes.InsertRange(indexMapsizeM2Field, sub64FromWorldHeight); //Sub TerraPretyModSystem.NumBlocksLowerWorldBy from the StartSampleDisplacedThreshold MapsizeM2
                 codes[indexOfOceanicityComp + 2].opcode = OpCodes.Bge_S;
                 codes.RemoveAt(indexOfOceanicityComp);
@@ -404,10 +433,10 @@ namespace TerraPrety.ContinentalUpheaval {
                 } else if (indexOfSetDistY == -1) {
                     TerraPretyModSystem.Logger.Error("Could not locate where DistY is set.");
                 } else if (indexOfOceanicityComp == -1) {
-                    TerraPretyModSystem.Logger.Error("Could not locate where Oceanicity is loaded after DistY is set.");
-                } else if (indexMapsizeM2Field == -1) {
+                    TerraPretyModSystem.Logger.Error("Could not locate where Oceanicity is checked for Salinity.");
+                } /*else if (indexMapsizeM2Field == -1) {
                     TerraPretyModSystem.Logger.Error("Could not locate the loading of the MapsizeM2 Field.");
-                }
+                }*/
             }
 
             return codes.AsEnumerable();
