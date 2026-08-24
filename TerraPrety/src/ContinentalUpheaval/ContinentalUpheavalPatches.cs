@@ -329,8 +329,17 @@ namespace TerraPrety.ContinentalUpheaval {
     [HarmonyPatch]
     public class MoreContinentalUpheavalPatches {
 
+        // The compiler-generated closure holding generate's lambda is named by a
+        // Roslyn display-class number ("<>c__DisplayClassNN_0") that shifts whenever
+        // the enclosing type is recompiled. Match the closure by its contents
+        // instead, so the lookup survives renumbering.
+        private static Type GenerateDisplayClass() {
+            return AccessTools.FirstInner(typeof(GenTerra), t =>
+                t.GetMethods(AccessTools.all).Any(m => m.Name.Contains("<generate>b__0")));
+        }
+
         public static MethodBase TargetMethod() {
-            var type = AccessTools.FirstInner(typeof(GenTerra), t => t.Name.Contains("<>c__DisplayClass34_0"));
+            var type = GenerateDisplayClass();
             var method = AccessTools.FirstMethod(type, m => m.Name.Contains("<generate>b__0"));
             return method;
         }
@@ -341,8 +350,8 @@ namespace TerraPrety.ContinentalUpheaval {
 
             int ldelemaCount = 0;
             int indexOfOceanicityComp = -1;
-            //var mapsizeField = AccessTools.Field(AccessTools.FirstInner(typeof(GenTerra), t => t.Name.Contains("<>c__DisplayClass34_0")), "mapsizeY");
-            var mapsizem2Field = AccessTools.Field(AccessTools.FirstInner(typeof(GenTerra), t => t.Name.Contains("<>c__DisplayClass34_0")), "mapsizeYm2");
+            //var mapsizeField = AccessTools.Field(GenerateDisplayClass(), "mapsizeY");
+            var mapsizem2Field = AccessTools.Field(GenerateDisplayClass(), "mapsizeYm2");
             //int indexMapsizeField = -1;
             int indexMapsizeM2Field = -1;
 
